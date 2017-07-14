@@ -15,54 +15,49 @@
 
 
 		<f:facet name="options">
-			<p:commandButton value="Sair" icon="ui-icon-extlink" />
+			<p:commandButton value="Sair" icon="ui-icon-extlink" action="#{usuarioController.Logout}" />
 		</f:facet>
 	</p:menubar>
 
 </h:form> -->
 
 <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        
-        <div class="container">   
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span> 
-          </a>
-          
-          <a class="brand" href="home.xhtml">GeDocs </a>
-          
-          <div class="nav-collapse">
-            <ul class="nav pull-right">
-              <li class="dropdown">
-             
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Wander Torres <b class="caret"></b>
-                </a>
-                
-                <ul class="dropdown-menu">
-                  <li><a href="javascript:;">Perfil</a></li>
-                  <li><a href="javascript:;">Configurações</a></li>
-                  <li><a href="javascript:;">Ajuda</a></li>
-                  <li><a href="javascript:;">Sair</a></li>
-                  <li><a href="#{usuarioController.Logout}">Sair</a></li>
-                </ul>
+	<div class="navbar-inner">
 
-              </li>
-            </ul>
-            
-            <form class="navbar-search pull-right">
-              <input type="text" class="search-query" placeholder="Buscar"></input>
-            </form>
-          </div>
-          <!--/.nav-collapse --> 
-        </div>
-        <!-- /container --> 
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse"
+				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+				class="icon-bar"></span> <span class="icon-bar"></span>
+			</a> <a class="brand" href="home.xhtml">GeDocs </a>
 
-      </div>
-      <!-- /navbar-inner --> 
-    </div>
-    <!-- /navbar -->
+			<div class="nav-collapse">
+				<ul class="nav pull-right">
+					<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Wander Torres <b class="caret"></b></a>
+
+						<ul class="dropdown-menu">
+							<li><a href="javascript:;">Perfil</a></li>
+							<li><a href="javascript:;">Configurações</a></li>
+							<li><a href="javascript:;">Ajuda</a></li>
+							<li><a href="javascript:;">Sair</a></li>
+							<h:form class="dropdown">
+								<p:commandButton value="Sair" action="#{usuarioController.Logout}" />
+							</h:form>
+						</ul>
+					</li>
+				</ul>
+
+				<form class="navbar-search pull-right">
+					<input type="text" class="search-query" placeholder="Buscar"></input>
+				</form>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+		<!-- /container -->
+
+	</div>
+	<!-- /navbar-inner -->
+</div>
+<!-- /navbar -->
 
 </html>
