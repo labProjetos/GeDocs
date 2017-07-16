@@ -25,11 +25,6 @@
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</a>
 					<a class="brand" href="index.xhtml">
 						Gestão Eletrônica de Documentos				
 					</a>			
@@ -39,38 +34,36 @@
 		
 		<div class="account-container">
 			<div class="content clearfix">
-				
-				<h:form style="margin:auto;">
-					
+				<h:form>
 					<p:growl id="growl-mensagem" showDetail="true" sticky="true" />
-					
 					<h1> Login </h1>		
 					<div class="login-fields">
 						<p> Forneça seus dados </p>
-						
 						<div class="field">
 							<label for="username"> Usuário </label>
-							<p:inputText styleClass="login username-field" placeholder="Usuário" id="inputText-login" 
+							<p:inputText styleClass="login username-field" placeholder="Usuário" 
+								id="inputText-login" 
 								value="#{usuarioController.usuarioModel.usuario}" />
 						</div> <!-- /field -->
-						
 						<div class="field">
 							<label for="password"> Senha </label>
-							<p:password styleClass="login password-field" placeholder="Senha" id="password-usuario" 
+							<p:password styleClass="login password-field" placeholder="Senha" 
+								id="password-usuario" 
 								value="#{usuarioController.usuarioModel.senha}" />
 						</div> <!-- /password -->
-					
 					</div> <!-- /login-fields -->
 					<div class="login-actions">
 						<span class="login-checkbox">
 							<input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
 							<label class="choice" for="Field">Mantenha-me conectado</label>
 						</span>
-						<p:commandButton styleClass="button btn btn-success btn-large" value="Entrar" id="commandButton-acessar" 
-							action="#{usuarioController.EfetuarLogin}" update="growl-mensagem" />
+						<p:commandButton styleClass="button btn btn-success btn-large" 
+							value="Entrar" 
+							id="commandButton-acessar" 
+							action="#{usuarioController.EfetuarLogin}" 
+							update="growl-mensagem" />
 					</div> <!-- .actions -->
 				</h:form>
-				
 			</div> <!-- /content -->	
 		</div> <!-- /account-container -->
 		
@@ -78,5 +71,4 @@
 		<script src="resources/js/bootstrap.js"></script>
 		<script src="resources/js/signin.js"></script>
 	</h:body>
-
 </html>
