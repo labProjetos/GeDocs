@@ -8,84 +8,65 @@
 
 	<ui:composition template="../template/layoutBase.xhtml">
 		<ui:define name="content">
-	
-			<div class="">
-				<div class="">
-					<div class="subnavbar">
-						<div class="subnavbar-inner">
-	
-							<div class="container">
-								<ul class="mainnav">
-									<li><a href="home.xhtml"><i class="icon-dashboard"></i><span>Repositório</span>
-									</a></li>
-	
-									<li class="active"><a href="indices.xhtml"><i
-											class="icon-tag"></i><span>Índices</span> </a></li>
-	
-									<li><a href="#"><i class="icon-group"></i><span>Grupos</span>
-									</a></li>
-	
-									<li><a href="#"><i class="icon-user"></i><span>Usuários</span>
-									</a></li>
-	
-									<li><a href="#"><i class="icon-file"></i><span>Físico</span>
-									</a></li>
-	
-									<li><a href="#"><i class="icon-file"></i><span>Morto</span>
-									</a></li>
-								</ul>
-							</div>
-							<!-- /container -->
-	
-						</div>
-						<!-- /subnavbar-inner -->
-					</div>
-					<!-- /subnavbar -->
+			<div class="subnavbar">
+				<div class="subnavbar-inner">
 					<div class="container">
-						<div class="row">
-							<div class="span6">
-								<div class="widget">
-									<div class="widget-header">
-										<h3>Tipos de Documento</h3>
-									</div>
-									<!-- /widget-header -->
-									<div class="widget-content">
-										<p>Alvará</p>
-										<hr></hr>
-										<p>Nota Fiscal</p>
-										<hr></hr>
-										<p>Nota de Empenho</p>
-									</div>
-									<!-- /widget-content -->
-	
-								</div>
-							</div>
-							<!-- /span6 -->
-							<div class="span6">
-								<div class="widget">
-									<div class="widget-header">
-										<h3>Índices</h3>
-									</div>
-									<!-- /widget-header -->
-									<div class="widget-content">
-										<p>Nome</p>
-										<hr></hr>
-										<p>CNPJ</p>
-										<hr></hr>
-										<p>Emissão</p>
-									</div>
-									<!-- /widget-content -->
-								</div>
-							</div>
-							<!-- /span6 -->
-						</div>
-						<!-- /row -->
+						<ul class="mainnav">
+							<li><a href="repositorio.xhtml"><i class="icon-tag"></i><span> Repositório </span></a></li>
+							<li class="active"><a href="indices.xhtml"><i class="icon-tag"></i><span> Índices </span></a></li>
+							<li><a href="grupos.xhtml"><i class="icon-group"></i><span> Grupos </span></a></li>
+							<li><a href="usuarios.xhtml"><i class="icon-user"></i><span> Usuários </span></a></li>
+							<li><a href="fisico.xhtml"><i class="icon-file"></i><span> Físico </span></a></li>
+							<li><a href="morto.xhtml"><i class="icon-file"></i><span> Morto </span></a></li>
+						</ul>
 					</div>
 					<!-- /container -->
 				</div>
-				<!-- /main-inner -->
+				<!-- /subnavbar-inner -->
 			</div>
-			<!-- /main -->
+			<!-- /subnavbar -->
+			
+			<div class="container">
+				<div class="row">
+					<div class="span6">
+						<div class="widget">
+							<div class="widget-header">
+								<h3>Tipos de Documento</h3>
+							</div>
+							<!-- /widget-header -->
+							<div class="widget-content">
+								<p>Alvará</p>
+								<hr></hr>
+								<p>Nota Fiscal</p>
+								<hr></hr>
+								<p>Nota de Empenho</p>
+							</div>
+							<!-- /widget-content -->
+
+						</div>
+					</div>
+					<!-- /span6 -->
+					<div class="span6">
+						<div class="widget">
+							<div class="widget-header">
+								<h3>Índices</h3>
+							</div>
+							<!-- /widget-header -->
+							<div class="widget-content">
+								<p>Nome</p>
+								<hr></hr>
+								<p>CNPJ</p>
+								<hr></hr>
+								<p>Emissão</p>
+							</div>
+							<!-- /widget-content -->
+						</div>
+					</div>
+					<!-- /span6 -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
 		</ui:define>
 	</ui:composition>
 </html>
