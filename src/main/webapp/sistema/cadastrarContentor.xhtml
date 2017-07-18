@@ -7,6 +7,9 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
+	<h:head>
+	</h:head>
+	
 	<ui:composition template="../template/layoutBase.xhtml">
 		<ui:define name="content">
 			<div class="subnavbar">
@@ -26,58 +29,46 @@
 				<!-- /subnavbar-inner -->
 			</div>
 			<!-- /subnavbar -->
-			
-			<div class="container" align="center">
-				<div class="" style="margin: -5px 0px 5px 0px">
-					<div class="">
-						<p:commandButton styleClass="button btn btn-success btn-medium" 
-							value="Adicionar" 
-							id="importar" 
-							action="cadastrarContentor.xhtml" />
-							
-						<p:commandButton disabled="true" styleClass="button btn btn-success btn-medium" 
-							value="Editar" 
-							id="indexar" 
-							action="#" />
-							
-						<p:commandButton disabled="true" styleClass="button btn btn-danger btn-medium" 
-							value="Remover" 
-							id="download" 
-							action="#" />
-							
-						<p:commandButton disabled="true" styleClass="button btn btn-success btn-medium" 
-							value="Download" 
-							id="remover" 
-							action="#" />
-					</div>
-				</div>
-			</div>
 	
-
 			<div class="container">
 				<div class="row">
 					<div class="span12">
 						<div class="widget">
-							<div class="widget-content" style="height: 400px; overflow-y: scroll">
-								<p><b>Alvará</b></p>
-								<b>Nome: </b>Nome da Empresa<br /> <b>CNPJ: </b>345654500001/67<br />
-								<b>Emissão: </b> 10/10/2017
-								<hr></hr>
-								
-								<p><b>Nota Fiscal</b></p>
-								<b>Nome: </b>Nome da Empresa<br /> <b>CNPJ: </b>235102500001/09<br />
-								<b>Emissão: </b> 04/09/2017
-								<hr></hr>
-								
+							<div class="widget-header">
+								<i class="icon-user"></i>
+								<h3>Cadastrar Contentor</h3>
 							</div>
-							<!-- /widget-content -->
+							<!-- /widget-header -->
+	
+							<div class="widget-content">
+								<h:form id="form-cadastro" styleClass="form-horizontal">
+									<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn" />
+									<p:messages autoUpdate="true" closable="true" severity="error" />
+									<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info" />
+	
+									<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="7">
+										<label class="control-label" for="inputText-nome"> Nome
+										</label>
+										<p:inputText id="inputText-nome" styleClass="span6"
+											value="#{cadastrarContentorController.contentorModel.nome}"
+											required="true"
+											requiredMessage="O nome é de preenchimento obrigatório" />
+									</h:panelGrid>
+	
+									<p:spacer />
+	
+									<div class="form-actions">
+										<p:commandButton value="Salvar" styleClass="btn btn-primary"
+											id="commandButton-salvar"
+											actionListener="#{cadastrarContentorController.SalvarNovoContentor}"
+											update="panelGrid-campos-form" />
+									</div>
+								</h:form>
+							</div>
 						</div>
 					</div>
-					<!-- /span6 -->
 				</div>
-				<!-- /row -->
 			</div>
-			<!-- /container -->
 		</ui:define>
 	</ui:composition>
 </html>

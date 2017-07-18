@@ -63,8 +63,4 @@ public class IndiceDocumentoEntity {
 		this.documento = documento;
 	}
 	
-	
-	
-	
-	
 }

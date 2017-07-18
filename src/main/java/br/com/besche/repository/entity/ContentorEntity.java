@@ -9,21 +9,14 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class ContentorEntity {
-
 	@Id
 	@GeneratedValue
-	private int id;
-	
+	private Integer id;
 	private String nome;
-		
-	//um contetor terá muitos documentos;
-	@OneToMany
-	private List<DocumentoEntity > documentos;
+	@OneToMany //um contetor tem muitos documentos;
+	private List<DocumentoEntity> documentos;
 	
-	
-	public ContentorEntity() {
-		
-	}
+	public ContentorEntity() {}
 
 	public ContentorEntity(int id, String nome) {
 		super();
@@ -31,11 +24,11 @@ public class ContentorEntity {
 		this.nome = nome;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -55,7 +48,4 @@ public class ContentorEntity {
 		this.documentos = documentos;
 	}
 	
-	
-	
-
 }
