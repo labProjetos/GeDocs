@@ -7,28 +7,19 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class DocumentoEntity {
-	
 	@Id
 	@GeneratedValue
 	private int id;
-	
 	private String url_nome; //endereço local do arquivo
 	private int upload;
-	
-	//DocumentoEntity tem apenas um tipo
-	@ManyToOne
+	@ManyToOne //um documento tem um tipo de documento
 	private TipoDocumentoEntity tipo;
 
 	//DocumentoEntity tem apenas um contentor
 	@ManyToOne
 	private ContentorEntity contentor;
 		
-	
-	
-	//construtor padrão
-	public DocumentoEntity() {
-		
-	}
+	public DocumentoEntity() {}
 
 	public DocumentoEntity(int id, String url_nome, int upload) {
 		super();
@@ -76,7 +67,5 @@ public class DocumentoEntity {
 	public void setContentor(ContentorEntity contentor) {
 		this.contentor = contentor;
 	}
-	
-	
 	
 }
