@@ -20,11 +20,27 @@ public class IndiceController {
 	@Inject
 	IndiceRepository indiceRepository;
 	
+	public IndiceModel getIndiceModel() {
+		return indiceModel;
+	}
+ 
+	public void setIndiceModel(IndiceModel indiceModel) {
+		this.indiceModel = indiceModel;
+	}
+ 
 	public void SalvarNovoIndice() {
-		indiceRepository.SalvarNovoIndice(this.indiceModel);
-		this.indiceModel = null;
-		 
-		Uteis.MensagemInfo("Registro cadastrado com sucesso");
+		try {
+			System.out.println("TESTANDO PEGA DE VALOR," + indiceModel.getNome() );
+			indiceRepository.SalvarNovoIndice(this.indiceModel);
+			Uteis.MensagemInfo("Registro cadastrado com sucesso");
+			this.indiceModel = null;
+			 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 	
 }
