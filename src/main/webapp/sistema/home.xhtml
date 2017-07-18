@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 	<ui:composition template="../template/layoutBase.xhtml">
 		<ui:define name="content">
@@ -27,22 +28,50 @@
 			<!-- /subnavbar -->
 
 			<div class="container" align="center">
-				<div class="">
+				<div class="" style="margin: -5px 0px 5px 0px">
 					<div class="">
-						<div class="">
-							<div class="widget-header">
-								<h3>Importar | Indexar | Download | Remover</h3>
-							</div>
-						</div>
+						<p:commandButton styleClass="button btn btn-success btn-medium" 
+							value="Importar" 
+							id="importar" 
+							action="#" />
+							
+						<p:commandButton styleClass="button btn btn-success btn-medium" 
+							value="Indexar" 
+							id="indexar" 
+							action="#" />
+							
+						<p:commandButton styleClass="button btn btn-success btn-medium" 
+							value="Download" 
+							id="download" 
+							action="#" />
+							
+						<p:commandButton styleClass="button btn btn-danger btn-medium" 
+							value="Remover" 
+							id="remover" 
+							action="#" />
 					</div>
 				</div>
 			</div>
+	
 
 			<div class="container">
 				<div class="row">
 					<div class="span4">
 						<div class="widget">
-							<div class="widget-content">
+							<div class="widget-content" style="height: 420px; overflow-y: scroll">
+								<p><b>Alvará</b></p>
+								<b>Nome: </b>Nome da Empresa<br /> <b>CNPJ: </b>345654500001/67<br />
+								<b>Emissão: </b> 10/10/2017
+								<hr></hr>
+								
+								<p><b>Nota Fiscal</b></p>
+								<b>Nome: </b>Nome da Empresa<br /> <b>CNPJ: </b>235102500001/09<br />
+								<b>Emissão: </b> 04/09/2017
+								<hr></hr>
+								
+								<p>	<b>Nota de Empenho</b></p>
+								<b>Nome: </b>Nome da Empresa<br /> <b>Emissão: </b> 10/10/2017
+								
 								<p><b>Alvará</b></p>
 								<b>Nome: </b>Nome da Empresa<br /> <b>CNPJ: </b>345654500001/67<br />
 								<b>Emissão: </b> 10/10/2017
@@ -63,7 +92,24 @@
 					<div class="span8">
 						<div class="widget">
 							<!-- /widget-header -->
-							<div class="widget-content">Visualização do documento</div>
+							<div class="widget-content" style="height: 420px">
+								<div class="tabbable" style="margin-top: -10px">
+									<ul class="nav nav-tabs">
+										<li class="active"><a href="#visualizacao" data-toggle="tab"> Visualização </a></li>  
+									  	<li><a href="#atividades" data-toggle="tab"> Atividades </a></li>
+									</ul>
+									
+									<div class="tab-content">
+										<div class="tab-pane active" id="visualizacao">
+										Visualização do documento
+										</div>
+									
+										<div class="tab-pane" id="atividades">
+										Nada
+										</div>
+									</div>
+								</div>
+							</div>
 							<!-- /widget-content -->
 						</div>
 					</div>
