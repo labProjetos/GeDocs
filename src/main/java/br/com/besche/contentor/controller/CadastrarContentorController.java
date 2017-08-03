@@ -16,14 +16,6 @@ public class CadastrarContentorController {
 	@Inject
 	ContentorRepository contentorRepository;
 
-	public ContentorModel getContentorModel() {
-		return contentorModel;
-	}
-
-	public void setContentorModel(ContentorModel contentorModel) {
-		this.contentorModel = contentorModel;
-	}
-
 	/**
 	 * SALVA UM NOVO REGISTRO
 	 */
@@ -31,7 +23,14 @@ public class CadastrarContentorController {
 		contentorRepository.SalvarNovoRegistro(this.contentorModel);
 		this.contentorModel = null;
 		Uteis.MensagemInfo("Registro cadastrado com sucesso");
+	}
+	
+	public ContentorModel getContentorModel() {
+		return contentorModel;
+	}
 
+	public void setContentorModel(ContentorModel contentorModel) {
+		this.contentorModel = contentorModel;
 	}
 
 }

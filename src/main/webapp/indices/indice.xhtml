@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:dialog header="Editar" id="dialog-modal-editar-indice"
+	widgetVar="dialog-modal-editar-indice" modal="true">
+
+	<ui:include src="editarIndice.xhtml" />
+</p:dialog>
+
+<div class="span6">
+	<div class="widget">
+		<div class="widget-header">
+			<h3>Índices</h3>
+		</div>
+		<!-- /widget-header -->
+
+		<div class="widget-content">
+			<h:form id="form-cadastro-indice" styleClass="form-horizontal">
+				<div class="control-group">
+					<h:panelGrid id="panelGrid-campos-form-indice" columns="3">
+						<label class="control-label" for="inputText-nome-indice">
+							Nome </label>
+						<div class="controls">
+							<div class="input-append">
+								<p:inputText id="inputText-nome-indice"
+									styleClass="span2 m-wrap"
+									value="#{cadastrarIndiceController.indiceModel.nome}"
+									required="true"
+									requiredMessage="O nome é de preenchimento obrigatório" />
+								<p:commandButton value=" + " styleClass="btn btn-primary"
+									id="commandButton-salvar-indice" ajax="true"
+									actionListener="#{cadastrarIndiceController.SalvarNovoIndice}"
+									update="@form" rendered="true" />
+							</div>
+						</div>
+					</h:panelGrid>
+				</div>
+			</h:form>
+
+			<h:form id="form-consulta-indice">
+				<div style="height: 325px; overflow-y: scroll;">
+					<p:dataTable id="dataTable-registros-indice" var="indice"
+						value="#{consultarIndiceController.indices}">
+						<p:column>
+							<h:outputText value="#{indice.nome}" />
+						</p:column>
+						<p:column headerText="" style="width:30px;">
+							<p:commandButton icon="ui-icon-pencil" title="Editar Registro"
+								styleClass="btn btn-primary" ajax="true"
+								actionListener="#{consultarIndiceController.Editar(indice)}"
+								oncomplete="PF('dialog-modal-editar-indice').show();"
+								update="dialog-modal-editar-indice" />
+						</p:column>
+						<p:column headerText="" style="width:30px;">
+							<p:commandButton icon="ui-icon-trash"
+								styleClass="btn btn-danger" ajax="true"
+								actionListener="#{consultarIndiceController.ExcluirIndice(indice)}"
+								update="@form" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</h:form>
+		</div>
+	</div>
+</div>
+<!-- /span6 -->
+</html>

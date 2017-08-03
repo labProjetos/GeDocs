@@ -1,11 +1,9 @@
 package br.com.besche.model;
 
-import java.util.List;
-
 public class ContentorModel {
 	private Integer id;
 	private String nome;
-	private List<DocumentoModel> documentos;
+/*	private List<DocumentoModel> documentos;*/
 
 	public Integer getId() {
 		return id;
@@ -23,13 +21,12 @@ public class ContentorModel {
 		this.nome = nome;
 	}
 
-	public List<DocumentoModel> getDocumentos() {
+	/*public List<DocumentoModel> getDocumentos() {
 		return documentos;
 	}
 
 	public void setDocumentos(List<DocumentoModel> documentos) {
 		this.documentos = documentos;
-	}
+	}*/
 
-	
 }

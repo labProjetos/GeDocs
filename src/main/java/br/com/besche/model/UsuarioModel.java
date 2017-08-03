@@ -4,15 +4,15 @@ import java.io.Serializable;
 
 public class UsuarioModel implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String codigo;
+	private int id;
 	private String usuario;
 	private String senha;
  
-	public String getCodigo() {
-		return codigo;
+	public int getId() {
+		return id;
 	}
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getUsuario() {
 		return usuario;

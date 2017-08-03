@@ -1,22 +1,27 @@
 package br.com.besche.repository.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "contentor")
+@NamedQueries({ @NamedQuery(name = "ContentorEntity.findAll", query = "SELECT p FROM ContentorEntity p") })
 public class ContentorEntity {
 	@Id
 	@GeneratedValue
 	private Integer id;
 	private String nome;
-	@OneToMany //um contetor tem muitos documentos;
-	private List<DocumentoEntity> documentos;
-	
-	public ContentorEntity() {}
+	/*
+	 * @OneToMany // um contetor tem muitos documentos; private
+	 * List<DocumentoEntity> documentos;
+	 */
+
+	public ContentorEntity() {
+	}
 
 	public ContentorEntity(int id, String nome) {
 		super();
@@ -40,12 +45,11 @@ public class ContentorEntity {
 		this.nome = nome;
 	}
 
-	public List<DocumentoEntity> getDocumentos() {
-		return documentos;
-	}
+	/*
+	 * public List<DocumentoEntity> getDocumentos() { return documentos; }
+	 * 
+	 * public void setDocumentos(List<DocumentoEntity> documentos) {
+	 * this.documentos = documentos; }
+	 */
 
-	public void setDocumentos(List<DocumentoEntity> documentos) {
-		this.documentos = documentos;
-	}
-	
 }

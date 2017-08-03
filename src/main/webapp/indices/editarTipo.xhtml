@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="widget-content">
+		<h:form styleClass="form-horizontal">
+			<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="7">
+	
+				<p:outputLabel styleClass="control-label" value="Nome"
+					for="inputText-nome" />
+				<p:inputText id="inputText-nome" style="width:200px" maxlength="70"
+					value="#{consultarTipoController.tipoModel.nome}" required="true"
+					requiredMessage="O nome é de preenchimento obrigatório" />
+	
+				<p:outputLabel styleClass="control-label" value="Temporalidade"
+					for="inputText-temporalidade" />
+				<p:inputText id="inputText-temporalidade" style="width:200px"
+					maxlength="70"
+					value="#{consultarTipoController.tipoModel.temporalidade}"
+					required="true"
+					requiredMessage="A temporalidade é de preenchimento obrigatório" />
+	
+				<p:outputLabel styleClass="control-label" value="Indices"
+					for="form-consulta-indice" />
+				<h:form id="form-consulta-indice">
+					<div style="height: 250px; overflow-y: scroll;">
+						<p:selectManyCheckbox converter="indiceConverter" id="grid3" layout="pageDirection"
+							value="#{consultarTipoController.tipoModel.indices}">
+							<f:selectItems value="#{consultarTipoController.indicesModel}"
+								var="indice" itemLabel="#{indice.nome}" itemValue="#{indice}" />
+						</p:selectManyCheckbox>
+					</div>
+				</h:form>
+			</h:panelGrid>
+			
+			<div class="form-actions">
+				<p:commandButton value="Alterar" id="commandButton-alterar"
+					styleClass="btn btn-primary"
+					actionListener="#{consultarTipoController.AlterarRegistro}"
+					oncomplete="PF('dialog-modal-editar-tipo').hide();"
+					update="form-consulta-tipo" />
+			</div>
+		</h:form>
+	</div>
+</ui:composition>

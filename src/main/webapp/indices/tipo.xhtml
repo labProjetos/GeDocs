@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:dialog header="Editar" id="dialog-modal-editar-tipo"
+	widgetVar="dialog-modal-editar-tipo" modal="true">
+
+	<ui:include src="editarTipo.xhtml" />
+</p:dialog>
+
+<div class="span6">
+	<div class="widget">
+		<div class="widget-header">
+			<h3>Tipos de Documento</h3>
+		</div>
+		<!-- /widget-header -->
+
+		<div class="widget-content">
+			<h:form id="form-cadastro-tipo" styleClass="form-horizontal">
+				<div class="control-group">
+					<h:panelGrid id="panelGrid-campos-form-tipo" columns="3">
+						<label class="control-label" for="inputText-nome-tipo">
+							Nome </label>
+						<div class="controls">
+							<div class="input-append">
+								<p:inputText id="inputText-nome-tipo" styleClass="span2 m-wrap"
+									value="#{cadastrarTipoController.tipoModel.nome}"
+									required="true"
+									requiredMessage="O nome é de preenchimento obrigatório" />
+								<p:commandButton value=" + " styleClass="btn btn-primary"
+									id="commandButton-salvar-tipo"
+									actionListener="#{cadastrarTipoController.SalvarNovoTipo}"
+									update="form-cadastro-tipo" />
+							</div>
+						</div>
+					</h:panelGrid>
+				</div>
+			</h:form>
+
+			<h:form id="form-consulta-tipo">
+				<div style="height: 325px; overflow-y: scroll;">
+					<p:dataTable id="dataTable-registros-tipos" var="tipo"
+						value="#{consultarTipoController.tipos}">
+						<p:column>
+							<h:outputText value="#{tipo.nome}" />
+						</p:column>
+						<p:column headerText="" style="width:30px;">
+							<p:commandButton icon="ui-icon-pencil" title="Editar Registro"
+								ajax="true"
+								actionListener="#{consultarTipoController.Editar(tipo)}"
+								oncomplete="PF('dialog-modal-editar-tipo').show();"
+								update="dialog-modal-editar-tipo" />
+						</p:column>
+						<p:column headerText="" style="width:30px;">
+							<p:commandButton icon="ui-icon-trash"
+								styleClass="btn btn-primary" ajax="true"
+								actionListener="#{consultarTipoController.ExcluirTipo(tipo)}"
+								update="@form" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</h:form>
+		</div>
+	</div>
+</div>
+<!-- /span6 -->
+</html>

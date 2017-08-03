@@ -1,4 +1,4 @@
-package br.com.besche.repository.entity;
+/*package br.com.besche.repository.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,16 +10,17 @@ public class DocumentoEntity {
 	@Id
 	@GeneratedValue
 	private int id;
-	private String url_nome; //endereço local do arquivo
+	private String url_nome; // endereço local do arquivo
 	private int upload;
-	@ManyToOne //um documento tem um tipo de documento
-	private TipoDocumentoEntity tipo;
+	@ManyToOne // um documento tem um tipo de documento
+	private TipoEntity tipo;
 
-	//DocumentoEntity tem apenas um contentor
+	// DocumentoEntity tem apenas um contentor
 	@ManyToOne
 	private ContentorEntity contentor;
-		
-	public DocumentoEntity() {}
+
+	public DocumentoEntity() {
+	}
 
 	public DocumentoEntity(int id, String url_nome, int upload) {
 		super();
@@ -52,11 +53,11 @@ public class DocumentoEntity {
 		this.upload = upload;
 	}
 
-	public TipoDocumentoEntity getTipo() {
+	public TipoEntity getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoDocumentoEntity tipo) {
+	public void setTipo(TipoEntity tipo) {
 		this.tipo = tipo;
 	}
 
@@ -67,5 +68,6 @@ public class DocumentoEntity {
 	public void setContentor(ContentorEntity contentor) {
 		this.contentor = contentor;
 	}
-	
+
 }
+*/

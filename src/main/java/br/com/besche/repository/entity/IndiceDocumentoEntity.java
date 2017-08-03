@@ -1,11 +1,9 @@
-package br.com.besche.repository.entity;
+/*package br.com.besche.repository.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 public class IndiceDocumentoEntity {
@@ -20,9 +18,7 @@ public class IndiceDocumentoEntity {
 	@ManyToOne
 	private DocumentoEntity documento;
 
-	public IndiceDocumentoEntity() {
-		
-	}
+	public IndiceDocumentoEntity() {}
 
 	public IndiceDocumentoEntity(int id, String indice, String conteudoDoIndice) {
 		super();
@@ -64,3 +60,4 @@ public class IndiceDocumentoEntity {
 	}
 	
 }
+*/

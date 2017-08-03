@@ -3,32 +3,24 @@ package br.com.besche.repository.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "indice")
+@NamedQueries({ @NamedQuery(name = "IndiceEntity.findAll", query = "SELECT p FROM IndiceEntity p") })
 public class IndiceEntity {
-	
 	@Id
 	@GeneratedValue
-	private int id;
-	
+	private Long id;
 	private String nome;
 
-	public IndiceEntity() {
-		
-	}
-
-	public IndiceEntity(int id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
-	}
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -39,7 +31,5 @@ public class IndiceEntity {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
 	
 }
