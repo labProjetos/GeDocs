@@ -5,7 +5,14 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+	
+	<f:metadata>
+        <o:viewParam name="id" value="#{cadastrarDocumentoController.documentoModel}"/>
+        <f:viewAction
+            action="#{cadastrarDocumentoController.prepara}" />
+    </f:metadata>
 
 	<ui:composition template="template/layoutBase.xhtml">
 		<ui:define name="content">
@@ -36,6 +43,28 @@
 			<div class="container" align="center">
 				<div class="" style="margin: -5px 0px 5px 0px">
 					<div class="">
+					<h:form enctype="multipart/form-data">
+						<p:fileUpload
+							fileUploadListener="#{cadastrarDocumentoController.salvar}"
+							mode="advanced" dragDropSupport="true" update="messages" 
+							label="Escolher" uploadLabel="Enviar" cancelLabel="Cancelar" 
+							allowTypes="/(\.|\/)(gif|jpeg|png|pdf)$/" />
+						
+						<!-- Listar os contentores e chamar o convertor, ainda não funcionando 
+						<p:outputLabel value="Contontor" for="contentor" />
+						<p:selectOneButton id="contentor"
+							value="#{salvaDocumentoController.documentoModel.contentor}">
+							<f:selectItems value="#{salvaDocumentoController.contentores}"
+								var="contentorModel" itemValue="#{contentorModel}"
+								itemLabel="#{contentorModel.nome}" />
+						</p:selectOneButton>
+						-->	
+							<p:growl id="messages" showDetail="true" />
+					</h:form>
+
+
+
+					<!--  
 						<p:commandButton styleClass="button btn btn-success btn-medium" 
 							value="Importar" 
 							id="importar" 
@@ -55,6 +84,7 @@
 							value="Remover" 
 							id="remover" 
 							action="#" />
+					-->
 					</div>
 				</div>
 			</div>
