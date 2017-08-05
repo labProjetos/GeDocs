@@ -1,9 +1,10 @@
-/*package br.com.besche.repository.entity;
+package br.com.besche.repository.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.Date;
 
 @Entity
 public class DocumentoEntity {
@@ -11,23 +12,14 @@ public class DocumentoEntity {
 	@GeneratedValue
 	private int id;
 	private String url_nome; // endereço local do arquivo
-	private int upload;
+	private Date data_upload;
+	private Date data_criacao;	
 	@ManyToOne // um documento tem um tipo de documento
 	private TipoEntity tipo;
 
 	// DocumentoEntity tem apenas um contentor
 	@ManyToOne
 	private ContentorEntity contentor;
-
-	public DocumentoEntity() {
-	}
-
-	public DocumentoEntity(int id, String url_nome, int upload) {
-		super();
-		this.id = id;
-		this.url_nome = url_nome;
-		this.upload = upload;
-	}
 
 	public int getId() {
 		return id;
@@ -45,12 +37,20 @@ public class DocumentoEntity {
 		this.url_nome = url_nome;
 	}
 
-	public int getUpload() {
-		return upload;
+	public Date getData_upload() {
+		return data_upload;
 	}
 
-	public void setUpload(int upload) {
-		this.upload = upload;
+	public void setData_upload(Date data_upload) {
+		this.data_upload = data_upload;
+	}
+
+	public Date getData_criacao() {
+		return data_criacao;
+	}
+
+	public void setData_criacao(Date data_criacao) {
+		this.data_criacao = data_criacao;
 	}
 
 	public TipoEntity getTipo() {
@@ -69,5 +69,5 @@ public class DocumentoEntity {
 		this.contentor = contentor;
 	}
 
+	
 }
-*/
