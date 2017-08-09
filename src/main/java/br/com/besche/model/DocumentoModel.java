@@ -50,5 +50,5 @@ public class DocumentoModel implements Serializable {
 	public void setContentor(ContentorModel contentor) {
 		this.contentor = contentor;
 	}
-
+	
 }

@@ -26,8 +26,6 @@ public class CadastrarDocumentoController {
 	@Inject
 	DocumentoModel documentoModel;
 	@Inject
-	tipoModel tipoModel;
-	@Inject
 	DocumentoRepository documentoRepository;
 
 	/**
@@ -57,8 +55,9 @@ public class CadastrarDocumentoController {
 		  				null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro", e.getMessage()));
 		}
 	}
+
 	
-	public void salvar(FileUploadEvent event) throws Exception {
+    public void salvar(FileUploadEvent event) throws Exception {
     	UploadedFile file = event.getFile();
     	//1)  setar os valores no documentoModel
     	//2)  setar documentoModel in respository;
@@ -86,4 +85,13 @@ public class CadastrarDocumentoController {
 	public void setDocumentoModel(DocumentoModel documentoModel) {
 		this.documentoModel = documentoModel;
 	}
+
+	public DocumentoRepository getDocumentoRepository() {
+		return documentoRepository;
+	}
+
+	public void setDocumentoRepository(DocumentoRepository documentoRepository) {
+		this.documentoRepository = documentoRepository;
+	}
+   
 }

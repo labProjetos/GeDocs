@@ -5,7 +5,14 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+	
+	<f:metadata>
+        <o:viewParam name="id" value="#{cadastrarDocumentoController.documentoModel}"/>
+        <f:viewAction
+            action="#{cadastrarDocumentoController.prepara}" />
+    </f:metadata>
 
 	<ui:composition template="../template/layoutBase.xhtml">
 		<ui:define name="content">
@@ -54,6 +61,7 @@
 							value="Remover" 
 							id="remover" 
 							action="#" />
+					-->
 					</div>
 				</div>
 			</div>

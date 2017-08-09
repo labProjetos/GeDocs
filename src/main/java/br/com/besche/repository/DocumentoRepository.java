@@ -83,7 +83,6 @@ public class DocumentoRepository {
 
 	/***
 	 * EXCLUI UM REGISTRO DO BANCO DE DADOS
-	 * 
 	 * @param codigo
 	 */
 	public void ExcluirRegistro(Long codigo) {
