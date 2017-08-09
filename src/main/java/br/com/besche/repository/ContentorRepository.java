@@ -35,13 +35,11 @@ public class ContentorRepository {
  
 		@SuppressWarnings("unchecked")
 		Collection<ContentorEntity> contentoresEntity = (Collection<ContentorEntity>)query.getResultList();
- 
 		ContentorModel contentorModel = null;
 		for (ContentorEntity contentorEntity : contentoresEntity) {
 			contentorModel = new ContentorModel();
 			contentorModel.setId(contentorEntity.getId());
 			contentorModel.setNome(contentorEntity.getNome());
-			
 			contentoresModel.add(contentorModel);
 		}
 		return contentoresModel;
@@ -52,7 +50,7 @@ public class ContentorRepository {
 	 * @param codigo
 	 * @return
 	 */
-	private ContentorEntity GetContentor(int codigo) {
+	private ContentorEntity GetContentor(Long codigo) {
 		entityManager = Uteis.JpaEntityManager();
 		return entityManager.find(ContentorEntity.class, codigo);
 	}
@@ -72,7 +70,7 @@ public class ContentorRepository {
 	 * EXCLUI UM REGISTRO DO BANCO DE DADOS
 	 * @param codigo
 	 */
-	public void ExcluirRegistro(int codigo) {
+	public void ExcluirRegistro(Long codigo) {
 		entityManager = Uteis.JpaEntityManager();
 		ContentorEntity contentorEntity = this.GetContentor(codigo);
 		entityManager.remove(contentorEntity);

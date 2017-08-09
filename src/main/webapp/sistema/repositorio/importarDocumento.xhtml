@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../../template/layoutBase.xhtml">
+	<ui:define name="content">
+		<div class="subnavbar">
+			<div class="subnavbar-inner">
+				<div class="container">
+					<ul class="mainnav">
+						<li><a href="repositorio.xhtml"><i class="icon-tag"></i>
+								<span> Repositório </span></a></li>
+						<li><a href="indices.xhtml"><i class="icon-tag"></i> <span>
+									Índices </span></a></li>
+						<li><a href="grupos.xhtml"><i class="icon-group"></i> <span>
+									Grupos </span></a></li>
+						<li><a href="usuarios.xhtml"><i class="icon-user"></i> <span>
+									Usuários </span></a></li>
+						<li><a href="fisico.xhtml"><i class="icon-file"></i> <span>
+									Físico </span></a></li>
+						<li><a href="morto.xhtml"><i class="icon-file"></i> <span>
+									Morto </span></a></li>
+					</ul>
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /subnavbar-inner -->
+		</div>
+		<!-- /subnavbar -->
+
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<div class="widget">
+						<p:messages showDetail="true" autoUpdate="true" closable="true"
+							severity="warn" />
+						<p:messages autoUpdate="true" closable="true" severity="error" />
+						<p:messages showDetail="true" autoUpdate="true" closable="true"
+							severity="info" />
+						<div class="widget-header">
+							<h3>Importar</h3>
+						</div>
+
+						<div class="widget-content">
+							<h:form enctype="multipart/form-data" id="form-cadastro"
+								styleClass="form-horizontal">
+								<h:panelGrid id="panelGrid-campos-form" columns="2"
+									cellpadding="7" styleClass="control-group">
+
+									<!-- <p:growl id="messages" showDetail="true" /> -->
+
+									<!-- <label class="control-label" for="inputText-url"> URL </label>
+									<p:inputText id="inputText-url" styleClass="span5"
+										value="#{cadastrarDocumentoController.documentoModel.url}"
+										required="true"
+										requiredMessage="O nome é de preenchimento obrigatório" /> -->
+
+									<label class="control-label" for="tipo"> Tipo </label>
+									<p:selectOneMenu id="tipo" styleClass="span6"
+										value="#{cadastrarDocumentoController.documentoModel.tipo}"
+										converter="tipoConverter" required="true"
+										requiredMessage="O tipo é de preenchimento obrigatório">
+										<f:selectItem itemLabel="Selecione o tipo..." itemValue="" />
+										<f:selectItems value="#{consultarTipoController.tipos}"
+											var="tipo" itemLabel="#{tipo.nome}" itemValue="#{tipo}" />
+									</p:selectOneMenu>
+
+									<label class="control-label" for="tipo"> Contentor </label>
+									<p:selectOneMenu id="contentor" styleClass="span6"
+										value="#{cadastrarDocumentoController.documentoModel.contentor}"
+										converter="contentorConverter" required="true"
+										requiredMessage="O contentor é de preenchimento obrigatório">
+										<f:selectItem itemLabel="Selecione o contentor..."
+											itemValue="" />
+										<f:selectItems
+											value="#{consultarContentorController.contentores}"
+											var="contentor" itemLabel="#{contentor.nome}"
+											itemValue="#{tipo}" />
+									</p:selectOneMenu>
+
+									<p:spacer />
+
+									<p:fileUpload required="true"
+										requiredMessage="O arquivo é de preenchimento obrigatório"
+										value="#{cadastrarDocumentoController.uploadedFile}"
+										mode="simple" dragDropSupport="true" skinSimple="true"
+										label="Selecionar Arquivo"
+										allowTypes="/(\.|\/)(gif|jpeg|png|pdf)$/" />
+								</h:panelGrid>
+
+								<p:spacer />
+
+								<div class="form-actions">
+
+									<p:commandButton value="Importar" styleClass="btn btn-primary"
+										id="commandButton-salvar" ajax="false"
+										actionListener="#{cadastrarDocumentoController.salvarNovoDocumento}" />
+								</div>
+							</h:form>
+						</div>
+					</div>
+				</div>
+				<!-- /span6 -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</ui:define>
+</ui:composition>
+</html>

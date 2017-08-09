@@ -5,16 +5,17 @@ import java.util.List;
 
 public class TipoModel implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Long id;
 	private String nome;
 	private int temporalidade;
 	private List<IndiceModel> indices;
+	private List<DocumentoModel> documentos;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -41,5 +42,13 @@ public class TipoModel implements Serializable {
 	public void setIndices(List<IndiceModel> indicesModel) {
 		this.indices = indicesModel;
 	}
-	
+
+	public List<DocumentoModel> getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(List<DocumentoModel> documentos) {
+		this.documentos = documentos;
+	}
+
 }

@@ -8,15 +8,22 @@
 		<p:dataGrid var="contentor" value="#{consultarContentorController.contentores}" columns="4"
 			layout="grid" id="contentores">
 	
-			<p:panel header="#{car.id}" style="text-align:center">
-				<h:panelGrid columns="1" style="width:100%">
+			<p:panel header="#{contentor.nome}" style="text-align:left">
+				<h:panelGrid columns="4" style="width:100%" cellpadding="10">
 					<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
 	
-					<h:outputText value="#{contentor.nome}" />
+					<h:outputText value="Arquivos: 0" />
 	
 					<p:commandLink update=":form:carDetail"
 						oncomplete="PF('carDialog').show()" title="View Detail">
-						<h:outputText styleClass="ui-icon ui-icon-search"
+						<h:outputText styleClass="ui-icon ui-icon-pencil"
+							style="margin:0 auto;" />
+						<f:setPropertyActionListener value="#{car}"
+							target="#{dataGridView.selectedCar}" />
+					</p:commandLink>
+					<p:commandLink update=":form:carDetail"
+						oncomplete="PF('carDialog').show()" title="View Detail">
+						<h:outputText styleClass="ui-icon ui-icon-trash"
 							style="margin:0 auto;" />
 						<f:setPropertyActionListener value="#{car}"
 							target="#{dataGridView.selectedCar}" />

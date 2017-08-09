@@ -7,7 +7,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:composition template="template/layoutBase.xhtml">
+	<ui:composition template="../template/layoutBase.xhtml">
 		<ui:define name="content">
 			<div class="subnavbar">
 				<div class="subnavbar-inner">
@@ -43,19 +43,6 @@
 							oncomplete="PF('dialog-modal-cadastrar-contentor').show();"
 							update="dialog-modal-cadastrar-contentor" />
 							
-						<p:commandButton styleClass="button btn btn-success btn-medium" 
-							value="Editar"
-							id="editar"
-							ajax="true"
-							oncomplete="PF('dialog-modal-editar-contentor').show();"
-							actionListener="#{consultarContentorController.Editar(contentor)}"
-							update="dialog-modal-editar-contentor" />
-							
-						<p:commandButton disabled="true" styleClass="button btn btn-danger btn-medium" 
-							value="Remover" 
-							id="download" 
-							action="#" />
-							
 						<p:commandButton disabled="true" styleClass="button btn btn-success btn-medium" 
 							value="Download" 
 							id="remover" 
@@ -83,10 +70,11 @@
 							<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn" />
 							<p:messages autoUpdate="true" closable="true" severity="error" />
 							<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info" />
+							<div class="widget-header">
+								<h3>Contentores</h3>
+							</div>
 							<div class="widget-content" style="height: 410px; overflow-y: scroll">
-								
 								<ui:include src="repositorio/listarContentores.xhtml" />
-								
 							</div>
 							<!-- /widget-content -->
 						</div>

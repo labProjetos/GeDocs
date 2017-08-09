@@ -1,55 +1,65 @@
-/*package br.com.besche.repository.entity;
+package br.com.besche.repository.entity;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "documento")
+@NamedQueries({ @NamedQuery(name = "DocumentoEntity.findAll", query = "SELECT d FROM TipoEntity d") })
 public class DocumentoEntity {
 	@Id
 	@GeneratedValue
-	private int id;
-	private String url_nome; // endereço local do arquivo
-	private int upload;
-	@ManyToOne // um documento tem um tipo de documento
-	private TipoEntity tipo;
-
-	// DocumentoEntity tem apenas um contentor
+	private Long id;
+	private String url;
+	private LocalDateTime upload;
 	@ManyToOne
+	@JoinColumn(name = "tipo_id")
+	private TipoEntity tipo;
+	@ManyToOne
+	@JoinColumn(name = "contentor_id")
 	private ContentorEntity contentor;
 
 	public DocumentoEntity() {
 	}
 
-	public DocumentoEntity(int id, String url_nome, int upload) {
+	public DocumentoEntity(Long id, String url, LocalDateTime upload, TipoEntity tipo, ContentorEntity contentor) {
 		super();
 		this.id = id;
-		this.url_nome = url_nome;
+		this.url = url;
 		this.upload = upload;
+		this.tipo = tipo;
+		this.contentor = contentor;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getUrl_nome() {
-		return url_nome;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setUrl_nome(String url_nome) {
-		this.url_nome = url_nome;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
-	public int getUpload() {
+	public LocalDateTime getUpload() {
 		return upload;
 	}
 
-	public void setUpload(int upload) {
+	public void setUpload(LocalDateTime upload) {
 		this.upload = upload;
 	}
 
@@ -70,4 +80,3 @@ public class DocumentoEntity {
 	}
 
 }
-*/

@@ -1,15 +1,19 @@
 package br.com.besche.model;
 
-public class ContentorModel {
-	private Integer id;
-	private String nome;
-/*	private List<DocumentoModel> documentos;*/
+import java.io.Serializable;
+import java.util.List;
 
-	public Integer getId() {
+public class ContentorModel implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private Long id;
+	private String nome;
+	private List<DocumentoModel> documentos;
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -20,13 +24,13 @@ public class ContentorModel {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	/*public List<DocumentoModel> getDocumentos() {
+	
+	public List<DocumentoModel> getDocumentos() {
 		return documentos;
 	}
-
+	
 	public void setDocumentos(List<DocumentoModel> documentos) {
 		this.documentos = documentos;
-	}*/
+	}
 
 }

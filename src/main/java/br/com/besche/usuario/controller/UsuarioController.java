@@ -61,7 +61,7 @@ public class UsuarioController implements Serializable {
 
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 				facesContext.getExternalContext().getSessionMap().put("usuarioAutenticado", usuarioModel);
-				return "home?faces-redirect=true";
+				return "sistema/home?faces-redirect=true";
 			} else {
 				Uteis.Mensagem("Não foi possível efetuar o login com esse usuário e senha!");
 				return null;

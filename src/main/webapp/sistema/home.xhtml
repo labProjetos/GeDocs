@@ -7,7 +7,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:composition template="template/layoutBase.xhtml">
+	<ui:composition template="../template/layoutBase.xhtml">
 		<ui:define name="content">
 			<div class="subnavbar">
 				<div class="subnavbar-inner">
@@ -36,10 +36,9 @@
 			<div class="container" align="center">
 				<div class="" style="margin: -5px 0px 5px 0px">
 					<div class="">
-						<p:commandButton styleClass="button btn btn-success btn-medium" 
-							value="Importar" 
-							id="importar" 
-							action="#" />
+							
+						<p:commandButton styleClass="button btn btn-success btn-medium"
+							value="Importar" action="repositorio/importarDocumento.xhtml" />
 							
 						<p:commandButton disabled="true" styleClass="button btn btn-success btn-medium" 
 							value="Indexar" 

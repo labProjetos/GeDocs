@@ -8,7 +8,6 @@ import br.com.besche.model.IndiceModel;
 import br.com.besche.repository.IndiceRepository;
 import br.com.besche.uteis.Uteis;
 
-// classe responsável por salvar índices
 @Named(value = "cadastrarIndiceController")
 @RequestScoped
 public class CadastrarIndiceController {
@@ -25,7 +24,7 @@ public class CadastrarIndiceController {
 		Uteis.MensagemInfo("Registro cadastrado com sucesso");
 		this.indiceModel = null;
 	}
-	
+
 	public IndiceModel getIndiceModel() {
 		return indiceModel;
 	}

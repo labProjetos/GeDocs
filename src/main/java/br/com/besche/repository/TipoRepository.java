@@ -30,7 +30,6 @@ public class TipoRepository {
 		tipoEntity.setNome(tipoModel.getNome());
 		tipoEntity.setTemporalidade(tipoModel.getTemporalidade());
 		tipoEntity.setIndices(new ArrayList<IndiceEntity>());
-		
 		entityManager.persist(tipoEntity);
 	}
 	
@@ -39,7 +38,7 @@ public class TipoRepository {
 	 * @param tipoEntity
 	 * @return
 	 */
-	private List<IndiceModel> GetIndicesDo(TipoEntity tipoEntity) {
+	private List<IndiceModel> GetIndicesModelDo(TipoEntity tipoEntity) {
 		Collection<IndiceEntity> indicesEntity = (Collection<IndiceEntity>) tipoEntity.getIndices();
 		List<IndiceModel> indicesModel = new ArrayList<IndiceModel>();
 		IndiceModel indiceModel = null;
@@ -69,8 +68,7 @@ public class TipoRepository {
 			tipoModel.setId(tipoEntity.getId());
 			tipoModel.setNome(tipoEntity.getNome());
 			tipoModel.setTemporalidade(tipoEntity.getTemporalidade());
-			tipoModel.setIndices(GetIndicesDo(tipoEntity));
-			
+			tipoModel.setIndices(GetIndicesModelDo(tipoEntity));
 			tiposModel.add(tipoModel);
 		}
 		return tiposModel;
@@ -81,7 +79,7 @@ public class TipoRepository {
 	 * @param codigo
 	 * @return
 	 */
-	private TipoEntity GetTipo(int codigo) {
+	public TipoEntity GetTipo(Long codigo) {
 		entityManager = Uteis.JpaEntityManager();
 		return entityManager.find(TipoEntity.class, codigo);
 	}
@@ -112,7 +110,7 @@ public class TipoRepository {
 	 * EXCLUI UM REGISTRO DO BANCO DE DADOS
 	 * @param codigo
 	 */
-	public void ExcluirRegistro(int codigo) {
+	public void ExcluirRegistro(Long codigo) {
 		entityManager = Uteis.JpaEntityManager();
 		TipoEntity tipoEntity = this.GetTipo(codigo);
 		entityManager.remove(tipoEntity);

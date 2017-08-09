@@ -16,7 +16,6 @@ import br.com.besche.repository.ContentorRepository;
 @ViewScoped
 public class ConsultarContentorController implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	@Inject
 	transient private ContentorModel contentorModel;
 	@Produces
@@ -50,8 +49,6 @@ public class ConsultarContentorController implements Serializable {
 	 * @param contentorModel
 	 */
 	public void Editar(ContentorModel contentorModel) {
-		/* PEGA APENAS A PRIMEIRA LETRA DO SEXO PARA SETAR NO CAMPO(M OU F) 
-		contentorModel.setSexo(contentorModel.getSexo().substring(0, 1));*/
 		this.contentorModel = contentorModel;
 	}
 

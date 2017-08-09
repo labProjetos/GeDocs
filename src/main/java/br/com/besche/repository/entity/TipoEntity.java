@@ -10,6 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,32 +19,34 @@ import javax.persistence.Table;
 public class TipoEntity {
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 	private String nome;
 	private int temporalidade;
-
 	@ManyToMany
-	@JoinTable(name = "tipo_indice",
-		joinColumns = @JoinColumn(name = "tipo_id", referencedColumnName = "id"), 
+	@JoinTable(name = "tipo_indice", joinColumns = @JoinColumn(name = "tipo_id", referencedColumnName = "id"), 
 		inverseJoinColumns = @JoinColumn(name = "indice_id", referencedColumnName = "id"))
 	private List<IndiceEntity> indices;
+	@OneToMany(mappedBy = "tipo")
+	private List<DocumentoEntity> documentos;
 
 	public TipoEntity() {
 	}
 
-	public TipoEntity(int id, String nome, int temporalidade, List<IndiceEntity> indices) {
+	public TipoEntity(Long id, String nome, int temporalidade, List<IndiceEntity> indices,
+			List<DocumentoEntity> documentos) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.temporalidade = temporalidade;
 		this.indices = indices;
+		this.documentos = documentos;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -62,13 +65,21 @@ public class TipoEntity {
 	public void setTemporalidade(int temporalidade) {
 		this.temporalidade = temporalidade;
 	}
-	
+
 	public List<IndiceEntity> getIndices() {
 		return indices;
 	}
 
 	public void setIndices(List<IndiceEntity> indices) {
 		this.indices = indices;
+	}
+
+	public List<DocumentoEntity> getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(List<DocumentoEntity> documentos) {
+		this.documentos = documentos;
 	}
 
 }
