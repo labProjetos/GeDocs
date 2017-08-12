@@ -2,6 +2,7 @@ package br.com.besche.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class DocumentoModel implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -10,6 +11,7 @@ public class DocumentoModel implements Serializable {
 	private LocalDateTime upload;
 	private TipoModel tipo;
 	private ContentorModel contentor;
+	private List<IndiceDocumentoModel> indexacao; 
 
 	public Long getId() {
 		return id;
@@ -49,6 +51,14 @@ public class DocumentoModel implements Serializable {
 	
 	public void setContentor(ContentorModel contentor) {
 		this.contentor = contentor;
+	}
+	
+	public List<IndiceDocumentoModel> getIndexacao() {
+		return indexacao;
+	}
+	
+	public void setIndexacao(List<IndiceDocumentoModel> indexacao) {
+		this.indexacao = indexacao;
 	}
 	
 }

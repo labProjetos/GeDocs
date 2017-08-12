@@ -49,15 +49,13 @@
 							<h:form id="form-indexar" styleClass="form-horizontal">
 								<h:panelGrid id="panelGrid-campos-form" columns="4"
 									cellpadding="7" styleClass="control-group">
-									
-									<p:outputLabel value="#{cadastrarDocumentoController.documentoModel.tipo}" />
 		
 									<label class="control-label" for="indice"> Indice </label>
 									<p:selectOneMenu id="indice" styleClass="span2"
 										converter="indiceConverter" required="true"
 										requiredMessage="O indice é de preenchimento obrigatório">
 										<f:selectItem itemLabel="Selecione o indice..." itemValue="" />
-										<f:selectItems value="#{consultarIndiceController.indices}"
+										<f:selectItems value="#{dropdownView.indices}"
 											var="indice" itemLabel="#{indice.nome}" itemValue="#{indice}" />
 									</p:selectOneMenu>
 

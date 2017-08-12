@@ -46,8 +46,6 @@ public class CadastrarDocumentoController {
 		    
 		    this.documentoModel.setUrl(PATH + file.getName()); 
             documentoRepository.SalvarNovoDocumento(this.documentoModel);
-    		/*Uteis.MensagemInfo("Registro cadastrado com sucesso");*/
-    		FacesContext.getCurrentInstance().getExternalContext().redirect("indexarDocumento.xhtml");
 		    
     		this.documentoModel = null;
 		} catch(IOException e) {

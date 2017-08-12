@@ -1,7 +1,9 @@
 package br.com.besche.repository.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,11 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "documento")
-@NamedQueries({ @NamedQuery(name = "DocumentoEntity.findAll", query = "SELECT d FROM TipoEntity d") })
+@NamedQueries({ @NamedQuery(name = "DocumentoEntity.findAll", query = "SELECT d FROM DocumentoEntity d") })
 public class DocumentoEntity {
 	@Id
 	@GeneratedValue
@@ -26,7 +29,9 @@ public class DocumentoEntity {
 	@ManyToOne
 	@JoinColumn(name = "contentor_id")
 	private ContentorEntity contentor;
-
+	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL)
+	private List<IndiceDocumentoEntity> indexacao;
+	
 	public DocumentoEntity() {
 	}
 
@@ -77,6 +82,14 @@ public class DocumentoEntity {
 
 	public void setContentor(ContentorEntity contentor) {
 		this.contentor = contentor;
+	}
+	
+	public List<IndiceDocumentoEntity> getIndexacao() {
+		return indexacao;
+	}
+	
+	public void setIndexacao(List<IndiceDocumentoEntity> indexacao) {
+		this.indexacao = indexacao;
 	}
 
 }

@@ -1,11 +1,13 @@
 package br.com.besche.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class IndiceModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String nome;
+	private List<IndiceDocumentoModel> indexacao;
 
 	public Long getId() {
 		return id;
@@ -21,6 +23,14 @@ public class IndiceModel implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public List<IndiceDocumentoModel> getIndexacao() {
+		return indexacao;
+	}
+	
+	public void setIndexacao(List<IndiceDocumentoModel> indexacao) {
+		this.indexacao = indexacao;
 	}
 
 	@Override

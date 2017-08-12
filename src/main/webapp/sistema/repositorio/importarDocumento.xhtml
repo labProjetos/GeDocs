@@ -52,54 +52,57 @@
 								<h:panelGrid id="panelGrid-campos-form" columns="2"
 									cellpadding="7" styleClass="control-group">
 
-									<!-- <p:growl id="messages" showDetail="true" /> -->
-
-									<!-- <label class="control-label" for="inputText-url"> URL </label>
-									<p:inputText id="inputText-url" styleClass="span5"
-										value="#{cadastrarDocumentoController.documentoModel.url}"
-										required="true"
-										requiredMessage="O nome é de preenchimento obrigatório" /> -->
-
-									<label class="control-label" for="tipo"> Tipo </label>
-									<p:selectOneMenu id="tipo" styleClass="span6"
-										value="#{cadastrarDocumentoController.documentoModel.tipo}"
-										converter="tipoConverter" required="true"
-										requiredMessage="O tipo é de preenchimento obrigatório">
-										<f:selectItem itemLabel="Selecione o tipo..." itemValue="" />
-										<f:selectItems value="#{consultarTipoController.tipos}"
-											var="tipo" itemLabel="#{tipo.nome}" itemValue="#{tipo}" />
-									</p:selectOneMenu>
-
-									<label class="control-label" for="tipo"> Contentor </label>
+									<label class="control-label" for="contentor"> Contentor
+									</label>
 									<p:selectOneMenu id="contentor" styleClass="span6"
-										value="#{cadastrarDocumentoController.documentoModel.contentor}"
+										value="#{dropdownView.documentoModel.contentor}"
 										converter="contentorConverter" required="true"
 										requiredMessage="O contentor é de preenchimento obrigatório">
-										<f:selectItem itemLabel="Selecione o contentor..."
-											itemValue="" />
+										<f:selectItem itemLabel="Selecione o contentor" itemValue="" />
 										<f:selectItems
 											value="#{consultarContentorController.contentores}"
 											var="contentor" itemLabel="#{contentor.nome}"
 											itemValue="#{tipo}" />
 									</p:selectOneMenu>
 
+									<label class="control-label" for="tipo"> Tipo </label>
+									<p:selectOneMenu converter="tipoConverter" id="tipo"
+										value="#{dropdownView.documentoModel.tipo}" styleClass="span6">
+										<p:ajax listener="#{dropdownView.tipoSelecionado}"
+											update="indice" />
+										<f:selectItem itemLabel="Selecione o tipo" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems itemLabel="#{tipo.nome}" itemValue="#{tipo}"
+											var="tipo" value="#{consultarTipoController.tipos}" />
+									</p:selectOneMenu>
+
+									<label class="control-label" for="indice"> Indices </label>
+									<p:dataTable var="indiceDocumento" id="indice"
+										style="width:469px"
+										value="#{dropdownView.indicesDocumentoModel}">
+										<p:column headerText="Indice" style="width:207px">
+											<h:outputText value="#{indiceDocumento.indiceModel.nome}" />
+										</p:column>
+
+										<p:column headerText="Conteúdo">
+											<h:inputText value="#{indiceDocumento.conteudo}" />
+										</p:column>
+									</p:dataTable>
+
 									<p:spacer />
 
-									<p:fileUpload required="true"
+									<p:fileUpload required="true" skinSimple="true" mode="simple"
 										requiredMessage="O arquivo é de preenchimento obrigatório"
-										value="#{cadastrarDocumentoController.uploadedFile}"
-										mode="simple" dragDropSupport="true" skinSimple="true"
+										value="#{uploadedFile}" dragDropSupport="true"
 										label="Selecionar Arquivo"
-										allowTypes="/(\.|\/)(gif|jpeg|png|pdf)$/" />
+										allowTypes="/(\.|\/)(gif|jpeg|png|pdf)$/">
+									</p:fileUpload>
 								</h:panelGrid>
 
-								<p:spacer />
-
 								<div class="form-actions">
-
 									<p:commandButton value="Importar" styleClass="btn btn-primary"
 										id="commandButton-salvar" ajax="false"
-										actionListener="#{cadastrarDocumentoController.salvarNovoDocumento}" />
+										actionListener="#{dropdownView.salvarNovoDocumento(uploadedFile)}" />
 								</div>
 							</h:form>
 						</div>

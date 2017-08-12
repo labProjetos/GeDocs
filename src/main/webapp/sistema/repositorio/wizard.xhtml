@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:messages showDetail="true" autoUpdate="true" closable="true"
+		severity="warn" />
+	<p:messages autoUpdate="true" closable="true" severity="error" />
+	<p:messages showDetail="true" autoUpdate="true" closable="true"
+		severity="info" />
+
+	<div class="widget-content">
+		<h:form enctype="multipart/form-data" id="form-cadastro"
+			styleClass="form-horizontal">
+			<p:growl id="growl" sticky="true" showDetail="true" />
+
+			<p:wizard flowListener="#{wizardController.onFlowProcess}">
+				<p:tab id="personal" title="importar">
+
+					<h:panelGrid id="panelGrid-importar" columns="2" cellpadding="7"
+						styleClass="control-group">
+
+						<label class="control-label" for="tipo"> Tipo </label>
+						<p:selectOneMenu id="tipo" styleClass="span6"
+							value="#{wizardController.documentoModel.tipo}"
+							converter="tipoConverter" required="true"
+							requiredMessage="O tipo é de preenchimento obrigatório">
+							<f:selectItem itemLabel="Selecione o tipo..." itemValue="" />
+							<f:selectItems value="#{consultarTipoController.tipos}"
+								var="tipo" itemLabel="#{tipo.nome}" itemValue="#{tipo}" />
+						</p:selectOneMenu>
+
+						<label class="control-label" for="tipo"> Contentor </label>
+						<p:selectOneMenu id="contentor" styleClass="span6"
+							value="#{cadastrarDocumentoController.documentoModel.contentor}"
+							converter="contentorConverter" required="true"
+							requiredMessage="O contentor é de preenchimento obrigatório">
+							<f:selectItem itemLabel="Selecione o contentor..." itemValue="" />
+							<f:selectItems
+								value="#{consultarContentorController.contentores}"
+								var="contentor" itemLabel="#{contentor.nome}"
+								itemValue="#{tipo}" />
+						</p:selectOneMenu>
+
+						<p:spacer />
+
+						<p:fileUpload required="true"
+							requiredMessage="O arquivo é de preenchimento obrigatório"
+							value="#{cadastrarDocumentoController.uploadedFile}"
+							mode="simple" dragDropSupport="true" skinSimple="true"
+							label="Selecionar Arquivo"
+							allowTypes="/(\.|\/)(gif|jpeg|png|pdf)$/" />
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab id="contact" title="Indexar">
+					<h:panelGrid id="panelGrid-indexar" columns="2" cellpadding="7"
+						styleClass="control-group">
+
+						<label class="control-label" for="tipo2"> Tipo </label>
+						<p:selectOneMenu id="tipo2" styleClass="span6"
+							value="#{cadastrarDocumentoController.documentoModel.tipo}"
+							converter="tipoConverter" required="false"
+							requiredMessage="O tipo é de preenchimento obrigatório">
+							<f:selectItem itemLabel="Selecione o tipo..." itemValue="" />
+							<f:selectItems value="#{consultarTipoController.tipos}"
+								var="tipo" itemLabel="#{tipo.nome}" itemValue="#{tipo}" />
+						</p:selectOneMenu>
+
+						<p:dataList
+							value=""
+							var="indice" type="definition">
+					        asdfg
+					    </p:dataList>
+
+						<p:dataList
+							value=""
+							var="indice" type="definition">
+							<p:inputText />
+						</p:dataList>
+
+
+						<p:spacer />
+
+						<div class="form-actions">
+							<p:commandButton value="Importar" styleClass="btn btn-primary"
+								id="commandButton-salvar" ajax="false"
+								process="@this"
+								actionListener="#{cadastrarDocumentoController.salvarNovoDocumento}" />
+						</div>
+
+							<!-- <p:commandButton value="Submit"
+								actionListener="#{userWizard.save}" update="growl"
+								process="@this" /> -->
+					</h:panelGrid>
+				</p:tab>
+			</p:wizard>
+		</h:form>
+	</div>
+</ui:composition>
