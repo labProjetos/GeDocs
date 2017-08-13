@@ -60,12 +60,12 @@ public class ConsultarDocumentoController implements Serializable {
 		this.init(); // RECARREGA OS REGISTROS
 	}
 	
-	public List<DocumentoModel> getDocumentoes() {
+	public List<DocumentoModel> getDocumentos() {
 		return documentos;
 	}
 
-	public void setDocumentoes(List<DocumentoModel> documentoes) {
-		this.documentos = documentoes;
+	public void setDocumentoes(List<DocumentoModel> documentos) {
+		this.documentos = documentos;
 	}
 
 	public DocumentoModel getDocumentoModel() {

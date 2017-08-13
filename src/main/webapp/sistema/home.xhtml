@@ -5,131 +5,90 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:o="http://omnifaces.org/ui">
-	
-	<f:metadata>
-        <o:viewParam name="id" value="#{cadastrarDocumentoController.documentoModel}"/>
-        <f:viewAction
-            action="#{cadastrarDocumentoController.prepara}" />
-    </f:metadata>
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:composition template="../template/layoutBase.xhtml">
-		<ui:define name="content">
-			<div class="subnavbar">
-				<div class="subnavbar-inner">
-					<div class="container">
-						<ul class="mainnav">
-							<li><a href="repositorio.xhtml"><i class="icon-tag"></i>
-							<span> Repositório </span></a></li>
-							<li><a href="indices.xhtml"><i class="icon-tag"></i>
-							<span> Índices </span></a></li>
-							<li><a href="grupos.xhtml"><i class="icon-group"></i>
-							<span> Grupos </span></a></li>
-							<li><a href="usuarios.xhtml"><i class="icon-user"></i>
-							<span> Usuários </span></a></li>
-							<li><a href="fisico.xhtml"><i class="icon-file"></i>
-							<span> Físico </span></a></li>
-							<li><a href="morto.xhtml"><i class="icon-file"></i>
-							<span> Morto </span></a></li>
-						</ul>
-					</div>
-					<!-- /container -->
+<ui:composition template="../template/layoutBase.xhtml">
+	<ui:define name="content">
+		<!-- <div class="subnavbar">
+			<div class="subnavbar-inner">
+				<div class="container">
+					<ul class="mainnav">
+						<li class="active"><a href="home.xhtml"><i class=""></i>
+								<span> Buscar </span></a></li>
+						<li><a href="importar.xhtml"><i class=""></i> <span>
+									Importar </span></a></li>
+						<li><a href="indices.xhtml"><i class=""></i> <span>
+									Índices </span></a></li>
+						<li><a href="usuarios.xhtml"><i class=""></i> <span>
+									Usuários </span></a></li>
+						<li><a href="morto.xhtml"><i class=""></i> <span>
+									Morto </span></a></li>
+					</ul>
 				</div>
-				<!-- /subnavbar-inner -->
+				/container
 			</div>
-			<!-- /subnavbar -->
+			/subnavbar-inner
+		</div>
+		/subnavbar -->
 
-			<div class="container" align="center">
-				<div class="" style="margin: -5px 0px 5px 0px">
-					<div class="">
-							
-						<p:commandButton styleClass="button btn btn-success btn-medium"
-							value="Importar" action="repositorio/importarDocumento.xhtml" />
-							
-						<p:commandButton disabled="true" styleClass="button btn btn-success btn-medium" 
-							value="Indexar" 
-							id="indexar" 
-							action="#" />
-							
-						<p:commandButton disabled="true" styleClass="button btn btn-success btn-medium" 
-							value="Download" 
-							id="download" 
-							action="#" />
-							
-						<p:commandButton disabled="true" styleClass="button btn btn-danger btn-medium" 
-							value="Remover" 
-							id="remover" 
-							action="#" />
-					</div>
-				</div>
-			</div>
-	
+		<div class="container">
+			<div class="row">
+				<div class="span4">
+					<div class="widget">
+						<h:form>
+							<h:panelGrid columns="2" style="margin: 0 auto; margin-bottom: -10px">
+								<p:inputText styleClass="search-query span3" placeholder="  Buscar" />
+								
+								<p:commandLink styleClass="white-button">
+									<h:outputText styleClass="ui-icon ui-icon-search"
+										style="margin-left:10px" />
+								</p:commandLink>
+							</h:panelGrid>
+						</h:form>
 
-			<div class="container">
-				<div class="row">
-					<div class="span4">
-						<div class="widget">
-							<div class="widget-content" style="height: 40%; overflow-y: scroll">
-								<p><b>Alvará</b></p>
-								<b>Nome: </b>Nome da Empresa<br /> <b>CNPJ: </b>345654500001/67<br />
-								<b>Emissão: </b> 10/10/2017
-								<hr></hr>
-								
-								<p><b>Nota Fiscal</b></p>
-								<b>Nome: </b>Nome da Empresa<br /> <b>CNPJ: </b>235102500001/09<br />
-								<b>Emissão: </b> 04/09/2017
-								<hr></hr>
-								
-								<p>	<b>Nota de Empenho</b></p>
-								<b>Nome: </b>Nome da Empresa<br /> <b>Emissão: </b> 10/10/2017
-								
-								<p><b>Alvará</b></p>
-								<b>Nome: </b>Nome da Empresa<br /> <b>CNPJ: </b>345654500001/67<br />
-								<b>Emissão: </b> 10/10/2017
-								<hr></hr>
-								
-								<p><b>Nota Fiscal</b></p>
-								<b>Nome: </b>Nome da Empresa<br /> <b>CNPJ: </b>235102500001/09<br />
-								<b>Emissão: </b> 04/09/2017
-								<hr></hr>
-								
-								<p>	<b>Nota de Empenho</b></p>
-								<b>Nome: </b>Nome da Empresa<br /> <b>Emissão: </b> 10/10/2017
-							</div>
-							<!-- /widget-content -->
+						<div class="widget-content"
+							style="height: 362px; overflow-y: scroll">
+
+							<h:form id="form">
+								<ui:repeat var="documento">
+									<h:panelGrid columns="2" style="width:100%"
+										columnClasses="logo,detail">
+
+										<p:outputPanel>
+											<h:panelGrid columns="2" cellpadding="5">
+												<h:outputText style="font-weight: bold"
+													value="#{documento.tipo.nome}" />
+
+												<h:outputText value="#{car.year}" style="font-weight: bold" />
+												<h:outputText value="Year:" />
+
+												<h:outputText value="#{car.color}" style="font-weight: bold" />
+												<h:outputText value="Year:" />
+											</h:panelGrid>
+										</p:outputPanel>
+									</h:panelGrid>
+									<hr />
+								</ui:repeat>
+							</h:form>
+
 						</div>
+						<!-- /widget-content -->
 					</div>
-					<!-- /span6 -->
-					<div class="span8">
-						<div class="widget">
-							<!-- /widget-header -->
-							<div class="widget-content" style="height: 410px">
-								<div class="tabbable" style="margin-top: -10px">
-									<ul class="nav nav-tabs">
-										<li class="active"><a href="#visualizacao" data-toggle="tab"> Visualização </a></li>  
-									  	<li><a href="#atividades" data-toggle="tab"> Atividades </a></li>
-									</ul>
-									
-									<div class="tab-content">
-										<div class="tab-pane active" id="visualizacao">
-										Visualização do documento
-										</div>
-									
-										<div class="tab-pane" id="atividades">
-										Nada
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /widget-content -->
-						</div>
-					</div>
-					<!-- /span6 -->
 				</div>
-				<!-- /row -->
+				<!-- /span6 -->
+
+				<div class="span8">
+					<div class="widget">
+						<!-- /widget-header -->
+						<div class="widget-content" style="height: 400px"></div>
+						<!-- /widget-content -->
+					</div>
+				</div>
+				<!-- /span6 -->
 			</div>
-			<!-- /container -->
-		</ui:define>
-	</ui:composition>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</ui:define>
+</ui:composition>
 </html>

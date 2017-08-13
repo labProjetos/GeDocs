@@ -7,31 +7,29 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="../../template/layoutBase.xhtml">
+<ui:composition template="../template/layoutBase.xhtml">
 	<ui:define name="content">
-		<div class="subnavbar">
+		<!-- <div class="subnavbar">
 			<div class="subnavbar-inner">
 				<div class="container">
 					<ul class="mainnav">
-						<li><a href="repositorio.xhtml"><i class="icon-tag"></i>
-								<span> Repositório </span></a></li>
-						<li><a href="indices.xhtml"><i class="icon-tag"></i> <span>
+						<li><a href="home.xhtml"><i class=""></i> <span>
+									Buscar </span></a></li>
+						<li class="active"><a href="importar.xhtml"><i class=""></i>
+								<span> Importar </span></a></li>
+						<li><a href="indices.xhtml"><i class=""></i> <span>
 									Índices </span></a></li>
-						<li><a href="grupos.xhtml"><i class="icon-group"></i> <span>
-									Grupos </span></a></li>
-						<li><a href="usuarios.xhtml"><i class="icon-user"></i> <span>
+						<li><a href="usuarios.xhtml"><i class=""></i> <span>
 									Usuários </span></a></li>
-						<li><a href="fisico.xhtml"><i class="icon-file"></i> <span>
-									Físico </span></a></li>
-						<li><a href="morto.xhtml"><i class="icon-file"></i> <span>
+						<li><a href="morto.xhtml"><i class=""></i> <span>
 									Morto </span></a></li>
 					</ul>
 				</div>
-				<!-- /container -->
+				/container
 			</div>
-			<!-- /subnavbar-inner -->
+			/subnavbar-inner
 		</div>
-		<!-- /subnavbar -->
+		/subnavbar -->
 
 		<div class="container">
 			<div class="row">
@@ -42,9 +40,6 @@
 						<p:messages autoUpdate="true" closable="true" severity="error" />
 						<p:messages showDetail="true" autoUpdate="true" closable="true"
 							severity="info" />
-						<div class="widget-header">
-							<h3>Importar</h3>
-						</div>
 
 						<div class="widget-content">
 							<h:form enctype="multipart/form-data" id="form-cadastro"
@@ -52,22 +47,10 @@
 								<h:panelGrid id="panelGrid-campos-form" columns="2"
 									cellpadding="7" styleClass="control-group">
 
-									<label class="control-label" for="contentor"> Contentor
-									</label>
-									<p:selectOneMenu id="contentor" styleClass="span6"
-										value="#{dropdownView.documentoModel.contentor}"
-										converter="contentorConverter" required="true"
-										requiredMessage="O contentor é de preenchimento obrigatório">
-										<f:selectItem itemLabel="Selecione o contentor" itemValue="" />
-										<f:selectItems
-											value="#{consultarContentorController.contentores}"
-											var="contentor" itemLabel="#{contentor.nome}"
-											itemValue="#{tipo}" />
-									</p:selectOneMenu>
-
 									<label class="control-label" for="tipo"> Tipo </label>
 									<p:selectOneMenu converter="tipoConverter" id="tipo"
-										value="#{dropdownView.documentoModel.tipo}" styleClass="span6">
+										value="#{dropdownView.documentoModel.tipo}" styleClass="span6"
+										required="true" requiredMessage="O tipo é de preenchimento obrigatório">
 										<p:ajax listener="#{dropdownView.tipoSelecionado}"
 											update="indice" />
 										<f:selectItem itemLabel="Selecione o tipo" itemValue=""
@@ -76,16 +59,16 @@
 											var="tipo" value="#{consultarTipoController.tipos}" />
 									</p:selectOneMenu>
 
-									<label class="control-label" for="indice"> Indices </label>
-									<p:dataTable var="indiceDocumento" id="indice"
+									<label class="control-label" for="indice"> Indexação </label>
+									<p:dataTable emptyMessage="O tipo do documento não foi selecionado." var="indiceDocumento" id="indice"
 										style="width:469px"
 										value="#{dropdownView.indicesDocumentoModel}">
-										<p:column headerText="Indice" style="width:207px">
+										<p:column headerText="Indice" style="width:135px">
 											<h:outputText value="#{indiceDocumento.indiceModel.nome}" />
 										</p:column>
 
 										<p:column headerText="Conteúdo">
-											<h:inputText value="#{indiceDocumento.conteudo}" />
+											<h:inputText styleClass="search-query span3" value="#{indiceDocumento.conteudo}" />
 										</p:column>
 									</p:dataTable>
 
@@ -100,7 +83,7 @@
 								</h:panelGrid>
 
 								<div class="form-actions">
-									<p:commandButton value="Importar" styleClass="btn btn-primary"
+									<p:commandButton value="Importar"
 										id="commandButton-salvar" ajax="false"
 										actionListener="#{dropdownView.salvarNovoDocumento(uploadedFile)}" />
 								</div>

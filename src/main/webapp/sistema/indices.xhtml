@@ -10,56 +10,48 @@
 <h:head>
 </h:head>
 
-	<ui:composition template="../template/layoutBase.xhtml">
-		<ui:define name="content">
-			<div class="subnavbar">
-				<div class="subnavbar-inner">
-					<div class="container">
-						<ul class="mainnav">
-							<li><a href="repositorio.xhtml"><i class="icon-tag"></i>
-							<span> Repositório </span></a></li>
-							
-							<li class="active"><a href="indices.xhtml"><i class="icon-tag"></i>
-							<span> Índices </span></a></li>
-							
-							<li><a href="grupos.xhtml"><i class="icon-group"></i>
-							<span> Grupos </span></a></li>
-							
-							<li><a href="usuarios.xhtml"><i class="icon-user"></i>
-							<span> Usuários </span></a></li>
-							
-							<li><a href="fisico.xhtml"><i class="icon-file"></i>
-							<span> Físico </span></a></li>
-							
-							<li><a href="morto.xhtml"><i class="icon-file"></i>
-							<span> Morto </span></a></li>
-							
-							<li><a href="testemodal.xhtml"><i class="icon-file"></i>
-							<span> Consulta </span></a></li>
-						</ul>
-					</div>
-					<!-- /container -->
+<ui:composition template="../template/layoutBase.xhtml">
+	<ui:define name="content">
+		<!-- <div class="subnavbar">
+			<div class="subnavbar-inner">
+				<div class="container">
+					<ul class="mainnav">
+						<li><a href="home.xhtml"><i class=""></i> <span>
+									Buscar </span></a></li>
+						<li><a href="importar.xhtml"><i class=""></i> <span>
+									Importar </span></a></li>
+						<li class="active"><a href="indices.xhtml"><i
+								class=""> </i> <span> Índices </span></a></li>
+						<li><a href="usuarios.xhtml"><i class=""></i> <span>
+									Usuários </span></a></li>
+						<li><a href="morto.xhtml"><i class=""></i> <span>
+									Morto </span></a></li>
+					</ul>
 				</div>
-				<!-- /subnavbar-inner -->
+				/container
 			</div>
-			<!-- /subnavbar -->
-			
-			<div class="container">
-				<div class="row">
-					<div class="span12">
-						<div class="">
-							<p:messages showDetail="true" autoUpdate="true" closable="true" severity="warn" />
-							<p:messages autoUpdate="true" closable="true" severity="error" />
-							<p:messages showDetail="true" autoUpdate="true" closable="true" severity="info" />
-						</div>
+			/subnavbar-inner
+		</div>
+		/subnavbar -->
+
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<div class="">
+						<p:messages showDetail="true" autoUpdate="true" closable="true"
+							severity="warn" />
+						<p:messages autoUpdate="true" closable="true" severity="error" />
+						<p:messages showDetail="true" autoUpdate="true" closable="true"
+							severity="info" />
 					</div>
-					<ui:include src="indices/tipo.xhtml" />
-					
-					<ui:include src="indices/indice.xhtml" />
 				</div>
-				<!-- /row -->
+				<ui:include src="indices/tipo.xhtml" />
+
+				<ui:include src="indices/indice.xhtml" />
 			</div>
-			<!-- /container -->
-		</ui:define>
-	</ui:composition>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</ui:define>
+</ui:composition>
 </html>

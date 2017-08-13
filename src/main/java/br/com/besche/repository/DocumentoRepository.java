@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.besche.model.DocumentoModel;
-import br.com.besche.repository.entity.ContentorEntity;
+import br.com.besche.model.TipoModel;
 import br.com.besche.repository.entity.DocumentoEntity;
 import br.com.besche.repository.entity.TipoEntity;
 import br.com.besche.uteis.Uteis;
@@ -31,9 +31,6 @@ public class DocumentoRepository {
 		documentoEntity.setUrl(documentoModel.getUrl());
 		TipoEntity tipoEntity = entityManager.find(TipoEntity.class, documentoModel.getTipo().getId());
 		documentoEntity.setTipo(tipoEntity);
-		ContentorEntity contentorEntity = entityManager.find(ContentorEntity.class,
-				documentoModel.getContentor().getId());
-		documentoEntity.setContentor(contentorEntity);
 		entityManager.persist(documentoEntity);
 	}
 
@@ -54,7 +51,10 @@ public class DocumentoRepository {
 			documentoModel.setId(documentoEntity.getId());
 			documentoModel.setUpload(documentoEntity.getUpload());
 			documentoModel.setUrl(documentoEntity.getUrl());
-			//documentoModel.setTipo(documentoEntity.getTipo());
+			TipoModel tipoModel = new TipoModel();
+			tipoModel.setNome(documentoEntity.getTipo().getNome());
+			
+			documentoModel.setTipo(tipoModel);
 			documentosModel.add(documentoModel);
 		}
 		return documentosModel;

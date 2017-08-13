@@ -10,7 +10,6 @@ public class DocumentoModel implements Serializable {
 	private String url;
 	private LocalDateTime upload;
 	private TipoModel tipo;
-	private ContentorModel contentor;
 	private List<IndiceDocumentoModel> indexacao; 
 
 	public Long getId() {
@@ -43,14 +42,6 @@ public class DocumentoModel implements Serializable {
 
 	public void setTipo(TipoModel tipo) {
 		this.tipo = tipo;
-	}
-	
-	public ContentorModel getContentor() {
-		return contentor;
-	}
-	
-	public void setContentor(ContentorModel contentor) {
-		this.contentor = contentor;
 	}
 	
 	public List<IndiceDocumentoModel> getIndexacao() {

@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 
 import br.com.besche.model.DocumentoModel;
 import br.com.besche.model.IndiceDocumentoModel;
-import br.com.besche.repository.entity.ContentorEntity;
 import br.com.besche.repository.entity.DocumentoEntity;
 import br.com.besche.repository.entity.IndiceDocumentoEntity;
 import br.com.besche.repository.entity.IndiceEntity;
@@ -32,9 +31,6 @@ public class IndiceDocumentoRepository {
 		DocumentoEntity documentoEntity = new DocumentoEntity();
 		documentoEntity.setUpload(LocalDateTime.now());
 		documentoEntity.setUrl(documentoModel.getUrl());
-		ContentorEntity contentorEntity = entityManager.find(ContentorEntity.class,
-				documentoModel.getContentor().getId());
-		documentoEntity.setContentor(contentorEntity);
 		TipoEntity tipoEntity = entityManager.find(TipoEntity.class, 
 				documentoModel.getTipo().getId());
 		documentoEntity.setTipo(tipoEntity);

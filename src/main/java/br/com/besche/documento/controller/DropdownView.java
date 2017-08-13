@@ -50,7 +50,7 @@ public class DropdownView implements Serializable {
             indiceDocumentoRepository.SalvarNovaIndexacao(this.indicesDocumentoModel, this.documentoModel);
     		this.documentoModel = null;
     		this.indicesDocumentoModel = null;
-    		FacesContext.getCurrentInstance().getExternalContext().redirect("../home.xhtml");
+    		FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
 		} catch(IOException e) {
 		  		FacesContext.getCurrentInstance().addMessage(
 		  				null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro", e.getMessage()));
@@ -92,6 +92,7 @@ public class DropdownView implements Serializable {
     public void tipoSelecionado() {
         if(this.documentoModel.getTipo() !=null) {
             indices = documentoModel.getTipo().getIndices();
+            indicesDocumentoModel.clear();
             IndiceDocumentoModel indiceDocumentoModel = null;
             for (IndiceModel indiceModel : indices) {
             	indiceDocumentoModel = new IndiceDocumentoModel();

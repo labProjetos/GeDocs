@@ -4,64 +4,105 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<p:dialog header="Editar" id="dialog-modal-editar-indice"
-	widgetVar="dialog-modal-editar-indice" modal="true">
+<p:dialog header="Editar #{indice.nome}" id="dialog-modal-editar-indice"
+	widgetVar="dialog-modal-editar-indice" modal="true" showEffect="fade"
+	hideEffect="fade">
 
 	<ui:include src="editarIndice.xhtml" />
 </p:dialog>
 
 <div class="span6">
 	<div class="widget">
-		<div class="widget-header">
-			<h3>Índices</h3>
-		</div>
 		<!-- /widget-header -->
 
-		<div class="widget-content">
+		<div class="widget-content" style="height: 80%">
 			<h:form id="form-cadastro-indice" styleClass="form-horizontal">
-				<div class="control-group">
-					<h:panelGrid id="panelGrid-campos-form-indice" columns="3">
-						<label class="control-label" for="inputText-nome-indice">
-							Nome </label>
-						<div class="controls">
-							<div class="input-append">
-								<p:inputText id="inputText-nome-indice"
-									styleClass="span2 m-wrap"
-									value="#{cadastrarIndiceController.indiceModel.nome}"
-									required="true"
-									requiredMessage="O nome é de preenchimento obrigatório" />
-								<p:commandButton value=" + " styleClass="btn btn-primary"
-									id="commandButton-salvar-indice" ajax="true"
-									actionListener="#{cadastrarIndiceController.SalvarNovoIndice}"
-									update="@form" rendered="true" />
-							</div>
-						</div>
-					</h:panelGrid>
-				</div>
+				<h:panelGrid id="panelGrid-campos-form-indice" columns="3"
+					style="margin: 0 auto;">
+					<p:inputText placeholder="  Nome do Indice"
+						id="inputText-nome-indice" styleClass="span3 m-wrap search-query"
+						value="#{cadastrarIndiceController.indiceModel.nome}"
+						required="true"
+						requiredMessage="O nome do índice é de preenchimento obrigatório" />
+					<p:commandLink update="form-cadastro-indice form-consulta-indice"
+						actionListener="#{cadastrarIndiceController.SalvarNovoIndice}">
+						<h:outputText styleClass="ui-icon ui-icon-plusthick"
+							style="margin-left:5px" />
+					</p:commandLink>
+				</h:panelGrid>
 			</h:form>
 
 			<h:form id="form-consulta-indice">
-				<div style="height: 325px; overflow-y: scroll;">
-					<p:dataTable id="dataTable-registros-indice" var="indice"
+				<div
+					style="height: 325px; overflow-y: scroll; margin: 0 auto; width: 90%">
+					<!-- <p:dataTable emptyMessage="Nenhum indice cadastrado"
+						id="dataTable-registros-indice" var="indice"
 						value="#{consultarIndiceController.indices}">
 						<p:column>
 							<h:outputText value="#{indice.nome}" />
 						</p:column>
 						<p:column headerText="" style="width:30px;">
-							<p:commandButton icon="ui-icon-pencil" title="Editar Registro"
-								styleClass="btn btn-primary" ajax="true"
+							<p:commandLink ajax="true"
 								actionListener="#{consultarIndiceController.Editar(indice)}"
 								oncomplete="PF('dialog-modal-editar-indice').show();"
-								update="dialog-modal-editar-indice" />
+								update="dialog-modal-editar-indice">
+
+								<h:outputText styleClass="ui-icon ui-icon-pencil"
+									style="margin:0 auto;" />
+							</p:commandLink>
 						</p:column>
 						<p:column headerText="" style="width:30px;">
-							<p:commandButton icon="ui-icon-trash"
-								styleClass="btn btn-danger" ajax="true"
+							<p:commandLink ajax="true"
 								actionListener="#{consultarIndiceController.ExcluirIndice(indice)}"
-								update="@form" />
+								update="@form">
+
+								<h:outputText styleClass="ui-icon ui-icon-trash"
+									style="margin:0 auto;" />
+							</p:commandLink>
 						</p:column>
-					</p:dataTable>
+					</p:dataTable> -->
+
+					<ui:repeat value="#{consultarIndiceController.indices}"
+						var="indice">
+						<h:panelGrid columns="3" style="width:100%"
+							columnClasses="logo,detail">
+							<p:outputPanel>
+								<h:panelGrid columns="2" width="250">
+									<h:outputText value="#{indice.nome}" style="font-weight: bold" />
+								</h:panelGrid>
+							</p:outputPanel>
+
+							<p:commandLink ajax="true"
+								actionListener="#{consultarIndiceController.Editar(indice)}"
+								oncomplete="PF('dialog-modal-editar-indice').show();"
+								update="dialog-modal-editar-indice">
+
+								<h:outputText styleClass="ui-icon ui-icon-pencil"
+									style="margin:0 auto;" />
+							</p:commandLink>
+
+							<p:commandLink ajax="true"
+								actionListener="#{consultarIndiceController.ExcluirIndice(indice)}"
+								update="@form">
+
+								<p:confirm header="Confirmação"
+									message="Deseja realmente excluir o indice #{indice.nome}?"
+									icon="ui-icon-alert" />
+
+								<h:outputText styleClass="ui-icon ui-icon-trash"
+									style="margin:0 auto;" />
+							</p:commandLink>
+						</h:panelGrid>
+						<hr />
+					</ui:repeat>
 				</div>
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
 			</h:form>
 		</div>
 	</div>

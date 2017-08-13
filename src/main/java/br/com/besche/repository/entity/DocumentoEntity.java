@@ -26,22 +26,18 @@ public class DocumentoEntity {
 	@ManyToOne
 	@JoinColumn(name = "tipo_id")
 	private TipoEntity tipo;
-	@ManyToOne
-	@JoinColumn(name = "contentor_id")
-	private ContentorEntity contentor;
 	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL)
 	private List<IndiceDocumentoEntity> indexacao;
 	
 	public DocumentoEntity() {
 	}
 
-	public DocumentoEntity(Long id, String url, LocalDateTime upload, TipoEntity tipo, ContentorEntity contentor) {
+	public DocumentoEntity(Long id, String url, LocalDateTime upload, TipoEntity tipo) {
 		super();
 		this.id = id;
 		this.url = url;
 		this.upload = upload;
 		this.tipo = tipo;
-		this.contentor = contentor;
 	}
 
 	public Long getId() {
@@ -74,14 +70,6 @@ public class DocumentoEntity {
 
 	public void setTipo(TipoEntity tipo) {
 		this.tipo = tipo;
-	}
-
-	public ContentorEntity getContentor() {
-		return contentor;
-	}
-
-	public void setContentor(ContentorEntity contentor) {
-		this.contentor = contentor;
 	}
 	
 	public List<IndiceDocumentoEntity> getIndexacao() {
