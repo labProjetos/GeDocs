@@ -1,7 +1,6 @@
 package br.com.besche.repository;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,32 +13,43 @@ import br.com.besche.repository.entity.IndiceEntity;
 import br.com.besche.repository.entity.TipoEntity;
 import br.com.besche.uteis.Uteis;
 
-//classe responsável por persistir o tipo
 public class TipoRepository {
 	@Inject
 	TipoEntity tipoEntity;
 	EntityManager entityManager;
 
-	/***
-	 * MÉTODO RESPONSÁVEL POR SALVAR UM TIPO
-	 * @param tipoModel
+	/**
+	 * RETORNA UM REGISTRO PELO ID
+	 * @param id
+	 * @return
 	 */
-	public void SalvarNovoTipo(TipoModel tipoModel) {
+	private TipoEntity getTipo(Long id) {
+		entityManager = Uteis.JpaEntityManager();
+		return entityManager.find(TipoEntity.class, id);
+	}
+	
+	/**
+	 * SALVA UM NOVO REGISTRO
+	 * @param registro
+	 */
+	public void salvar(TipoModel tipoModel) {
 		entityManager = Uteis.JpaEntityManager();
 		tipoEntity = new TipoEntity();
 		tipoEntity.setNome(tipoModel.getNome());
 		tipoEntity.setTemporalidade(tipoModel.getTemporalidade());
 		tipoEntity.setIndices(new ArrayList<IndiceEntity>());
+		
 		entityManager.persist(tipoEntity);
 	}
 	
 	/**
-	 * MÉTODO QUE RETORNA A LISTA DE INDICES DO TIPO
+	 * RETORNA OS INDICES DE UM REGISTRO
 	 * @param tipoEntity
 	 * @return
 	 */
-	private List<IndiceModel> GetIndicesModelDo(TipoEntity tipoEntity) {
-		Collection<IndiceEntity> indicesEntity = (Collection<IndiceEntity>) tipoEntity.getIndices();
+	private List<IndiceModel> getIndices(TipoEntity tipoEntity) {
+		List<IndiceEntity> indicesEntity = (List<IndiceEntity>) tipoEntity.getIndices();
+		
 		List<IndiceModel> indicesModel = new ArrayList<IndiceModel>();
 		IndiceModel indiceModel = null;
 		for (IndiceEntity indiceEntity : indicesEntity) {
@@ -51,46 +61,36 @@ public class TipoRepository {
 		return indicesModel;
 	}
 
-	/***
-	 * MÉTODO PARA CONSULTAR O TIPO
-	 * @return
+	/**
+	 * RETORNA TODOS OS REGISTROS
+	 * @return 
 	 */
-	public List<TipoModel> GetTipos() {
+	public List<TipoModel> listar() {
 		List<TipoModel> tiposModel = new ArrayList<TipoModel>();
 		entityManager = Uteis.JpaEntityManager();
 		Query query = entityManager.createNamedQuery("TipoEntity.findAll");
 
 		@SuppressWarnings("unchecked")
-		Collection<TipoEntity> tiposEntity = (Collection<TipoEntity>) query.getResultList();
+		List<TipoEntity> tiposEntity = (List<TipoEntity>) query.getResultList();
 		TipoModel tipoModel = null;
 		for (TipoEntity tipoEntity : tiposEntity) {
 			tipoModel = new TipoModel();
 			tipoModel.setId(tipoEntity.getId());
 			tipoModel.setNome(tipoEntity.getNome());
 			tipoModel.setTemporalidade(tipoEntity.getTemporalidade());
-			tipoModel.setIndices(GetIndicesModelDo(tipoEntity));
+			tipoModel.setIndices(getIndices(tipoEntity));
 			tiposModel.add(tipoModel);
 		}
 		return tiposModel;
 	}
 
-	/***
-	 * CONSULTA UM TIPO CADASTRADO PELO CÓDIGO
-	 * @param codigo
-	 * @return
+	/**
+	 * ALTERA UM REGISTRO
+	 * @param registro
 	 */
-	public TipoEntity GetTipo(Long codigo) {
+	public void alterar(TipoModel tipoModel) {
 		entityManager = Uteis.JpaEntityManager();
-		return entityManager.find(TipoEntity.class, codigo);
-	}
-
-	/***
-	 * ALTERA UM REGISTRO CADASTRADO NO BANCO DE DADOS
-	 * @param tipoModel
-	 */
-	public void AlterarRegistro(TipoModel tipoModel) {
-		entityManager = Uteis.JpaEntityManager();
-		TipoEntity tipoEntity = this.GetTipo(tipoModel.getId());
+		TipoEntity tipoEntity = this.getTipo(tipoModel.getId());
 		tipoEntity.setNome(tipoModel.getNome());
 		tipoEntity.setTemporalidade(tipoModel.getTemporalidade());
 		
@@ -103,16 +103,17 @@ public class TipoRepository {
 			indicesEntity.add(indiceEntity);
 		}
 		tipoEntity.setIndices(indicesEntity);
+		
 		entityManager.merge(tipoEntity);
 	}
 
-	/***
-	 * EXCLUI UM REGISTRO DO BANCO DE DADOS
-	 * @param codigo
+	/**
+	 * EXCLUI UM REGISTRO PELO ID
+	 * @param id
 	 */
-	public void ExcluirRegistro(Long codigo) {
+	public void excluir(Long id) {
 		entityManager = Uteis.JpaEntityManager();
-		TipoEntity tipoEntity = this.GetTipo(codigo);
-		entityManager.remove(tipoEntity);
+		entityManager.remove(this.getTipo(id));
 	}
+	
 }

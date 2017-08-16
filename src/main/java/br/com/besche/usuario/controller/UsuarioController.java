@@ -43,7 +43,7 @@ public class UsuarioController implements Serializable {
 
 	public String Logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "/index.xhtml?faces-redirect=true";
+		return "/login.xhtml?faces-redirect=true";
 	}
 
 	public String EfetuarLogin() {

@@ -2,6 +2,7 @@ package br.com.besche.repository.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,18 +23,20 @@ public class TipoEntity {
 	private Long id;
 	private String nome;
 	private int temporalidade;
-	@ManyToMany
-	@JoinTable(name = "tipo_indice", joinColumns = @JoinColumn(name = "tipo_id", referencedColumnName = "id"), 
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "tipo_indice", 
+		joinColumns = @JoinColumn(name = "tipo_id", referencedColumnName = "id"), 
 		inverseJoinColumns = @JoinColumn(name = "indice_id", referencedColumnName = "id"))
 	private List<IndiceEntity> indices;
+	
 	@OneToMany(mappedBy = "tipo")
 	private List<DocumentoEntity> documentos;
 
 	public TipoEntity() {
 	}
 
-	public TipoEntity(Long id, String nome, int temporalidade, List<IndiceEntity> indices,
-			List<DocumentoEntity> documentos) {
+	public TipoEntity(Long id, String nome, int temporalidade, List<IndiceEntity> indices, List<DocumentoEntity> documentos) {
 		super();
 		this.id = id;
 		this.nome = nome;

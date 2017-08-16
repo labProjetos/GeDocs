@@ -7,68 +7,119 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui" lang="pt-br">
 
-	<h:head>
-	    <title>Login - GeDocs</title>
-		<!-- <meta charset="utf-8"></meta> -->
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
-	    <meta name="apple-mobile-web-app-capable" content="yes"> </meta>
-	    
-		<link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"></link>
-		<link href="resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"></link>
-		<link href="resources/css/font-awesome.css" rel="stylesheet"></link>
-		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet"></link>
-		<link href="resources/css/style.css" rel="stylesheet" type="text/css"></link>
-		<link href="resources/css/pages/signin.css" rel="stylesheet" type="text/css"></link>
-	</h:head>
+<h:head>
+	<title>Diário Oficial</title>
+	<!-- <meta charset="utf-8"></meta> -->
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"></meta>
+	<meta name="apple-mobile-web-app-capable" content="yes"></meta>
+	<link
+		href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+		rel="stylesheet"></link>
 
-	<h:body>
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="brand" href="index.xhtml">
-						GeDocs				
-					</a>			
-				</div> <!-- /container -->
-			</div> <!-- /navbar-inner -->
-		</div> <!-- /navbar -->
-		
-		<div class="account-container">
-			<div class="content clearfix">
-				<h:form>
-					<p:growl id="growl-mensagem" showDetail="true" sticky="true" />
-					<h1> Login </h1>		
-					<div class="login-fields">
-						<p> Forneça seus dados </p>
-						<div class="field">
-							<label for="username"> Usuário </label>
-							<p:inputText styleClass="login username-field" placeholder="Usuário" 
-								id="inputText-login" 
-								value="#{usuarioController.usuarioModel.usuario}" />
-						</div> <!-- /field -->
-						<div class="field">
-							<label for="password"> Senha </label>
-							<p:password styleClass="login password-field" placeholder="Senha" 
-								id="password-usuario" 
-								value="#{usuarioController.usuarioModel.senha}" />
-						</div> <!-- /password -->
-					</div> <!-- /login-fields -->
-					<div class="login-actions">
-						<span class="login-checkbox">
-							<input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
-							<label class="choice" for="Field">Mantenha-me conectado</label>
-						</span>
-						<p:commandButton styleClass="button btn btn-success btn-large" 
-							value="Entrar" 
-							id="commandButton-acessar" 
-							action="#{usuarioController.EfetuarLogin}" 
-							update="growl-mensagem" />
-					</div> <!-- .actions -->
-				</h:form>
-			</div> <!-- /content -->	
-		</div> <!-- /account-container -->
-		
-		<script src="resources/js/jquery-1.7.2.min.js"></script>
-		<script src="resources/js/bootstrap.js"></script>
-		<script src="resources/js/signin.js"></script>
-	</h:body>
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="bootstrap-responsive.min.css" />
+	<h:outputStylesheet library="css" name="font-awesome.css" />
+	<h:outputStylesheet library="css" name="font-awesome.min.css" />
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="dahsboard.css" />
+	<link href="resources/css/pages/plans.css" rel="stylesheet"></link>
+</h:head>
+
+<h:body>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="index.xhtml"> Diário Oficial </a>
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /navbar-inner -->
+	</div>
+	<!-- /navbar -->
+	
+	<div class="subnavbar">
+	<div class="container">
+		<h:form style="margin-top: 20px; margin-bottom: -30px">
+			<p:menubar>
+				<f:facet name="options">
+					<p:commandLink action="login.xhtml">
+						<h:outputText 
+							value="Faça login no sistema para gerenciar os documentos" 
+							style="margin-right:5px"></h:outputText>
+					</p:commandLink>
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+</div>
+
+	<div class="main-inner">
+		<div class="container">
+			<div class="row">
+				<div class="span4">
+					<div class="widget">
+						<h:form>
+							<h:panelGrid columns="2"
+								style="margin: 0 auto; margin-bottom: -10px">
+								<p:inputText styleClass="search-query span3"
+									placeholder="  Buscar" />
+
+								<p:commandLink styleClass="white-button">
+									<h:outputText styleClass="ui-icon ui-icon-search"
+										style="margin-left:10px" />
+								</p:commandLink>
+							</h:panelGrid>
+						</h:form>
+
+						<div class="widget-content"
+							style="height: 362px; overflow-y: scroll">
+
+							<h:form id="form">
+								<ui:repeat var="documento">
+									<h:panelGrid columns="2" style="width:100%"
+										columnClasses="logo,detail">
+
+										<p:outputPanel>
+											<h:panelGrid columns="2" cellpadding="5">
+												<h:outputText style="font-weight: bold"
+													value="#{documento.tipo.nome}" />
+
+												<h:outputText value="#{car.year}" style="font-weight: bold" />
+												<h:outputText value="Year:" />
+
+												<h:outputText value="#{car.color}" style="font-weight: bold" />
+												<h:outputText value="Year:" />
+											</h:panelGrid>
+										</p:outputPanel>
+									</h:panelGrid>
+									<hr />
+								</ui:repeat>
+							</h:form>
+
+						</div>
+						<!-- /widget-content -->
+					</div>
+				</div>
+				<!-- /span6 -->
+
+				<div class="span8">
+					<div class="widget">
+						<!-- /widget-header -->
+						<div class="widget-content" style="height: 400px"></div>
+						<!-- /widget-content -->
+					</div>
+				</div>
+				<!-- /span6 -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+
+	<script src="resources/js/jquery-1.7.2.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/signin.js"></script>
+</h:body>
 </html>

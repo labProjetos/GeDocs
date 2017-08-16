@@ -12,39 +12,43 @@ import javax.inject.Named;
 import br.com.besche.model.IndiceModel;
 import br.com.besche.model.TipoModel;
 import br.com.besche.repository.TipoRepository;
+import br.com.besche.uteis.Uteis;
 
-@Named(value = "consultarTipoController")
+@Named(value = "consultarTipoMB")
 @ViewScoped
-public class ConsultarTipoController implements Serializable {
+public class ConsultarTipoMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	transient private TipoModel tipoModel;
 	@Inject
-	private List<IndiceModel> indicesModel;
+	private List<IndiceModel> indices;
 	@Produces
 	private List<TipoModel> tipos;
 	@Inject
 	transient private TipoRepository tipoRepository;
 
-	/***
+	/**
 	 * CARREGA OS TIPOS NA INICIALIZAÇÃO
 	 */
 	@PostConstruct
 	public void init() {
-		// RETORNA OS TIPOS CADASTRADOS
-		this.tipos = tipoRepository.GetTipos();
+		this.tipos = tipoRepository.listar();
+	}
+	
+	public void salvar() {
+		tipoRepository.salvar(this.tipoModel);
+		Uteis.MensagemInfo("Registro cadastrado com sucesso");
+		this.tipos.add(this.tipoModel);
+		this.tipoModel = new TipoModel();
 	}
 
 	/***
 	 * EXCLUINDO UM REGISTRO
 	 * @param tipoModel
 	 */
-	public void ExcluirTipo(TipoModel tipoModel) {
-		// EXCLUI O TIPO DO BANCO DE DADOS
-		this.tipoRepository.ExcluirRegistro(tipoModel.getId());
-		// REMOVENDO O TIPO DA LISTA
-		// ASSIM QUE O TIPO É REMOVIDO DA LISTA O DATATABLE É ATUALIZADO
+	public void excluir(TipoModel tipoModel) {
+		this.tipoRepository.excluir(tipoModel.getId());
 		this.tipos.remove(tipoModel);
 	}
 	
@@ -52,9 +56,7 @@ public class ConsultarTipoController implements Serializable {
 	 * CARREGA INFORMAÇÕES DE UM TIPO PARA SER EDITADO
 	 * @param tipoModel
 	 */
-	public void Editar(TipoModel tipoModel) {
-		/* PEGA APENAS A PRIMEIRA LETRA DO SEXO PARA SETAR NO CAMPO(M OU F) 
-		tipoModel.setSexo(tipoModel.getSexo().substring(0, 1));*/
+	public void editar(TipoModel tipoModel) {
 		tipoModel.setIndices(tipoModel.getIndices());
 		this.tipoModel = tipoModel;
 	}
@@ -62,18 +64,9 @@ public class ConsultarTipoController implements Serializable {
 	/***
 	 * ATUALIZA O REGISTRO QUE FOI ALTERADO
 	 */
-	public void AlterarRegistro() {
-		this.tipoRepository.AlterarRegistro(this.tipoModel);
-		/* RECARREGA OS REGISTROS */
+	public void alterar() {
+		this.tipoRepository.alterar(this.tipoModel);
 		this.init();
-	}
-	
-	public List<TipoModel> getTipos() {
-		return tipos;
-	}
-
-	public void setTipos(List<TipoModel> tipos) {
-		this.tipos = tipos;
 	}
 
 	public TipoModel getTipoModel() {
@@ -83,12 +76,21 @@ public class ConsultarTipoController implements Serializable {
 	public void setTipoModel(TipoModel tipoModel) {
 		this.tipoModel = tipoModel;
 	}
-	
-	public List<IndiceModel> getIndicesModel() {
-		return indicesModel;
+
+	public List<IndiceModel> getIndices() {
+		return indices;
+	}
+
+	public void setIndices(List<IndiceModel> indices) {
+		this.indices = indices;
+	}
+
+	public List<TipoModel> getTipos() {
+		return tipos;
+	}
+
+	public void setTipos(List<TipoModel> tipos) {
+		this.tipos = tipos;
 	}
 	
-	public void setIndicesModel(List<IndiceModel> indicesModel) {
-		this.indicesModel = indicesModel;
-	}
 }

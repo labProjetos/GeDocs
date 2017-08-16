@@ -1,4 +1,4 @@
-package br.com.besche.tipo.controller;
+/*package br.com.besche.tipo.controller;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -8,26 +8,27 @@ import br.com.besche.model.TipoModel;
 import br.com.besche.repository.TipoRepository;
 import br.com.besche.uteis.Uteis;
 
-//classe responsável por salvar índices
-@Named(value = "cadastrarTipoController")
+@Named(value = "cadastrarTipoMB")
 @RequestScoped
-public class CadastrarTipoController {
+public class CadastrarTipoMB {
 	@Inject
 	TipoModel tipoModel;
 	@Inject
 	TipoRepository tipoRepository;
 
-	public TipoModel getTipoModel() {
-		return tipoModel;
-	}
-
-	public void setTipoModel(TipoModel tipoModel) {
-		this.tipoModel = tipoModel;
-	}
-
-	public void SalvarNovoTipo() {
-		tipoRepository.SalvarNovoTipo(this.tipoModel);
+	public void salvar() {
+		tipoRepository.salvar(this.tipoModel);
 		Uteis.MensagemInfo("Registro cadastrado com sucesso");
 		this.tipoModel = null;
 	}
+	
+	public TipoModel getTipoModel() {
+		return tipoModel;
+	}
+	
+	public void setTipoModel(TipoModel tipoModel) {
+		this.tipoModel = tipoModel;
+	}
+	
 }
+*/

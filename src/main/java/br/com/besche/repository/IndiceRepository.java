@@ -1,7 +1,6 @@
 package br.com.besche.repository;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,34 +11,44 @@ import br.com.besche.model.IndiceModel;
 import br.com.besche.repository.entity.IndiceEntity;
 import br.com.besche.uteis.Uteis;
 
-// classe responsável por persistir o índice
 public class IndiceRepository {
 	@Inject
 	IndiceEntity indiceEntity;
 	EntityManager entityManager;
 
-	/***
-	 * MÉTODO RESPONSÁVEL POR SALVAR UM INDICE
-	 * @param indiceModel
+	/**
+	 * RETORNA UM REGISTRO PELO ID
+	 * @param id
+	 * @return
 	 */
-	public void SalvarNovoIndice(IndiceModel indiceModel) {
+	private IndiceEntity getIndice(Long id) {
+		entityManager = Uteis.JpaEntityManager();
+		return entityManager.find(IndiceEntity.class, id);
+	}
+	
+	/**
+	 * SALVA UM NOVO REGISTRO
+	 * @param registro
+	 */
+	public void salvar(IndiceModel indiceModel) {
 		entityManager = Uteis.JpaEntityManager();
 		indiceEntity = new IndiceEntity();
 		indiceEntity.setNome(indiceModel.getNome());
+		
 		entityManager.persist(indiceEntity);
 	}
 
-	/***
-	 * MÉTODO PARA CONSULTAR O INDICE
-	 * @return
+	/**
+	 * RETORNA TODOS OS REGISTROS
+	 * @return 
 	 */
-	public List<IndiceModel> GetIndices() {
+	public List<IndiceModel> listar() {
 		List<IndiceModel> indicesModel = new ArrayList<IndiceModel>();
 		entityManager = Uteis.JpaEntityManager();
 		Query query = entityManager.createNamedQuery("IndiceEntity.findAll");
 
 		@SuppressWarnings("unchecked")
-		Collection<IndiceEntity> indicesEntity = (Collection<IndiceEntity>) query.getResultList();
+		List<IndiceEntity> indicesEntity = (List<IndiceEntity>) query.getResultList();
 
 		IndiceModel indiceModel = null;
 		for (IndiceEntity indiceEntity : indicesEntity) {
@@ -52,35 +61,24 @@ public class IndiceRepository {
 		return indicesModel;
 	}
 
-	/***
-	 * CONSULTA UM INDICE CADASTRADO PELO CÓDIGO
-	 * @param codigo
-	 * @return
+	/**
+	 * ALTERA UM REGISTRO
+	 * @param registro
 	 */
-	public IndiceEntity GetIndice(Long codigo) {
+	public void alterar(IndiceModel indiceModel) {
 		entityManager = Uteis.JpaEntityManager();
-		return entityManager.find(IndiceEntity.class, codigo);
-	}
-
-	/***
-	 * ALTERA UM REGISTRO CADASTRADO NO BANCO DE DADOS
-	 * @param indiceModel
-	 */
-	public void AlterarRegistro(IndiceModel indiceModel) {
-		entityManager = Uteis.JpaEntityManager();
-		IndiceEntity indiceEntity = this.GetIndice(indiceModel.getId());
+		IndiceEntity indiceEntity = this.getIndice(indiceModel.getId());
 		indiceEntity.setNome(indiceModel.getNome());
 		entityManager.merge(indiceEntity);
 	}
 
-	/***
-	 * EXCLUI UM REGISTRO DO BANCO DE DADOS
-	 * @param codigo
+	/**
+	 * EXCLUI UM REGISTRO PELO ID
+	 * @param id
 	 */
-	public void ExcluirRegistro(Long codigo) {
+	public void excluir(Long id) {
 		entityManager = Uteis.JpaEntityManager();
-		IndiceEntity indiceEntity = this.GetIndice(codigo);
-		entityManager.remove(indiceEntity);
+		entityManager.remove(this.getIndice(id));
 	}
 	
 }

@@ -9,13 +9,11 @@ import br.com.besche.repository.entity.UsuarioEntity;
 import br.com.besche.uteis.Uteis;
 
 public class UsuarioRepository implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	public UsuarioEntity ValidaUsuario(UsuarioModel usuarioModel) {
 
 		try {
-
 			// QUERY QUE VAI SER EXECUTADA (UsuarioEntity.findUser)
 			Query query = Uteis.JpaEntityManager().createNamedQuery("UsuarioEntity.findUser");
 
@@ -25,11 +23,9 @@ public class UsuarioRepository implements Serializable {
 
 			// RETORNA O USUÁRIO SE FOR LOCALIZADO
 			return (UsuarioEntity) query.getSingleResult();
-
 		} catch (Exception e) {
-
 			return null;
 		}
-
 	}
+
 }

@@ -11,8 +11,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "indice_documento")
-@NamedQueries({
-		@NamedQuery(name = "IndiceDocumentoEntity.findAll", query = "SELECT id FROM IndiceDocumentoEntity id") })
+@NamedQueries({ @NamedQuery(name = "IndiceDocumentoEntity.findAll", query = "SELECT id FROM IndiceDocumentoEntity id"),
+	@NamedQuery(name = "IndiceDocumentoEntity.porTipo", 
+		query = "SELECT indiceDoc FROM IndiceDocumentoEntity indiceDoc WHERE indiceDoc.documento.tipo.id = :idDoTipo")})
 public class IndiceDocumentoEntity {
 	@Id
 	@GeneratedValue
@@ -56,7 +57,7 @@ public class IndiceDocumentoEntity {
 		return documento;
 	}
 
-	public void setDocumentoEntity(DocumentoEntity documento) {
+	public void setDocumento(DocumentoEntity documento) {
 		this.documento = documento;
 	}
 
@@ -64,7 +65,7 @@ public class IndiceDocumentoEntity {
 		return indice;
 	}
 
-	public void setIndiceEntity(IndiceEntity indice) {
+	public void setIndice(IndiceEntity indice) {
 		this.indice = indice;
 	}
 

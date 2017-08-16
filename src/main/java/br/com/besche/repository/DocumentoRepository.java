@@ -2,7 +2,6 @@ package br.com.besche.repository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,45 +11,62 @@ import javax.persistence.Query;
 import br.com.besche.model.DocumentoModel;
 import br.com.besche.model.TipoModel;
 import br.com.besche.repository.entity.DocumentoEntity;
+import br.com.besche.repository.entity.IndiceDocumentoEntity;
 import br.com.besche.repository.entity.TipoEntity;
 import br.com.besche.uteis.Uteis;
+
 
 public class DocumentoRepository {
 	@Inject
 	DocumentoEntity documentoEntity;
 	EntityManager entityManager;
 	
-	/***
-	 * MÉTODO RESPONSÁVEL POR SALVAR UM DOCUMENTO
-	 * @param documentoModel
+	/**
+	 * RETORNA UM REGISTRO PELO ID
+	 * @param id
+	 * @return
 	 */
-	public void SalvarNovoDocumento(DocumentoModel documentoModel) {
+	private DocumentoEntity getDocumento(Long id) {
+		entityManager = Uteis.JpaEntityManager();
+		return entityManager.find(DocumentoEntity.class, id);
+	}
+	
+	/**
+	 * SALVA UM NOVO REGISTRO
+	 * @param registro
+	 */
+	public void salvar(DocumentoModel documentoModel) {
 		entityManager = Uteis.JpaEntityManager();
 		documentoEntity = new DocumentoEntity();
 		documentoEntity.setUpload(LocalDateTime.now());
 		documentoEntity.setUrl(documentoModel.getUrl());
+		documentoEntity.setPrivado(documentoModel.isPrivado());
+		
 		TipoEntity tipoEntity = entityManager.find(TipoEntity.class, documentoModel.getTipo().getId());
 		documentoEntity.setTipo(tipoEntity);
+		
 		entityManager.persist(documentoEntity);
 	}
 
-	/***
-	 * MÉTODO PARA CONSULTAR O INDICE
-	 * @return
+	/**
+	 * RETORNA TODOS OS REGISTROS
+	 * @return 
 	 */
-	public List<DocumentoModel> GetDocumentos() {
+	public List<DocumentoModel> listar() {
 		List<DocumentoModel> documentosModel = new ArrayList<DocumentoModel>();
 		entityManager = Uteis.JpaEntityManager();
-		Query query = entityManager.createNamedQuery("DocumentoEntity.findAll");
+		Query query = entityManager.createNamedQuery("Documento.findAll");
 
 		@SuppressWarnings("unchecked")
-		Collection<DocumentoEntity> documentosEntity = (Collection<DocumentoEntity>) query.getResultList();
+		List<DocumentoEntity> documentosEntity = (List<DocumentoEntity>) query.getResultList();
 		DocumentoModel documentoModel = null;
 		for (DocumentoEntity documentoEntity : documentosEntity) {
 			documentoModel = new DocumentoModel();
 			documentoModel.setId(documentoEntity.getId());
 			documentoModel.setUpload(documentoEntity.getUpload());
 			documentoModel.setUrl(documentoEntity.getUrl());
+			documentoModel.setPrivado(documentoEntity.isPrivado());
+			
 			TipoModel tipoModel = new TipoModel();
 			tipoModel.setNome(documentoEntity.getTipo().getNome());
 			
@@ -59,35 +75,56 @@ public class DocumentoRepository {
 		}
 		return documentosModel;
 	}
-
-	/***
-	 * CONSULTA UM INDICE CADASTRADO PELO CÓDIGO
-	 * @param codigo
-	 * @return
+	
+	/**
+	 * RETORNA TODOS OS REGISTROS POR TIPO
+	 * @return 
 	 */
-	private DocumentoEntity GetDocumento(Long codigo) {
+	public List<DocumentoEntity> getDocumentoPor(TipoModel tipo) {
 		entityManager = Uteis.JpaEntityManager();
-		return entityManager.find(DocumentoEntity.class, codigo);
+		//Query query = entityManager.createNamedQuery("IndiceDocumento.findAll");
+		
+		Query query = Uteis.JpaEntityManager().createNamedQuery("DocumentoEntity.porTipo");
+
+		// PARÂMETROS DA QUERY
+		query.setParameter("idDoTipo", tipo.getId());
+		//query.setParameter("termos", termos);
+
+		@SuppressWarnings("unchecked")
+		List<DocumentoEntity> registros = (List<DocumentoEntity>) query.getResultList();
+		return registros;
 	}
 
-	/***
-	 * ALTERA UM REGISTRO CADASTRADO NO BANCO DE DADOS
-	 * @param documentoModel
-	 */
-	public void AlterarRegistro(DocumentoModel documentoModel) {
+	public List<DocumentoEntity> buscaDocumento(Long idTipoDocumento, String termo) {
 		entityManager = Uteis.JpaEntityManager();
-		DocumentoEntity documentoEntity = this.GetDocumento(documentoModel.getId());
-		//documentoEntity.setNome(documentoModel.getNome());
+		
+		String str= "SELECT doc FROM DocumentoEntity doc LEFT JOIN FETCH DocumentoEntity.indexacao AS index Where index.conteudo LIKE :conteudo AND doc.tipo.id=:idTipoDocumento"; 
+		
+		Query query = entityManager.createQuery(str).setParameter("idTipoDocumento", idTipoDocumento).setParameter("conteudo", "%"+ termo + "%");
+		
+		@SuppressWarnings("unchecked")
+		List<DocumentoEntity> registros = (List<DocumentoEntity>) query.getResultList();
+		return registros;
+	}
+	
+	/**
+	 * ALTERA UM REGISTRO
+	 * @param documento
+	 */
+	public void alterar(DocumentoModel documentoModel) {
+		entityManager = Uteis.JpaEntityManager();
+		DocumentoEntity documentoEntity = this.getDocumento(documentoModel.getId());
+		//
 		entityManager.merge(documentoEntity);
 	}
 
-	/***
-	 * EXCLUI UM REGISTRO DO BANCO DE DADOS
-	 * @param codigo
+	/**
+	 * EXCLUI UM REGISTRO PELO ID
+	 * @param id
 	 */
-	public void ExcluirRegistro(Long codigo) {
+	public void excluir(Long id) {
 		entityManager = Uteis.JpaEntityManager();
-		DocumentoEntity documentoEntity = this.GetDocumento(codigo);
-		entityManager.remove(documentoEntity);
+		entityManager.remove(this.getDocumento(id));
 	}
+	
 }

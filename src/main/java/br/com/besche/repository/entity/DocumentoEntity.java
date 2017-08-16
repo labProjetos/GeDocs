@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,19 +17,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "documento")
-@NamedQueries({ @NamedQuery(name = "DocumentoEntity.findAll", query = "SELECT d FROM DocumentoEntity d") })
+@NamedQueries({ @NamedQuery(name = "DocumentoEntity.findAll", query = "SELECT d FROM DocumentoEntity d"),
+	@NamedQuery(name = "DocumentoEntity.porTipo", 
+	query = "SELECT d FROM DocumentoEntity d WHERE d.tipo.id = :idDoTipo") })
 public class DocumentoEntity {
 	@Id
 	@GeneratedValue
 	private Long id;
 	private String url;
 	private LocalDateTime upload;
+	private boolean privado;
+	
 	@ManyToOne
 	@JoinColumn(name = "tipo_id")
 	private TipoEntity tipo;
-	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL)
-	private List<IndiceDocumentoEntity> indexacao;
 	
+	
+	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private List<IndiceDocumentoEntity> indexacao;
+
 	public DocumentoEntity() {
 	}
 
@@ -64,6 +71,14 @@ public class DocumentoEntity {
 		this.upload = upload;
 	}
 
+	public boolean isPrivado() {
+		return privado;
+	}
+
+	public void setPrivado(boolean privado) {
+		this.privado = privado;
+	}
+
 	public TipoEntity getTipo() {
 		return tipo;
 	}
@@ -71,11 +86,11 @@ public class DocumentoEntity {
 	public void setTipo(TipoEntity tipo) {
 		this.tipo = tipo;
 	}
-	
+
 	public List<IndiceDocumentoEntity> getIndexacao() {
 		return indexacao;
 	}
-	
+
 	public void setIndexacao(List<IndiceDocumentoEntity> indexacao) {
 		this.indexacao = indexacao;
 	}

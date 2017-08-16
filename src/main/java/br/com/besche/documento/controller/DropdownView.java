@@ -47,7 +47,7 @@ public class DropdownView implements Serializable {
 		    out.close();
 		    
 		    this.documentoModel.setUrl(PATH + file.getName()); 
-            indiceDocumentoRepository.SalvarNovaIndexacao(this.indicesDocumentoModel, this.documentoModel);
+            indiceDocumentoRepository.salvar(this.indicesDocumentoModel, this.documentoModel);
     		this.documentoModel = null;
     		this.indicesDocumentoModel = null;
     		FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
@@ -55,38 +55,6 @@ public class DropdownView implements Serializable {
 		  		FacesContext.getCurrentInstance().addMessage(
 		  				null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro", e.getMessage()));
 		}
-	}
-    
-    public DocumentoModel getDocumentoModel() {
-		return documentoModel;
-	}
-    
-    public void setDocumentoModel(DocumentoModel documentoModel) {
-		this.documentoModel = documentoModel;
-	}
- 
-    public List<IndiceModel> getIndices() {
-		return indices;
-	}
-    
-    public void setIndices(List<IndiceModel> indices) {
-		this.indices = indices;
-	}
-    
-    public List<IndiceDocumentoModel> getIndicesDocumentoModel() {
-		return indicesDocumentoModel;
-	}
-    
-    public void setIndicesDocumentoModel(List<IndiceDocumentoModel> indicesDocumentoModel) {
-		this.indicesDocumentoModel = indicesDocumentoModel;
-	}
-    
-    public IndiceDocumentoRepository getIndiceDocumentoRepository() {
-		return indiceDocumentoRepository;
-	}
-    
-    public void setIndiceDocumentoRepository(IndiceDocumentoRepository indiceDocumentoRepository) {
-		this.indiceDocumentoRepository = indiceDocumentoRepository;
 	}
  
     public void tipoSelecionado() {
@@ -104,5 +72,29 @@ public class DropdownView implements Serializable {
             indices = new ArrayList<IndiceModel>();
         }
     }
+
+	public List<IndiceModel> getIndices() {
+		return indices;
+	}
+
+	public void setIndices(List<IndiceModel> indices) {
+		this.indices = indices;
+	}
+
+	public DocumentoModel getDocumentoModel() {
+		return documentoModel;
+	}
+
+	public void setDocumentoModel(DocumentoModel documentoModel) {
+		this.documentoModel = documentoModel;
+	}
+
+	public List<IndiceDocumentoModel> getIndicesDocumentoModel() {
+		return indicesDocumentoModel;
+	}
+
+	public void setIndicesDocumentoModel(List<IndiceDocumentoModel> indicesDocumentoModel) {
+		this.indicesDocumentoModel = indicesDocumentoModel;
+	}
     
 }

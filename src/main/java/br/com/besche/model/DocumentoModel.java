@@ -9,8 +9,9 @@ public class DocumentoModel implements Serializable {
 	private Long id;
 	private String url;
 	private LocalDateTime upload;
+	private boolean privado;
 	private TipoModel tipo;
-	private List<IndiceDocumentoModel> indexacao; 
+	private List<IndiceDocumentoModel> indexacao;
 
 	public Long getId() {
 		return id;
@@ -27,13 +28,21 @@ public class DocumentoModel implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
 	public LocalDateTime getUpload() {
 		return upload;
 	}
-	
+
 	public void setUpload(LocalDateTime upload) {
 		this.upload = upload;
+	}
+
+	public boolean isPrivado() {
+		return privado;
+	}
+
+	public void setPrivado(boolean privado) {
+		this.privado = privado;
 	}
 
 	public TipoModel getTipo() {
@@ -43,13 +52,13 @@ public class DocumentoModel implements Serializable {
 	public void setTipo(TipoModel tipo) {
 		this.tipo = tipo;
 	}
-	
+
 	public List<IndiceDocumentoModel> getIndexacao() {
 		return indexacao;
 	}
-	
+
 	public void setIndexacao(List<IndiceDocumentoModel> indexacao) {
 		this.indexacao = indexacao;
 	}
-	
+
 }

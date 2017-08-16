@@ -11,14 +11,14 @@
 				<p:outputLabel styleClass="control-label" value="Nome"
 					for="inputText-nome" />
 				<p:inputText id="inputText-nome" style="width:200px" maxlength="70"
-					value="#{consultarTipoController.tipoModel.nome}" required="true"
+					value="#{consultarTipoMB.tipoModel.nome}" required="true"
 					requiredMessage="O nome é de preenchimento obrigatório" />
 	
 				<p:outputLabel styleClass="control-label" value="Temporalidade"
 					for="inputText-temporalidade" />
 				<p:inputText id="inputText-temporalidade" style="width:200px"
 					maxlength="70"
-					value="#{consultarTipoController.tipoModel.temporalidade}"
+					value="#{consultarTipoMB.tipoModel.temporalidade}"
 					required="true"
 					requiredMessage="A temporalidade é de preenchimento obrigatório" />
 	
@@ -27,8 +27,8 @@
 				<h:form id="form-consulta-indice">
 					<div style="height: 250px; overflow-y: scroll;">
 						<p:selectManyCheckbox converter="indiceConverter" id="grid3" layout="pageDirection"
-							value="#{consultarTipoController.tipoModel.indices}">
-							<f:selectItems value="#{consultarTipoController.indicesModel}"
+							value="#{consultarTipoMB.tipoModel.indices}">
+							<f:selectItems value="#{consultarIndiceMB.indices}"
 								var="indice" itemLabel="#{indice.nome}" itemValue="#{indice}" />
 						</p:selectManyCheckbox>
 					</div>
@@ -37,7 +37,7 @@
 			
 			<div class="form-actions">
 				<p:commandButton value="Alterar" id="commandButton-alterar"
-					actionListener="#{consultarTipoController.AlterarRegistro}"
+					actionListener="#{consultarTipoMB.alterar}"
 					oncomplete="PF('dialog-modal-editar-tipo').hide();"
 					update="form-consulta-tipo" />
 			</div>

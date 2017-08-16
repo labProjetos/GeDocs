@@ -9,39 +9,42 @@
 
 <ui:composition template="../template/layoutBase.xhtml">
 	<ui:define name="content">
-		<!-- <div class="subnavbar">
-			<div class="subnavbar-inner">
-				<div class="container">
-					<ul class="mainnav">
-						<li class="active"><a href="home.xhtml"><i class=""></i>
-								<span> Buscar </span></a></li>
-						<li><a href="importar.xhtml"><i class=""></i> <span>
-									Importar </span></a></li>
-						<li><a href="indices.xhtml"><i class=""></i> <span>
-									Índices </span></a></li>
-						<li><a href="usuarios.xhtml"><i class=""></i> <span>
-									Usuários </span></a></li>
-						<li><a href="morto.xhtml"><i class=""></i> <span>
-									Morto </span></a></li>
-					</ul>
-				</div>
-				/container
-			</div>
-			/subnavbar-inner
-		</div>
-		/subnavbar -->
-
 		<div class="container">
 			<div class="row">
 				<div class="span4">
 					<div class="widget">
 						<h:form>
-							<h:panelGrid columns="2" style="margin: 0 auto; margin-bottom: -10px">
-								<p:inputText styleClass="search-query span3" placeholder="  Buscar" />
-								
-								<p:commandLink styleClass="white-button">
+							<h:panelGrid columns="3"
+								style="margin: 0 auto; margin-bottom: -10px">
+								<h:outputText value="Tipo" />
+								<p:selectOneMenu converter="tipoConverter" id="tipo"
+									value="#{consultarDocumentoController.documentoModel.tipo}" styleClass="span3"
+									required="true"
+									requiredMessage="O tipo é de preenchimento obrigatório">
+									<f:selectItem itemLabel="Selecione o tipo" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItems itemLabel="#{tipo.nome}" itemValue="#{tipo}"
+										var="tipo" value="#{consultarTipoMB.tipos}" />
+								</p:selectOneMenu>
+
+								<p:spacer />
+
+								<!-- <h:outputText value="Início" />
+								<p:calendar id="Início" value="#{calendarView.date1}" style="width:100px" />	
+								<p:spacer />
+								<h:outputText value="Fim" />
+								<p:calendar id="Fim" value="#{calendarView.date2}" />
+								<p:spacer /> -->
+
+								<h:outputText value="Buscar" />
+								<h:inputText styleClass="search-query span2"
+									value="#{consultarDocumentoController.termos}"
+									placeholder="  Buscar" />
+
+								<p:commandLink styleClass="white-button"
+									action="#{consultarDocumentoController.buscar}" update="form">
 									<h:outputText styleClass="ui-icon ui-icon-search"
-										style="margin-left:10px" />
+										style="margin-left:5px;" />
 								</p:commandLink>
 							</h:panelGrid>
 						</h:form>
@@ -50,7 +53,8 @@
 							style="height: 362px; overflow-y: scroll">
 
 							<h:form id="form">
-								<ui:repeat var="documento">
+								<ui:repeat var="documento"
+									value="#{consultarDocumentoController.doc}">
 									<h:panelGrid columns="2" style="width:100%"
 										columnClasses="logo,detail">
 
@@ -58,12 +62,13 @@
 											<h:panelGrid columns="2" cellpadding="5">
 												<h:outputText style="font-weight: bold"
 													value="#{documento.tipo.nome}" />
+												<p:spacer />
 
-												<h:outputText value="#{car.year}" style="font-weight: bold" />
-												<h:outputText value="Year:" />
+												<h:outputText value="URL: " style="font-weight: bold" />
+												<h:outputText value="#{documento.url}" />
 
-												<h:outputText value="#{car.color}" style="font-weight: bold" />
-												<h:outputText value="Year:" />
+												<h:outputText value="Privado: " style="font-weight: bold" />
+												<h:outputText value="#{documento.privado}" />
 											</h:panelGrid>
 										</p:outputPanel>
 									</h:panelGrid>

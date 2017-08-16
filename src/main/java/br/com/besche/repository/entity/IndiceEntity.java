@@ -19,8 +19,19 @@ public class IndiceEntity {
 	@GeneratedValue
 	private Long id;
 	private String nome;
+	
 	@OneToMany(mappedBy = "indice", cascade = CascadeType.ALL)
 	private List<IndiceDocumentoEntity> indexacao;
+
+	public IndiceEntity() {
+	}
+
+	public IndiceEntity(Long id, String nome, List<IndiceDocumentoEntity> indexacao) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.indexacao = indexacao;
+	}
 
 	public Long getId() {
 		return id;
@@ -37,13 +48,13 @@ public class IndiceEntity {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public List<IndiceDocumentoEntity> getIndexacao() {
 		return indexacao;
 	}
-	
+
 	public void setIndexacao(List<IndiceDocumentoEntity> indexacao) {
 		this.indexacao = indexacao;
 	}
-	
+
 }

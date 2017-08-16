@@ -9,28 +9,6 @@
 
 <ui:composition template="../template/layoutBase.xhtml">
 	<ui:define name="content">
-		<!-- <div class="subnavbar">
-			<div class="subnavbar-inner">
-				<div class="container">
-					<ul class="mainnav">
-						<li><a href="home.xhtml"><i class=""></i> <span>
-									Buscar </span></a></li>
-						<li class="active"><a href="importar.xhtml"><i class=""></i>
-								<span> Importar </span></a></li>
-						<li><a href="indices.xhtml"><i class=""></i> <span>
-									Índices </span></a></li>
-						<li><a href="usuarios.xhtml"><i class=""></i> <span>
-									Usuários </span></a></li>
-						<li><a href="morto.xhtml"><i class=""></i> <span>
-									Morto </span></a></li>
-					</ul>
-				</div>
-				/container
-			</div>
-			/subnavbar-inner
-		</div>
-		/subnavbar -->
-
 		<div class="container">
 			<div class="row">
 				<div class="span12">
@@ -50,25 +28,28 @@
 									<label class="control-label" for="tipo"> Tipo </label>
 									<p:selectOneMenu converter="tipoConverter" id="tipo"
 										value="#{dropdownView.documentoModel.tipo}" styleClass="span6"
-										required="true" requiredMessage="O tipo é de preenchimento obrigatório">
+										required="true"
+										requiredMessage="O tipo é de preenchimento obrigatório">
 										<p:ajax listener="#{dropdownView.tipoSelecionado}"
 											update="indice" />
 										<f:selectItem itemLabel="Selecione o tipo" itemValue=""
 											noSelectionOption="true" />
 										<f:selectItems itemLabel="#{tipo.nome}" itemValue="#{tipo}"
-											var="tipo" value="#{consultarTipoController.tipos}" />
+											var="tipo" value="#{consultarTipoMB.tipos}" />
 									</p:selectOneMenu>
 
 									<label class="control-label" for="indice"> Indexação </label>
-									<p:dataTable emptyMessage="O tipo do documento não foi selecionado." var="indiceDocumento" id="indice"
-										style="width:469px"
+									<p:dataTable
+										emptyMessage="O tipo do documento não foi selecionado."
+										var="indiceDocumento" id="indice" style="width:469px"
 										value="#{dropdownView.indicesDocumentoModel}">
 										<p:column headerText="Indice" style="width:135px">
 											<h:outputText value="#{indiceDocumento.indiceModel.nome}" />
 										</p:column>
 
 										<p:column headerText="Conteúdo">
-											<h:inputText styleClass="search-query span3" value="#{indiceDocumento.conteudo}" />
+											<h:inputText styleClass="search-query span3"
+												value="#{indiceDocumento.conteudo}" />
 										</p:column>
 									</p:dataTable>
 
@@ -80,11 +61,16 @@
 										label="Selecionar Arquivo"
 										allowTypes="/(\.|\/)(gif|jpeg|png|pdf)$/">
 									</p:fileUpload>
+									
+									<label class="control-label" for="privado"> Privado </label>
+									<p:selectBooleanButton id="privado"
+										value="#{dropdownView.documentoModel.privado}" onLabel="Sim"
+										offLabel="Não" style="width:60px" />
 								</h:panelGrid>
 
 								<div class="form-actions">
-									<p:commandButton value="Importar"
-										id="commandButton-salvar" ajax="false"
+									<p:commandButton value="Importar" id="commandButton-salvar"
+										ajax="false"
 										actionListener="#{dropdownView.salvarNovoDocumento(uploadedFile)}" />
 								</div>
 							</h:form>

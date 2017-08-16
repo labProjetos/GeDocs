@@ -11,10 +11,11 @@ import javax.inject.Named;
 
 import br.com.besche.model.IndiceModel;
 import br.com.besche.repository.IndiceRepository;
+import br.com.besche.uteis.Uteis;
 
-@Named(value = "consultarIndiceController")
+@Named(value = "consultarIndiceMB")
 @ViewScoped
-public class ConsultarIndiceController implements Serializable {
+public class ConsultarIndiceMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
@@ -29,19 +30,25 @@ public class ConsultarIndiceController implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
-		// RETORNA OS INDICES CADASTRADOS
-		this.indices = indiceRepository.GetIndices();
+		this.indices = indiceRepository.listar();
 	}
 
+	/**
+	 * SALVA UM NOVO REGISTRO
+	 */
+	public void salvar() {
+		indiceRepository.salvar(this.indiceModel);
+		Uteis.MensagemInfo("Registro cadastrado com sucesso");
+		this.indices.add(this.indiceModel);
+		this.indiceModel = new IndiceModel();
+	}
+	
 	/***
 	 * EXCLUINDO UM REGISTRO
 	 * @param indiceModel
 	 */
-	public void ExcluirIndice(IndiceModel indiceModel) {
-		// EXCLUI O INDICE DO BANCO DE DADOS
-		this.indiceRepository.ExcluirRegistro(indiceModel.getId());
-		// REMOVENDO O INDICE DA LISTA
-		// ASSIM QUE É O INDICE É REMOVIDO DA LISTA O DATATABLE É ATUALIZADO
+	public void excluir(IndiceModel indiceModel) {
+		this.indiceRepository.excluir(indiceModel.getId());
 		this.indices.remove(indiceModel);
 	}
 
@@ -49,26 +56,16 @@ public class ConsultarIndiceController implements Serializable {
 	 * CARREGA INFORMAÇÕES DE UM INDICE PARA SER EDITADO
 	 * @param indiceModel
 	 */
-	public void Editar(IndiceModel indiceModel) {
-		/* PEGA APENAS A PRIMEIRA LETRA DO SEXO PARA SETAR NO CAMPO(M OU F) 
-		indiceModel.setSexo(indiceModel.getSexo().substring(0, 1));*/
+	public void editar(IndiceModel indiceModel) {
 		this.indiceModel = indiceModel;
 	}
 
 	/***
 	 * ATUALIZA O REGISTRO QUE FOI ALTERADO
 	 */
-	public void AlterarRegistro() {
-		this.indiceRepository.AlterarRegistro(this.indiceModel);
-		this.init(); // RECARREGA OS REGISTROS
-	}
-
-	public List<IndiceModel> getIndices() {
-		return this.indices;
-	}
-
-	public void setIndices(List<IndiceModel> indices) {
-		this.indices = indices;
+	public void alterar() {
+		this.indiceRepository.alterar(this.indiceModel);
+		this.init();
 	}
 
 	public IndiceModel getIndiceModel() {
@@ -78,4 +75,13 @@ public class ConsultarIndiceController implements Serializable {
 	public void setIndiceModel(IndiceModel indiceModel) {
 		this.indiceModel = indiceModel;
 	}
+
+	public List<IndiceModel> getIndices() {
+		return indices;
+	}
+
+	public void setIndices(List<IndiceModel> indices) {
+		this.indices = indices;
+	}
+	
 }

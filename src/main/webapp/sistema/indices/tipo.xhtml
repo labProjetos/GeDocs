@@ -21,11 +21,11 @@
 					style="margin: 0 auto;">
 					<p:inputText placeholder="  Nome do Tipo" id="inputText-nome-tipo"
 						styleClass="span3 m-wrap search-query"
-						value="#{cadastrarTipoController.tipoModel.nome}" required="true"
+						value="#{consultarTipoMB.tipoModel.nome}" required="true"
 						requiredMessage="O nome do tipo é de preenchimento obrigatório" />
 
-					<p:commandLink update="form-cadastro-tipo"
-						actionListener="#{cadastrarTipoController.SalvarNovoTipo}">
+					<p:commandLink update="form-cadastro-tipo form-consulta-tipo"
+						actionListener="#{consultarTipoMB.salvar}">
 						<h:outputText styleClass="ui-icon ui-icon-plusthick"
 							style="margin-left:5px" />
 					</p:commandLink>
@@ -33,29 +33,8 @@
 			</h:form>
 
 			<h:form id="form-consulta-tipo">
-				<div
-					style="height: 325px; overflow-y: scroll;; margin: 0 auto; width: 90%">
-					<!-- <p:dataTable id="dataTable-registros-tipos" var="tipo"
-						value="#{consultarTipoController.tipos}">
-						<p:column>
-							<h:outputText value="#{tipo.nome}" />
-						</p:column>
-						<p:column headerText="" style="width:30px;">
-							<p:commandButton icon="ui-icon-pencil" title="Editar Registro"
-								ajax="true"
-								actionListener="#{consultarTipoController.Editar(tipo)}"
-								oncomplete="PF('dialog-modal-editar-tipo').show();"
-								update="dialog-modal-editar-tipo" />
-						</p:column>
-						<p:column headerText="" style="width:30px;">
-							<p:commandButton icon="ui-icon-trash"
-								styleClass="btn btn-primary" ajax="true"
-								actionListener="#{consultarTipoController.ExcluirTipo(tipo)}"
-								update="@form" />
-						</p:column>
-					</p:dataTable> -->
-
-					<ui:repeat value="#{consultarTipoController.tipos}" var="tipo">
+				<div style="height: 325px; overflow-y: scroll;; margin: 0 auto; width: 90%">
+					<ui:repeat value="#{consultarTipoMB.tipos}" var="tipo">
 						<h:panelGrid columns="3" style="width:100%"
 							columnClasses="logo,detail">
 							<p:outputPanel>
@@ -65,7 +44,7 @@
 							</p:outputPanel>
 
 							<p:commandLink ajax="true"
-								actionListener="#{consultarTipoController.Editar(tipo)}"
+								action="#{consultarTipoMB.editar(tipo)}"
 								oncomplete="PF('dialog-modal-editar-tipo').show();"
 								update="dialog-modal-editar-tipo">
 
@@ -74,7 +53,7 @@
 							</p:commandLink>
 
 							<p:commandLink ajax="true"
-								actionListener="#{consultarTipoController.ExcluirTipo(tipo)}"
+								actionListener="#{consultarTipoMB.excluir(tipo)}"
 								update="@form">
 
 								<p:confirm header="Confirmação"
@@ -90,7 +69,7 @@
 				</div>
 
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-					<p:commandButton value="Sim" type="button"
+					<p:commandButton value="Sim" type="button" onselect="true"
 						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 					<p:commandButton value="Não" type="button"
 						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
