@@ -17,6 +17,9 @@ public class DocumentoService {
 	
 	public void salvar(Documento documento, List<IndiceDocumento> indexacao, String PATH, File file) 
 			throws Exception {
+		if (documento == null || indexacao == null) {
+			throw new Exception();
+		}
 		documento.setUrl(PATH + file.getName());
 		documento.setUpload(LocalDateTime.now());
 		documento.setIndexacao(indexacao);
@@ -31,15 +34,14 @@ public class DocumentoService {
 		return repository.findPor(tipo);
 	}
 	
-	public void alterar(Documento objeto) throws Exception {
-		Documento documento = new Documento();
-		documento.setId(objeto.getId());
-		documento.setPrivado(objeto.isPrivado());
-		documento.setIndexacao(objeto.getIndexacao());
-		repository.alterar(documento);
+	public List<Documento> listarPublico(Tipo tipo) {
+		return repository.findPublico(tipo);
 	}
 	
-	public void excluir(Documento objeto) {
+	public void excluir(Documento objeto) throws Exception {
+		if (objeto.getId() < 1) {
+			throw new Exception();
+		}
 		objeto.setAtivo(false);
 		repository.excluir(objeto);
 	}

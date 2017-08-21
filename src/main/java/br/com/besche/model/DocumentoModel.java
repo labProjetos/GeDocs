@@ -1,4 +1,4 @@
-package br.com.besche.model;
+/*package br.com.besche.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -62,3 +62,4 @@ public class DocumentoModel implements Serializable {
 	}
 
 }
+*/

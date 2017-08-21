@@ -26,15 +26,6 @@ public class DocumentoRepository {
 	}
 	
 	/**
-	 * ALTERA UM REGISTRO
-	 * @param indice
-	 */
-	public void alterar(Documento objeto) {
-		entityManager = Uteis.JpaEntityManager();
-		entityManager.merge(objeto);
-	}
-	
-	/**
 	 * EXCLUI UM REGISTRO PELO ID
 	 * @param id
 	 */
@@ -57,6 +48,20 @@ public class DocumentoRepository {
 	}
 	
 	/**
+	 * RETORNA TODOS OS REGISTROS
+	 * @return 
+	 */
+	public List<Documento> findPublico(Tipo tipo) {
+		entityManager = Uteis.JpaEntityManager();
+		Query query = entityManager.createNamedQuery("Documento.publico");
+		query.setParameter("idDoTipo", tipo.getId());
+		
+		@SuppressWarnings("unchecked")
+		List<Documento> documentos = query.getResultList();
+		return documentos;
+	}
+	
+	/**
 	 * RETORNA TODOS OS REGISTROS POR TIPO
 	 * @return 
 	 */
@@ -64,6 +69,7 @@ public class DocumentoRepository {
 		entityManager = Uteis.JpaEntityManager();
 		Query query = Uteis.JpaEntityManager().createNamedQuery("Documento.porTipo");
 		query.setParameter("idDoTipo", tipo.getId());
+		
 		@SuppressWarnings("unchecked")
 		List<Documento> registros = (List<Documento>) query.getResultList();
 		return registros;

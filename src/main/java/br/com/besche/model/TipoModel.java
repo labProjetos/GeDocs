@@ -1,4 +1,4 @@
-package br.com.besche.model;
+/*package br.com.besche.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -52,3 +52,4 @@ public class TipoModel implements Serializable {
 	}
 
 }
+*/

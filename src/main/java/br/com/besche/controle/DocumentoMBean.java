@@ -73,7 +73,7 @@ public class DocumentoMBean implements Serializable {
 		  				new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao importar", 
 		  						e.getMessage()));
 		} catch (Exception e) {
-			Uteis.MensagemAtencao("Documento com mesmo nome já cadastrado");
+			Uteis.MensagemAtencao("Erro ao importar");
 		}
 		documento = new Documento();
 		indexacao = new ArrayList<IndiceDocumento>();
@@ -94,11 +94,31 @@ public class DocumentoMBean implements Serializable {
 	}
 	
 	/**
+	 * BUSCANDO UM REGISTRO
+	 */
+	public void buscarPublico() {
+		documentos = new ArrayList<Documento>();
+		for (Documento documento : documentoService.listarPublico(documento.getTipo())) {
+			for (IndiceDocumento indiceDocumento : documento.getIndexacao()) {
+				if (indiceDocumento.getConteudo().contains(termos) && !documentos.contains(documento)) {
+					documentos.add(documento);
+				}
+			}
+		}
+	}
+	
+	/**
 	 * EXCLUINDO UM REGISTRO
 	 * @param documento
 	 */
 	public void excluir(Documento documento) {
-		documentoService.excluir(documento);
+		try {
+			documentoService.excluir(documento);
+			documentos.remove(documento);
+			Uteis.MensagemInfo("Documento removido com sucesso");
+		} catch (Exception e) {
+			Uteis.MensagemAtencao("Erro ao excluir");
+		}
 		this.documento = new Documento();
 	}
 	

@@ -1,4 +1,4 @@
-package br.com.besche.repository;
+/*package br.com.besche.repository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,10 +22,10 @@ public class IndiceDocumentoRepository {
 	IndiceDocumento indiceDocumento;
 	EntityManager entityManager;
 	
-	/**
+	*//**
 	 * SALVA UM NOVO REGISTRO
 	 * @param registro
-	 */
+	 *//*
 	public void salvar(List<IndiceDocumentoModel> indicesDocumentoModel, Documento documentoModel) {
 		List<IndiceDocumento> indexacao = new ArrayList<IndiceDocumento>();
 		entityManager = Uteis.JpaEntityManager();
@@ -54,10 +54,10 @@ public class IndiceDocumentoRepository {
 		entityManager.persist(documento);
 	}
 
-	/**
+	*//**
 	 * RETORNA TODOS OS REGISTROS
 	 * @return 
-	 */
+	 *//*
 	public List<IndiceDocumento> getIndicesDocumento() {
 		entityManager = Uteis.JpaEntityManager();
 		Query query = entityManager.createNamedQuery("IndiceDocumento.findAll");
@@ -67,7 +67,7 @@ public class IndiceDocumentoRepository {
 		return registros;
 	}
 	
-	/**
+	*//**
 	 * RETORNA TODOS OS REGISTROS POR TIPO
 	 * @return 
 	 *//*
@@ -83,34 +83,35 @@ public class IndiceDocumentoRepository {
 		@SuppressWarnings("unchecked")
 		List<IndiceDocumentoEntity> registros = (List<IndiceDocumentoEntity>) query.getResultList();
 		return registros;
-	}*/
+	}
 
-	/**
+	*//**
 	 * RETORNA UM REGISTRO PELO ID
 	 * @param id
 	 * @return
-	 */
+	 *//*
 	private IndiceDocumento getIndiceDocumentoPor(Long id) {
 		entityManager = Uteis.JpaEntityManager();
 		return entityManager.find(IndiceDocumento.class, id);
 	}
 
-	/**
+	*//**
 	 * ALTERA UM REGISTRO
 	 * @param registro
-	 */
+	 *//*
 	public void alterar(IndiceDocumento registro) {
 		entityManager = Uteis.JpaEntityManager();
 		entityManager.merge(this.getIndiceDocumentoPor(registro.getId()));
 	}
 
-	/**
+	*//**
 	 * EXCLUI UM REGISTRO PELO ID
 	 * @param id
-	 */
+	 *//*
 	public void excluirPor(Long id) {
 		entityManager = Uteis.JpaEntityManager();
 		entityManager.remove(this.getIndiceDocumentoPor(id));
 	}
 	
 }
+*/

@@ -18,9 +18,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "documento")
-@NamedQueries({ @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d WHERE d.ativo = true"),
+@NamedQueries({
+	@NamedQuery(name = "Documento.findAll", 
+		query = "SELECT d FROM Documento d WHERE d.ativo = true"),
 	@NamedQuery(name = "Documento.porTipo", 
-	query = "SELECT d FROM Documento d WHERE d.tipo.id = :idDoTipo AND d.ativo = true") })
+		query = "SELECT d FROM Documento d WHERE d.tipo.id = :idDoTipo AND d.ativo = true"),
+	@NamedQuery(name = "Documento.publico",
+		query = "SELECT d FROM Documento d WHERE d.privado = false AND d.tipo.id = :idDoTipo AND d.ativo = true") })
 
 public class Documento implements Serializable {
 	private static final long serialVersionUID = 1L;
