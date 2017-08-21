@@ -27,22 +27,22 @@
 
 									<label class="control-label" for="tipo"> Tipo </label>
 									<p:selectOneMenu converter="tipoConverter" id="tipo"
-										value="#{dropdownView.documentoModel.tipo}" styleClass="span6"
+										value="#{documentoMBean.documentoModel.tipo}" styleClass="span6"
 										required="true"
 										requiredMessage="O tipo é de preenchimento obrigatório">
-										<p:ajax listener="#{dropdownView.tipoSelecionado}"
+										<p:ajax listener="#{documentoMBean.tipoSelecionado}"
 											update="indice" />
 										<f:selectItem itemLabel="Selecione o tipo" itemValue=""
 											noSelectionOption="true" />
 										<f:selectItems itemLabel="#{tipo.nome}" itemValue="#{tipo}"
-											var="tipo" value="#{consultarTipoMB.tipos}" />
+											var="tipo" value="#{tipoMBean.lista}" />
 									</p:selectOneMenu>
 
 									<label class="control-label" for="indice"> Indexação </label>
 									<p:dataTable
 										emptyMessage="O tipo do documento não foi selecionado."
 										var="indiceDocumento" id="indice" style="width:469px"
-										value="#{dropdownView.indicesDocumentoModel}">
+										value="#{documentoMBean.indicesDocumentoModel}">
 										<p:column headerText="Indice" style="width:135px">
 											<h:outputText value="#{indiceDocumento.indiceModel.nome}" />
 										</p:column>
@@ -64,14 +64,14 @@
 									
 									<label class="control-label" for="privado"> Privado </label>
 									<p:selectBooleanButton id="privado"
-										value="#{dropdownView.documentoModel.privado}" onLabel="Sim"
+										value="#{documentoMBean.documentoModel.privado}" onLabel="Sim"
 										offLabel="Não" style="width:60px" />
 								</h:panelGrid>
 
 								<div class="form-actions">
 									<p:commandButton value="Importar" id="commandButton-salvar"
 										ajax="false"
-										actionListener="#{dropdownView.salvarNovoDocumento(uploadedFile)}" />
+										actionListener="#{documentoMBean.salvarNovoDocumento(uploadedFile)}" />
 								</div>
 							</h:form>
 						</div>

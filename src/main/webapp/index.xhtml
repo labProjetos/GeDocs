@@ -63,21 +63,36 @@
 						<h:form>
 							<h:panelGrid columns="2"
 								style="margin: 0 auto; margin-bottom: -10px">
-								<p:inputText styleClass="search-query span3"
-									placeholder="  Buscar" />
+								<h:outputText value="Tipo " />
+								<p:selectOneMenu converter="tipoConverter" id="tipo"
+									value="#{consultarDocumentoController.documentoModel.tipo}"
+									styleClass="span3" required="true"
+									requiredMessage="O tipo é de preenchimento obrigatório"
+									style="margin-left:5px;">
+									<f:selectItem itemLabel="Selecione o tipo" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItems itemLabel="#{tipo.nome}" itemValue="#{tipo}"
+										var="tipo" value="#{consultarTipoMB.tipos}" />
+								</p:selectOneMenu>
 
-								<p:commandLink styleClass="white-button">
+								<p:commandLink styleClass="white-button"
+									action="#{consultarDocumentoController.buscar}" update="form">
 									<h:outputText styleClass="ui-icon ui-icon-search"
-										style="margin-left:10px" />
+										style="margin-right:5px;" />
 								</p:commandLink>
+								<h:inputText styleClass="search-query" style="width:208px"
+									value="#{consultarDocumentoController.termos}" />
+
+
 							</h:panelGrid>
 						</h:form>
 
 						<div class="widget-content"
-							style="height: 362px; overflow-y: scroll">
+							style="height: 328px; overflow-y: scroll">
 
 							<h:form id="form">
-								<ui:repeat var="documento">
+								<ui:repeat var="documento"
+									value="#{consultarDocumentoController.doc}">
 									<h:panelGrid columns="2" style="width:100%"
 										columnClasses="logo,detail">
 
@@ -85,12 +100,13 @@
 											<h:panelGrid columns="2" cellpadding="5">
 												<h:outputText style="font-weight: bold"
 													value="#{documento.tipo.nome}" />
+												<p:spacer />
 
-												<h:outputText value="#{car.year}" style="font-weight: bold" />
-												<h:outputText value="Year:" />
+												<h:outputText value="URL: " style="font-weight: bold" />
+												<h:outputText value="#{documento.url}" />
 
-												<h:outputText value="#{car.color}" style="font-weight: bold" />
-												<h:outputText value="Year:" />
+												<h:outputText value="Privado: " style="font-weight: bold" />
+												<h:outputText value="#{documento.privado}" />
 											</h:panelGrid>
 										</p:outputPanel>
 									</h:panelGrid>

@@ -21,11 +21,11 @@
 					style="margin: 0 auto;">
 					<p:inputText placeholder="  Nome do Indice"
 						id="inputText-nome-indice" styleClass="span3 m-wrap search-query"
-						value="#{consultarIndiceMB.indiceModel.nome}"
+						value="#{indiceMBean.indice.nome}"
 						required="true"
 						requiredMessage="O nome do índice é de preenchimento obrigatório" />
 					<p:commandLink update="form-cadastro-indice form-consulta-indice"
-						actionListener="#{consultarIndiceMB.salvar}">
+						actionListener="#{indiceMBean.salvar}">
 						<h:outputText styleClass="ui-icon ui-icon-plusthick"
 							style="margin-left:5px" />
 					</p:commandLink>
@@ -35,7 +35,7 @@
 			<h:form id="form-consulta-indice">
 				<div style="height: 325px; overflow-y: scroll; margin: 0 auto; width: 90%">
 
-					<ui:repeat value="#{consultarIndiceMB.indices}"
+					<ui:repeat value="#{indiceMBean.lista}"
 						var="indice">
 						<h:panelGrid columns="3" style="width:100%"
 							columnClasses="logo,detail">
@@ -46,7 +46,7 @@
 							</p:outputPanel>
 
 							<p:commandLink ajax="true"
-								actionListener="#{consultarIndiceMB.editar(indice)}"
+								action="#{indiceMBean.editar(indice)}"
 								oncomplete="PF('dialog-modal-editar-indice').show();"
 								update="dialog-modal-editar-indice">
 
@@ -55,7 +55,7 @@
 							</p:commandLink>
 
 							<p:commandLink ajax="true"
-								actionListener="#{consultarIndiceMB.excluir(indice)}"
+								actionListener="#{indiceMBean.excluir(indice)}"
 								update="@form">
 
 								<p:confirm header="Confirmação"

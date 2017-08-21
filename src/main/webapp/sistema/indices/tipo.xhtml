@@ -21,11 +21,11 @@
 					style="margin: 0 auto;">
 					<p:inputText placeholder="  Nome do Tipo" id="inputText-nome-tipo"
 						styleClass="span3 m-wrap search-query"
-						value="#{consultarTipoMB.tipoModel.nome}" required="true"
+						value="#{tipoMBean.tipo.nome}" required="true"
 						requiredMessage="O nome do tipo é de preenchimento obrigatório" />
 
 					<p:commandLink update="form-cadastro-tipo form-consulta-tipo"
-						actionListener="#{consultarTipoMB.salvar}">
+						actionListener="#{tipoMBean.salvar}">
 						<h:outputText styleClass="ui-icon ui-icon-plusthick"
 							style="margin-left:5px" />
 					</p:commandLink>
@@ -34,7 +34,7 @@
 
 			<h:form id="form-consulta-tipo">
 				<div style="height: 325px; overflow-y: scroll;; margin: 0 auto; width: 90%">
-					<ui:repeat value="#{consultarTipoMB.tipos}" var="tipo">
+					<ui:repeat value="#{tipoMBean.lista}" var="tipo">
 						<h:panelGrid columns="3" style="width:100%"
 							columnClasses="logo,detail">
 							<p:outputPanel>
@@ -44,7 +44,7 @@
 							</p:outputPanel>
 
 							<p:commandLink ajax="true"
-								action="#{consultarTipoMB.editar(tipo)}"
+								action="#{tipoMBean.editar(tipo)}"
 								oncomplete="PF('dialog-modal-editar-tipo').show();"
 								update="dialog-modal-editar-tipo">
 
@@ -53,7 +53,7 @@
 							</p:commandLink>
 
 							<p:commandLink ajax="true"
-								actionListener="#{consultarTipoMB.excluir(tipo)}"
+								actionListener="#{tipoMBean.excluir(tipo)}"
 								update="@form">
 
 								<p:confirm header="Confirmação"

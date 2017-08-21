@@ -1,84 +1,67 @@
 package br.com.besche.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.besche.model.IndiceModel;
-import br.com.besche.repository.entity.IndiceEntity;
+import br.com.besche.modelo.Indice;
 import br.com.besche.uteis.Uteis;
 
 public class IndiceRepository {
 	@Inject
-	IndiceEntity indiceEntity;
+	Indice indice;
 	EntityManager entityManager;
-
+	
+	/**
+	 * SALVA UM NOVO REGISTRO
+	 * @param indice
+	 */
+	public void salvar(Indice objeto) {
+		entityManager = Uteis.JpaEntityManager();
+		entityManager.persist(objeto);
+	}
+	
+	/**
+	 * ALTERA UM REGISTRO
+	 * @param indice
+	 */
+	public void alterar(Indice objeto) {
+		entityManager = Uteis.JpaEntityManager();
+		entityManager.merge(objeto);
+	}
+	
+	/**
+	 * EXCLUI UM REGISTRO PELO ID
+	 * @param id
+	 */
+	public void excluir(Indice objeto) {
+		entityManager = Uteis.JpaEntityManager();
+		entityManager.remove(objeto);
+	}
+	
 	/**
 	 * RETORNA UM REGISTRO PELO ID
 	 * @param id
 	 * @return
 	 */
-	private IndiceEntity getIndice(Long id) {
+	public Indice findBy(Long id) {
 		entityManager = Uteis.JpaEntityManager();
-		return entityManager.find(IndiceEntity.class, id);
+		return entityManager.find(Indice.class, id);
 	}
 	
-	/**
-	 * SALVA UM NOVO REGISTRO
-	 * @param registro
-	 */
-	public void salvar(IndiceModel indiceModel) {
-		entityManager = Uteis.JpaEntityManager();
-		indiceEntity = new IndiceEntity();
-		indiceEntity.setNome(indiceModel.getNome());
-		
-		entityManager.persist(indiceEntity);
-	}
-
 	/**
 	 * RETORNA TODOS OS REGISTROS
 	 * @return 
 	 */
-	public List<IndiceModel> listar() {
-		List<IndiceModel> indicesModel = new ArrayList<IndiceModel>();
+	public List<Indice> findAll() {
 		entityManager = Uteis.JpaEntityManager();
-		Query query = entityManager.createNamedQuery("IndiceEntity.findAll");
-
+		Query query = entityManager.createNamedQuery("Indice.findAll");
+		
 		@SuppressWarnings("unchecked")
-		List<IndiceEntity> indicesEntity = (List<IndiceEntity>) query.getResultList();
-
-		IndiceModel indiceModel = null;
-		for (IndiceEntity indiceEntity : indicesEntity) {
-			indiceModel = new IndiceModel();
-			indiceModel.setId(indiceEntity.getId());
-			indiceModel.setNome(indiceEntity.getNome());
-
-			indicesModel.add(indiceModel);
-		}
-		return indicesModel;
-	}
-
-	/**
-	 * ALTERA UM REGISTRO
-	 * @param registro
-	 */
-	public void alterar(IndiceModel indiceModel) {
-		entityManager = Uteis.JpaEntityManager();
-		IndiceEntity indiceEntity = this.getIndice(indiceModel.getId());
-		indiceEntity.setNome(indiceModel.getNome());
-		entityManager.merge(indiceEntity);
-	}
-
-	/**
-	 * EXCLUI UM REGISTRO PELO ID
-	 * @param id
-	 */
-	public void excluir(Long id) {
-		entityManager = Uteis.JpaEntityManager();
-		entityManager.remove(this.getIndice(id));
+		List<Indice> objetos = query.getResultList();
+		return objetos;
 	}
 	
 }

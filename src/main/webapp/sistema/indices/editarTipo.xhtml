@@ -8,17 +8,20 @@
 		<h:form styleClass="form-horizontal">
 			<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="7">
 	
+				<h:inputHidden value="#{tipoMBean.tipo.id}" />
+				<p:spacer />
+	
 				<p:outputLabel styleClass="control-label" value="Nome"
 					for="inputText-nome" />
 				<p:inputText id="inputText-nome" style="width:200px" maxlength="70"
-					value="#{consultarTipoMB.tipoModel.nome}" required="true"
+					value="#{tipoMBean.tipo.nome}" required="true"
 					requiredMessage="O nome é de preenchimento obrigatório" />
 	
 				<p:outputLabel styleClass="control-label" value="Temporalidade"
 					for="inputText-temporalidade" />
 				<p:inputText id="inputText-temporalidade" style="width:200px"
 					maxlength="70"
-					value="#{consultarTipoMB.tipoModel.temporalidade}"
+					value="#{tipoMBean.tipo.temporalidade}"
 					required="true"
 					requiredMessage="A temporalidade é de preenchimento obrigatório" />
 	
@@ -27,9 +30,10 @@
 				<h:form id="form-consulta-indice">
 					<div style="height: 250px; overflow-y: scroll;">
 						<p:selectManyCheckbox converter="indiceConverter" id="grid3" layout="pageDirection"
-							value="#{consultarTipoMB.tipoModel.indices}">
-							<f:selectItems value="#{consultarIndiceMB.indices}"
-								var="indice" itemLabel="#{indice.nome}" itemValue="#{indice}" />
+							value="#{tipoMBean.tipo.indices}">
+							<f:selectItems value="#{indiceMBean.lista}"
+								var="indice" itemLabel="#{indice.nome}" itemValue="#{indice}">
+								</f:selectItems>
 						</p:selectManyCheckbox>
 					</div>
 				</h:form>
@@ -37,7 +41,7 @@
 			
 			<div class="form-actions">
 				<p:commandButton value="Alterar" id="commandButton-alterar"
-					actionListener="#{consultarTipoMB.alterar}"
+					actionListener="#{tipoMBean.alterar}"
 					oncomplete="PF('dialog-modal-editar-tipo').hide();"
 					update="form-consulta-tipo" />
 			</div>

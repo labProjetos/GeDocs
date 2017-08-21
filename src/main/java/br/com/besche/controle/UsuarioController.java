@@ -1,4 +1,4 @@
-package br.com.besche.usuario.controller;
+package br.com.besche.controle;
 
 import java.io.Serializable;
 
@@ -10,8 +10,8 @@ import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.besche.model.UsuarioModel;
+import br.com.besche.modelo.UsuarioEntity;
 import br.com.besche.repository.UsuarioRepository;
-import br.com.besche.repository.entity.UsuarioEntity;
 import br.com.besche.uteis.Uteis;
 
 @Named(value = "usuarioController")

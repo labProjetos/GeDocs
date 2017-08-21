@@ -9,7 +9,7 @@
 			<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="7">
 				<p:outputLabel styleClass="control-label" value="Nome" for="inputText-nome" />
 				<p:inputText id="inputText-nome" maxlength="70"
-					value="#{consultarIndiceController.indiceModel.nome}"
+					value="#{indiceMBean.indice.nome}"
 					required="true"
 					requiredMessage="O nome é de preenchimento obrigatório" />
 			</h:panelGrid>
@@ -18,7 +18,7 @@
 	
 			<div class="form-actions">
 				<p:commandButton value="Alterar" id="commandButton-alterar"
-					actionListener="#{consultarIndiceController.AlterarRegistro}"
+					actionListener="#{indiceMBean.alterar}"
 					oncomplete="PF('dialog-modal-editar-indice').hide();"
 					update="form-consulta-indice" />
 			</div>

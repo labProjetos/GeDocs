@@ -1,4 +1,4 @@
-package br.com.besche.repository.entity;
+package br.com.besche.modelo;
 
 import java.io.Serializable;
 

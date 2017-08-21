@@ -10,9 +10,9 @@ import javax.persistence.Query;
 
 import br.com.besche.model.DocumentoModel;
 import br.com.besche.model.TipoModel;
-import br.com.besche.repository.entity.DocumentoEntity;
-import br.com.besche.repository.entity.IndiceDocumentoEntity;
-import br.com.besche.repository.entity.TipoEntity;
+import br.com.besche.modelo.DocumentoEntity;
+import br.com.besche.modelo.IndiceDocumentoEntity;
+import br.com.besche.modelo.Tipo;
 import br.com.besche.uteis.Uteis;
 
 
@@ -42,8 +42,8 @@ public class DocumentoRepository {
 		documentoEntity.setUrl(documentoModel.getUrl());
 		documentoEntity.setPrivado(documentoModel.isPrivado());
 		
-		TipoEntity tipoEntity = entityManager.find(TipoEntity.class, documentoModel.getTipo().getId());
-		documentoEntity.setTipo(tipoEntity);
+		Tipo tipo = entityManager.find(Tipo.class, documentoModel.getTipo().getId());
+		documentoEntity.setTipo(tipo);
 		
 		entityManager.persist(documentoEntity);
 	}

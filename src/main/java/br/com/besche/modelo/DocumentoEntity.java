@@ -1,4 +1,4 @@
-package br.com.besche.repository.entity;
+package br.com.besche.modelo;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,7 +30,7 @@ public class DocumentoEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "tipo_id")
-	private TipoEntity tipo;
+	private Tipo tipo;
 	
 	
 	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
@@ -39,7 +39,7 @@ public class DocumentoEntity {
 	public DocumentoEntity() {
 	}
 
-	public DocumentoEntity(Long id, String url, LocalDateTime upload, TipoEntity tipo) {
+	public DocumentoEntity(Long id, String url, LocalDateTime upload, Tipo tipo) {
 		super();
 		this.id = id;
 		this.url = url;
@@ -79,11 +79,11 @@ public class DocumentoEntity {
 		this.privado = privado;
 	}
 
-	public TipoEntity getTipo() {
+	public Tipo getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoEntity tipo) {
+	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
 

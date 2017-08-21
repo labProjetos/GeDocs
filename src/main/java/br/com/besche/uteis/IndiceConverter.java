@@ -5,7 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.com.besche.model.IndiceModel;
+import br.com.besche.modelo.Indice;
 
 
 @FacesConverter(value = "indiceConverter")    
@@ -14,16 +14,16 @@ public class IndiceConverter implements Converter {
   @Override
   public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
       if (value != null && !value.isEmpty()) {
-          return (IndiceModel) uiComponent.getAttributes().get(value);
+          return (Indice) uiComponent.getAttributes().get(value);
       }
       return null;
   }
 
   @Override
   public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object value) {
-      if (value instanceof IndiceModel) {
-          IndiceModel entity = (IndiceModel) value;
-          if (entity != null && entity instanceof IndiceModel && entity.getId() != null) {
+      if (value instanceof Indice) {
+          Indice entity = (Indice) value;
+          if (entity != null && entity instanceof Indice && entity.getId() != null) {
               uiComponent.getAttributes().put( entity.getId().toString(), entity);
               return entity.getId().toString();
           }

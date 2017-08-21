@@ -11,10 +11,10 @@ import javax.persistence.Query;
 import br.com.besche.model.DocumentoModel;
 import br.com.besche.model.IndiceDocumentoModel;
 import br.com.besche.model.TipoModel;
-import br.com.besche.repository.entity.DocumentoEntity;
-import br.com.besche.repository.entity.IndiceDocumentoEntity;
-import br.com.besche.repository.entity.IndiceEntity;
-import br.com.besche.repository.entity.TipoEntity;
+import br.com.besche.modelo.DocumentoEntity;
+import br.com.besche.modelo.IndiceDocumentoEntity;
+import br.com.besche.modelo.Indice;
+import br.com.besche.modelo.Tipo;
 import br.com.besche.uteis.Uteis;
 
 public class IndiceDocumentoRepository {
@@ -35,17 +35,17 @@ public class IndiceDocumentoRepository {
 		documentoEntity.setUrl(documentoModel.getUrl());
 		documentoEntity.setPrivado(documentoModel.isPrivado());
 		
-		TipoEntity tipoEntity = entityManager.find(TipoEntity.class, 
+		Tipo tipo = entityManager.find(Tipo.class, 
 				documentoModel.getTipo().getId());
-		documentoEntity.setTipo(tipoEntity);
+		documentoEntity.setTipo(tipo);
 		
 		for (IndiceDocumentoModel indiceDocumentoModel : indicesDocumentoModel) {
 			indiceDocumentoEntity = new IndiceDocumentoEntity();
 			indiceDocumentoEntity.setConteudo(indiceDocumentoModel.getConteudo());
 			indiceDocumentoEntity.setDocumento(documentoEntity);
-			IndiceEntity indiceEntity = 
-					entityManager.find(IndiceEntity.class, indiceDocumentoModel.getIndiceModel().getId());
-			indiceDocumentoEntity.setIndice(indiceEntity);
+			Indice indice = 
+					entityManager.find(Indice.class, indiceDocumentoModel.getIndiceModel().getId());
+			indiceDocumentoEntity.setIndice(indice);
 			
 			indexacao.add(indiceDocumentoEntity);
 		}

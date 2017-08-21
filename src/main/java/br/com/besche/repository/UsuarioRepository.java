@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Query;
 
 import br.com.besche.model.UsuarioModel;
-import br.com.besche.repository.entity.UsuarioEntity;
+import br.com.besche.modelo.UsuarioEntity;
 import br.com.besche.uteis.Uteis;
 
 public class UsuarioRepository implements Serializable {

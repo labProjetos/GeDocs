@@ -1,4 +1,4 @@
-package br.com.besche.repository.entity;
+package br.com.besche.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,12 +24,12 @@ public class IndiceDocumentoEntity {
 	private DocumentoEntity documento;
 	@ManyToOne
 	@JoinColumn(name = "indice_id")
-	private IndiceEntity indice;
+	private Indice indice;
 
 	public IndiceDocumentoEntity() {
 	}
 
-	public IndiceDocumentoEntity(Long id, String conteudo, DocumentoEntity documento, IndiceEntity indice) {
+	public IndiceDocumentoEntity(Long id, String conteudo, DocumentoEntity documento, Indice indice) {
 		super();
 		this.id = id;
 		this.conteudo = conteudo;
@@ -61,11 +61,11 @@ public class IndiceDocumentoEntity {
 		this.documento = documento;
 	}
 
-	public IndiceEntity getIndice() {
+	public Indice getIndice() {
 		return indice;
 	}
 
-	public void setIndice(IndiceEntity indice) {
+	public void setIndice(Indice indice) {
 		this.indice = indice;
 	}
 
