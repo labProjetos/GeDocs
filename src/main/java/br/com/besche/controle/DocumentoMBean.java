@@ -20,29 +20,138 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.besche.model.DocumentoModel;
 import br.com.besche.model.IndiceDocumentoModel;
-import br.com.besche.model.IndiceModel;
-import br.com.besche.modelo.DocumentoEntity;
-import br.com.besche.modelo.IndiceDocumentoEntity;
+import br.com.besche.modelo.Documento;
+import br.com.besche.modelo.Indice;
+import br.com.besche.modelo.IndiceDocumento;
+import br.com.besche.negocio.DocumentoService;
 import br.com.besche.repository.DocumentoRepository;
 import br.com.besche.repository.IndiceDocumentoRepository;
+import br.com.besche.uteis.Uteis;
 
 @Named(value = "documentoMBean")
 @ViewScoped
 public class DocumentoMBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	transient private DocumentoService documentoService;
+	private Documento documento = new Documento();
+	private List<IndiceDocumento> indexacao = new ArrayList<IndiceDocumento>();
+	private String PATH = "/home/wander/workspace/teste-de-software/GeDocs/src/main/webapp/resources/repositorio/";
+	
+	/**
+	 * SALVA UM NOVO REGISTRO
+	*/
+	public void salvar(UploadedFile uploadedFile) throws Exception {
+		try {
+			File file = new File(PATH, documento.getTipo().getNome() 
+					+" - "+ uploadedFile.getFileName());
+		    OutputStream out = new FileOutputStream(file);
+		    out.write(uploadedFile.getContents());
+		    out.close();
+		     
+            documentoService.salvar(documento, indexacao, PATH, file);
+            Uteis.MensagemInfo("Documento importado com sucesso");
+		} catch(IOException e) {
+		  		FacesContext.getCurrentInstance().addMessage(null, 
+		  				new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao importar", 
+		  						e.getMessage()));
+		} catch (Exception e) {
+			Uteis.MensagemAtencao("Documento com mesmo nome já cadastrado");
+		}
+		documento = new Documento();
+		indexacao = new ArrayList<IndiceDocumento>();
+	}
+	
+	/**
+	 * SETA OS REGISTROS DE UMA INDEXAÇÂO PELO TIPO SELECIONADO
+	*/
+	public void tipoSelecionado() {
+		List<Indice> indices = null;
+        if(documento.getTipo() != null) {
+        	indices = documento.getTipo().getIndices();
+            indexacao.clear();
+            IndiceDocumento indiceDocumento = null;
+            for (Indice indice : indices) {
+            	indiceDocumento = new IndiceDocumento();
+            	indiceDocumento.setDocumento(documento);
+            	indiceDocumento.setIndice(indice);
+            	indexacao.add(indiceDocumento);
+            }
+        } else {
+        	indices = new ArrayList<Indice>();
+        }
+    }
+	
+	/**
+	 * RETORNA TODOS OS REGISTROS
+	 * @return
+	 */
+	public List<Documento> getLista() {
+		return documentoService.listar();
+	}
+	
+	public Documento getDocumento() {
+		return documento;
+	}
+	
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
+	}
+	
+	public List<IndiceDocumento> getIndexacao() {
+		return indexacao;
+	}
+	
+	public void setIndexacao(List<IndiceDocumento> indexacao) {
+		this.indexacao = indexacao;
+	}
+	
+	
+	
+	
+	
+	
+	
+/*	public void salvarNovoDocumento(UploadedFile uploadedFile) throws Exception {
+	try {
+		File file = new File(PATH, this.documentoModel.getTipo().getNome() 
+			+" - "+ uploadedFile.getFileName());
+	    OutputStream out = new FileOutputStream(file);
+	    out.write(uploadedFile.getContents());
+	    out.close();
+	    
+	    this.documentoModel.setUrl(PATH + file.getName()); 
+        indiceDocumentoRepository.salvar(this.indicesDocumentoModel, this.documentoModel);
+		this.documentoModel = null;
+		this.indicesDocumentoModel = null;
+		FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
+	} catch(IOException e) {
+	  		FacesContext.getCurrentInstance().addMessage(
+	  				null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro", e.getMessage()));
+	}
+}*/
+	
+	
+
+	
+	
+	
+	
+	
 	@Inject
 	transient private DocumentoModel documentoModel;
 	@Produces
 	private List<DocumentoModel> documentos;
-	private List<DocumentoEntity> doc;
+	private List<Documento> doc;
 	@Inject
 	transient private DocumentoRepository documentoRepository;
 	//@Inject
 	//transient private IndiceDocumentoRepository indiceDocumentoRepository;
 	private String termos;
-	private List<IndiceModel> indices;
+	//private List<IndiceModel> indices;
     //private DocumentoModel documentoModel;
-    private String PATH = "/home/wander/Arquivo/";
+    //private String PATH = "/home/wander/Arquivo/";
 	private List<IndiceDocumentoModel> indicesDocumentoModel;
 	private IndiceDocumentoRepository indiceDocumentoRepository;
 
@@ -52,30 +161,14 @@ public class DocumentoMBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		documentoModel = new DocumentoModel();
-    	indices = new ArrayList<IndiceModel>();
+    	//indices = new ArrayList<IndiceModel>();
     	indicesDocumentoModel = new ArrayList<IndiceDocumentoModel>();
     	indiceDocumentoRepository = new IndiceDocumentoRepository();
 	}
 	
-	public void salvarNovoDocumento(UploadedFile uploadedFile) throws Exception {
-		try {
-			File file = new File(PATH, this.documentoModel.getTipo().getNome() +" - "+ uploadedFile.getFileName());
-		    OutputStream out = new FileOutputStream(file);
-		    out.write(uploadedFile.getContents());
-		    out.close();
-		    
-		    this.documentoModel.setUrl(PATH + file.getName()); 
-            indiceDocumentoRepository.salvar(this.indicesDocumentoModel, this.documentoModel);
-    		this.documentoModel = null;
-    		this.indicesDocumentoModel = null;
-    		FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
-		} catch(IOException e) {
-		  		FacesContext.getCurrentInstance().addMessage(
-		  				null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro", e.getMessage()));
-		}
-	}
+
  
-    public void tipoSelecionado() {
+/*    public void tipoSelecionado() {
         if(this.documentoModel.getTipo() !=null) {
             indices = documentoModel.getTipo().getIndices();
             indicesDocumentoModel.clear();
@@ -89,12 +182,12 @@ public class DocumentoMBean implements Serializable {
         } else {
             indices = new ArrayList<IndiceModel>();
         }
-    }
+    }*/
 
 	public void buscar() {
-		this.doc = new ArrayList<DocumentoEntity>();
-		for (DocumentoEntity documento : documentoRepository.getDocumentoPor(this.documentoModel.getTipo())) {
-			for (IndiceDocumentoEntity indiceDocumento : documento.getIndexacao()) {
+		this.doc = new ArrayList<Documento>();
+		for (Documento documento : documentoRepository.getDocumentoPor(this.documentoModel.getTipo())) {
+			for (IndiceDocumento indiceDocumento : documento.getIndexacao()) {
 				if (indiceDocumento.getConteudo().contains(termos) && !this.doc.contains(documento)) {
 					this.doc.add(documento);
 				}
@@ -108,7 +201,7 @@ public class DocumentoMBean implements Serializable {
 	 * 
 	 * @param documentoModel
 	 */
-	public void ExcluirDocumento(DocumentoEntity documentoModel) {
+	public void ExcluirDocumento(Documento documentoModel) {
 		// EXCLUI O DOCUMENTO DO BANCO DE DADOS
 		this.documentoRepository.excluir(documentoModel.getId());
 		// REMOVENDO O DOCUMENTO DA LISTA
@@ -174,21 +267,21 @@ public class DocumentoMBean implements Serializable {
 		this.documentoModel = documentoModel;
 	}
 
-	public List<DocumentoEntity> getDoc() {
+	public List<Documento> getDoc() {
 		return doc;
 	}
 
-	public void setDoc(List<DocumentoEntity> doc) {
+	public void setDoc(List<Documento> doc) {
 		this.doc = doc;
 	}
 
-	public List<IndiceModel> getIndices() {
+	/*public List<IndiceModel> getIndices() {
 		return indices;
 	}
 
 	public void setIndices(List<IndiceModel> indices) {
 		this.indices = indices;
-	}
+	}*/
 
 	public String getPATH() {
 		return PATH;

@@ -1,6 +1,7 @@
 package br.com.besche.modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -11,25 +12,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "indice_documento")
-@NamedQueries({ @NamedQuery(name = "IndiceDocumentoEntity.findAll", query = "SELECT id FROM IndiceDocumentoEntity id"),
-	@NamedQuery(name = "IndiceDocumentoEntity.porTipo", 
-		query = "SELECT indiceDoc FROM IndiceDocumentoEntity indiceDoc WHERE indiceDoc.documento.tipo.id = :idDoTipo")})
-public class IndiceDocumentoEntity {
+@NamedQueries({ @NamedQuery(name = "IndiceDocumento.findAll", query = "SELECT id FROM IndiceDocumento id"),
+	@NamedQuery(name = "IndiceDocumento.porTipo", 
+		query = "SELECT indiceDoc FROM IndiceDocumento indiceDoc WHERE indiceDoc.documento.tipo.id = :idDoTipo")})
+public class IndiceDocumento {
 	@Id
 	@GeneratedValue
 	private Long id;
 	private String conteudo;
 	@ManyToOne
 	@JoinColumn(name = "documento_id")
-	private DocumentoEntity documento;
-	@ManyToOne
+	private Documento documento;
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "indice_id")
 	private Indice indice;
 
-	public IndiceDocumentoEntity() {
+	public IndiceDocumento() {
 	}
 
-	public IndiceDocumentoEntity(Long id, String conteudo, DocumentoEntity documento, Indice indice) {
+	public IndiceDocumento(Long id, String conteudo, Documento documento, Indice indice) {
 		super();
 		this.id = id;
 		this.conteudo = conteudo;
@@ -53,11 +54,11 @@ public class IndiceDocumentoEntity {
 		this.conteudo = conteudo;
 	}
 
-	public DocumentoEntity getDocumento() {
+	public Documento getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(DocumentoEntity documento) {
+	public void setDocumento(Documento documento) {
 		this.documento = documento;
 	}
 

@@ -10,6 +10,7 @@
 <ui:composition template="../template/layoutBase.xhtml">
 	<ui:define name="content">
 		<div class="container">
+		<h:form id="form">
 			<div class="row">
 				<div class="span4">
 					<div class="widget">
@@ -42,8 +43,8 @@
 
 						<div class="widget-content"
 							style="height: 328px; overflow-y: scroll">
-							<h:form id="form">
-								<ui:repeat var="documento" value="#{documentoMBean.doc}">
+							
+								<ui:repeat var="documento" value="#{documentoMBean.lista}">
 									
 									<ui:repeat var="indice" value="#{documento.indexacao}">
 										<h:panelGrid columns="2">
@@ -56,10 +57,14 @@
 									<h:outputText value="Privado: "
 										style="font-weight: bold; margin-right: 5px" />
 									<h:outputText value="#{documento.privado}" />
+									
+									
 									<hr />
 								
 								</ui:repeat>
-							</h:form>
+							<p:commandButton value="Abrir">
+										<p:ajax listener="#{documentoMBean.selecionado}" update="asd"  />
+									</p:commandButton>
 						</div>
 						<!-- /widget-content -->
 					</div>
@@ -69,13 +74,17 @@
 				<div class="span8">
 					<div class="widget">
 						<!-- /widget-header -->
-						<div class="widget-content" style="height: 400px"></div>
+						<!-- div class="widget-content" style="height: 400px"-->
+						<p:outputLabel value="#{documentoMBean.documentoSelecionado}jhkj" id="asd" />
+						
+						<!-- /div-->
 						<!-- /widget-content -->
 					</div>
 				</div>
 				<!-- /span6 -->
 			</div>
 			<!-- /row -->
+			</h:form>
 		</div>
 		<!-- /container -->
 	</ui:define>

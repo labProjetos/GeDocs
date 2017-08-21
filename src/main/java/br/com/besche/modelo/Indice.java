@@ -24,12 +24,12 @@ public class Indice implements Serializable {
 	private String nome;
 	
 	@OneToMany(mappedBy = "indice", cascade = CascadeType.ALL)
-	private List<IndiceDocumentoEntity> indexacao;
+	private List<IndiceDocumento> indexacao;
 
 	public Indice() {
 	}
 
-	public Indice(Long id, String nome, List<IndiceDocumentoEntity> indexacao) {
+	public Indice(Long id, String nome, List<IndiceDocumento> indexacao) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -52,11 +52,11 @@ public class Indice implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<IndiceDocumentoEntity> getIndexacao() {
+	public List<IndiceDocumento> getIndexacao() {
 		return indexacao;
 	}
 
-	public void setIndexacao(List<IndiceDocumentoEntity> indexacao) {
+	public void setIndexacao(List<IndiceDocumento> indexacao) {
 		this.indexacao = indexacao;
 	}
 

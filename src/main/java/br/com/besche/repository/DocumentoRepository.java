@@ -10,25 +10,48 @@ import javax.persistence.Query;
 
 import br.com.besche.model.DocumentoModel;
 import br.com.besche.model.TipoModel;
-import br.com.besche.modelo.DocumentoEntity;
-import br.com.besche.modelo.IndiceDocumentoEntity;
+import br.com.besche.modelo.Documento;
 import br.com.besche.modelo.Tipo;
 import br.com.besche.uteis.Uteis;
 
 
 public class DocumentoRepository {
 	@Inject
-	DocumentoEntity documentoEntity;
+	Documento documento;
 	EntityManager entityManager;
+	
+	/**
+	 * SALVA UM NOVO REGISTRO
+	 * @param registro
+	 */
+	public void salvar(Documento documento) {
+		entityManager = Uteis.JpaEntityManager();
+		entityManager.persist(documento);
+	}
+	
+	/**
+	 * RETORNA TODOS OS REGISTROS
+	 * @return 
+	 */
+	public List<Documento> findAll() {
+		entityManager = Uteis.JpaEntityManager();
+		Query query = entityManager.createNamedQuery("Documento.findAll");
+		
+		@SuppressWarnings("unchecked")
+		List<Documento> documentos = query.getResultList();
+		return documentos;
+	}
+	
+	
 	
 	/**
 	 * RETORNA UM REGISTRO PELO ID
 	 * @param id
 	 * @return
 	 */
-	private DocumentoEntity getDocumento(Long id) {
+	private Documento getDocumento(Long id) {
 		entityManager = Uteis.JpaEntityManager();
-		return entityManager.find(DocumentoEntity.class, id);
+		return entityManager.find(Documento.class, id);
 	}
 	
 	/**
@@ -37,15 +60,15 @@ public class DocumentoRepository {
 	 */
 	public void salvar(DocumentoModel documentoModel) {
 		entityManager = Uteis.JpaEntityManager();
-		documentoEntity = new DocumentoEntity();
-		documentoEntity.setUpload(LocalDateTime.now());
-		documentoEntity.setUrl(documentoModel.getUrl());
-		documentoEntity.setPrivado(documentoModel.isPrivado());
+		documento = new Documento();
+		documento.setUpload(LocalDateTime.now());
+		documento.setUrl(documentoModel.getUrl());
+		documento.setPrivado(documentoModel.isPrivado());
 		
 		Tipo tipo = entityManager.find(Tipo.class, documentoModel.getTipo().getId());
-		documentoEntity.setTipo(tipo);
+		documento.setTipo(tipo);
 		
-		entityManager.persist(documentoEntity);
+		entityManager.persist(documento);
 	}
 
 	/**
@@ -58,17 +81,17 @@ public class DocumentoRepository {
 		Query query = entityManager.createNamedQuery("Documento.findAll");
 
 		@SuppressWarnings("unchecked")
-		List<DocumentoEntity> documentosEntity = (List<DocumentoEntity>) query.getResultList();
+		List<Documento> documentosEntity = (List<Documento>) query.getResultList();
 		DocumentoModel documentoModel = null;
-		for (DocumentoEntity documentoEntity : documentosEntity) {
+		for (Documento documento : documentosEntity) {
 			documentoModel = new DocumentoModel();
-			documentoModel.setId(documentoEntity.getId());
-			documentoModel.setUpload(documentoEntity.getUpload());
-			documentoModel.setUrl(documentoEntity.getUrl());
-			documentoModel.setPrivado(documentoEntity.isPrivado());
+			documentoModel.setId(documento.getId());
+			documentoModel.setUpload(documento.getUpload());
+			documentoModel.setUrl(documento.getUrl());
+			documentoModel.setPrivado(documento.isPrivado());
 			
 			TipoModel tipoModel = new TipoModel();
-			tipoModel.setNome(documentoEntity.getTipo().getNome());
+			tipoModel.setNome(documento.getTipo().getNome());
 			
 			documentoModel.setTipo(tipoModel);
 			documentosModel.add(documentoModel);
@@ -80,7 +103,7 @@ public class DocumentoRepository {
 	 * RETORNA TODOS OS REGISTROS POR TIPO
 	 * @return 
 	 */
-	public List<DocumentoEntity> getDocumentoPor(TipoModel tipo) {
+	public List<Documento> getDocumentoPor(TipoModel tipo) {
 		entityManager = Uteis.JpaEntityManager();
 		//Query query = entityManager.createNamedQuery("IndiceDocumento.findAll");
 		
@@ -91,11 +114,11 @@ public class DocumentoRepository {
 		//query.setParameter("termos", termos);
 
 		@SuppressWarnings("unchecked")
-		List<DocumentoEntity> registros = (List<DocumentoEntity>) query.getResultList();
+		List<Documento> registros = (List<Documento>) query.getResultList();
 		return registros;
 	}
 
-	public List<DocumentoEntity> buscaDocumento(Long idTipoDocumento, String termo) {
+	public List<Documento> buscaDocumento(Long idTipoDocumento, String termo) {
 		entityManager = Uteis.JpaEntityManager();
 		
 		String str= "SELECT doc FROM DocumentoEntity doc LEFT JOIN FETCH DocumentoEntity.indexacao AS index Where index.conteudo LIKE :conteudo AND doc.tipo.id=:idTipoDocumento"; 
@@ -103,7 +126,7 @@ public class DocumentoRepository {
 		Query query = entityManager.createQuery(str).setParameter("idTipoDocumento", idTipoDocumento).setParameter("conteudo", "%"+ termo + "%");
 		
 		@SuppressWarnings("unchecked")
-		List<DocumentoEntity> registros = (List<DocumentoEntity>) query.getResultList();
+		List<Documento> registros = (List<Documento>) query.getResultList();
 		return registros;
 	}
 	
@@ -113,9 +136,9 @@ public class DocumentoRepository {
 	 */
 	public void alterar(DocumentoModel documentoModel) {
 		entityManager = Uteis.JpaEntityManager();
-		DocumentoEntity documentoEntity = this.getDocumento(documentoModel.getId());
+		Documento documento = this.getDocumento(documentoModel.getId());
 		//
-		entityManager.merge(documentoEntity);
+		entityManager.merge(documento);
 	}
 
 	/**

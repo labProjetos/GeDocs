@@ -1,5 +1,6 @@
 package br.com.besche.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,10 +18,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "documento")
-@NamedQueries({ @NamedQuery(name = "DocumentoEntity.findAll", query = "SELECT d FROM DocumentoEntity d"),
-	@NamedQuery(name = "DocumentoEntity.porTipo", 
-	query = "SELECT d FROM DocumentoEntity d WHERE d.tipo.id = :idDoTipo") })
-public class DocumentoEntity {
+@NamedQueries({ @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"),
+	@NamedQuery(name = "Documento.porTipo", 
+	query = "SELECT d FROM Documento d WHERE d.tipo.id = :idDoTipo") })
+public class Documento implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -34,12 +37,12 @@ public class DocumentoEntity {
 	
 	
 	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	private List<IndiceDocumentoEntity> indexacao;
+	private List<IndiceDocumento> indexacao;
 
-	public DocumentoEntity() {
+	public Documento() {
 	}
 
-	public DocumentoEntity(Long id, String url, LocalDateTime upload, Tipo tipo) {
+	public Documento(Long id, String url, LocalDateTime upload, Tipo tipo) {
 		super();
 		this.id = id;
 		this.url = url;
@@ -87,11 +90,11 @@ public class DocumentoEntity {
 		this.tipo = tipo;
 	}
 
-	public List<IndiceDocumentoEntity> getIndexacao() {
+	public List<IndiceDocumento> getIndexacao() {
 		return indexacao;
 	}
 
-	public void setIndexacao(List<IndiceDocumentoEntity> indexacao) {
+	public void setIndexacao(List<IndiceDocumento> indexacao) {
 		this.indexacao = indexacao;
 	}
 

@@ -29,19 +29,19 @@ public class Tipo implements Serializable {
 	private String nome;
 	private int temporalidade;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "tipo_indice", 
 		joinColumns = @JoinColumn(name = "tipo_id", referencedColumnName = "id"), 
 		inverseJoinColumns = @JoinColumn(name = "indice_id", referencedColumnName = "id"))
 	private List<Indice> indices;
 	
 	@OneToMany(mappedBy = "tipo")
-	private List<DocumentoEntity> documentos;
+	private List<Documento> documentos;
 
 	public Tipo() {
 	}
 
-	public Tipo(Long id, String nome, int temporalidade, List<Indice> indices, List<DocumentoEntity> documentos) {
+	public Tipo(Long id, String nome, int temporalidade, List<Indice> indices, List<Documento> documentos) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -82,11 +82,11 @@ public class Tipo implements Serializable {
 		this.indices = indices;
 	}
 
-	public List<DocumentoEntity> getDocumentos() {
+	public List<Documento> getDocumentos() {
 		return documentos;
 	}
 
-	public void setDocumentos(List<DocumentoEntity> documentos) {
+	public void setDocumentos(List<Documento> documentos) {
 		this.documentos = documentos;
 	}
 
@@ -94,9 +94,7 @@ public class Tipo implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((documentos == null) ? 0 : documentos.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((indices == null) ? 0 : indices.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + temporalidade;
 		return result;
@@ -111,20 +109,10 @@ public class Tipo implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Tipo other = (Tipo) obj;
-		if (documentos == null) {
-			if (other.documentos != null)
-				return false;
-		} else if (!documentos.equals(other.documentos))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (indices == null) {
-			if (other.indices != null)
-				return false;
-		} else if (!indices.equals(other.indices))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)
@@ -136,5 +124,4 @@ public class Tipo implements Serializable {
 		return true;
 	}
 	
-
 }

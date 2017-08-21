@@ -22,7 +22,7 @@ public class TipoConverter implements Converter {
         if (value instanceof Tipo) {
             Tipo entity = (Tipo) value;
             if (entity != null && entity instanceof Tipo && entity.getId() != null) {
-                uiComponent.getAttributes().put( entity.getId().toString(), entity);
+                uiComponent.getAttributes().put(entity.getId().toString(), entity);
                 return entity.getId().toString();
             }
         }

@@ -27,7 +27,7 @@
 
 									<label class="control-label" for="tipo"> Tipo </label>
 									<p:selectOneMenu converter="tipoConverter" id="tipo"
-										value="#{documentoMBean.documentoModel.tipo}" styleClass="span6"
+										value="#{documentoMBean.documento.tipo}" styleClass="span6"
 										required="true"
 										requiredMessage="O tipo é de preenchimento obrigatório">
 										<p:ajax listener="#{documentoMBean.tipoSelecionado}"
@@ -42,9 +42,9 @@
 									<p:dataTable
 										emptyMessage="O tipo do documento não foi selecionado."
 										var="indiceDocumento" id="indice" style="width:469px"
-										value="#{documentoMBean.indicesDocumentoModel}">
+										value="#{documentoMBean.indexacao}">
 										<p:column headerText="Indice" style="width:135px">
-											<h:outputText value="#{indiceDocumento.indiceModel.nome}" />
+											<h:outputText value="#{indiceDocumento.indice.nome}" />
 										</p:column>
 
 										<p:column headerText="Conteúdo">
@@ -64,14 +64,14 @@
 									
 									<label class="control-label" for="privado"> Privado </label>
 									<p:selectBooleanButton id="privado"
-										value="#{documentoMBean.documentoModel.privado}" onLabel="Sim"
+										value="#{documentoMBean.documento.privado}" onLabel="Sim"
 										offLabel="Não" style="width:60px" />
 								</h:panelGrid>
 
 								<div class="form-actions">
 									<p:commandButton value="Importar" id="commandButton-salvar"
 										ajax="false"
-										actionListener="#{documentoMBean.salvarNovoDocumento(uploadedFile)}" />
+										actionListener="#{documentoMBean.salvar(uploadedFile)}" />
 								</div>
 							</h:form>
 						</div>
