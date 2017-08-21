@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,7 @@ public class DocumentoMBean implements Serializable {
 	private List<IndiceDocumento> indexacao = new ArrayList<IndiceDocumento>();
 	private String PATH = "/home/wander/workspace/teste-de-software/GeDocs/src/main/webapp/resources/repositorio/";
 	private String termos;
+	private String pdf = "/resources/repositorio/Pontofrio.pdf";
 	
 	/**
 	 * SETA OS REGISTROS DE UMA INDEXAÇÂO PELO TIPO SELECIONADO
@@ -60,8 +63,7 @@ public class DocumentoMBean implements Serializable {
 	*/
 	public void salvar(UploadedFile uploadedFile) throws Exception {
 		try {
-			File file = new File(PATH, documento.getTipo().getNome() 
-					+" - "+ uploadedFile.getFileName());
+			File file = new File(PATH, uploadedFile.getFileName());
 		    OutputStream out = new FileOutputStream(file);
 		    out.write(uploadedFile.getContents());
 		    out.close();
@@ -122,6 +124,12 @@ public class DocumentoMBean implements Serializable {
 		this.documento = new Documento();
 	}
 	
+	public void carregarPDF(Documento documento) {
+		Path caminho = Paths.get(documento.getUrl());
+		String nome = caminho.getFileName().toString();
+		pdf = "/resources/repositorio/"+ nome;
+	}
+	
 	/**
 	 * RETORNA TODOS OS REGISTROS
 	 * @return
@@ -160,6 +168,14 @@ public class DocumentoMBean implements Serializable {
 	
 	public void setTermos(String termos) {
 		this.termos = termos;
+	}
+	
+	public String getPdf() {
+		return pdf;
+	}
+	
+	public void setPdf(String pdf) {
+		this.pdf = pdf;
 	}
 
 }

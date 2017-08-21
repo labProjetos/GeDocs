@@ -9,8 +9,8 @@ import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
-import br.com.besche.model.UsuarioModel;
 import br.com.besche.modelo.UsuarioEntity;
+import br.com.besche.modelo.UsuarioModel;
 import br.com.besche.repository.UsuarioRepository;
 import br.com.besche.uteis.Uteis;
 

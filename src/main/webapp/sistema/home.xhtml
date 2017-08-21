@@ -9,13 +9,6 @@
 
 <ui:composition template="../template/layoutBase.xhtml">
 	<ui:define name="content">
-		<p:dialog header="Editar" id="dialog-modal-editar-documento"
-			widgetVar="dialog-modal-editar-documento" modal="true"
-			showEffect="fade" hideEffect="fade">
-
-			<ui:include src="editarDocumento.xhtml" />
-		</p:dialog>
-
 		<div class="container">
 			<div class="row">
 				<div class="span4">
@@ -64,9 +57,9 @@
 									<h:outputText value="Privado: "
 										style="font-weight: bold; margin-right: 5px" />
 									<h:outputText value="#{documento.privado}" />
-									
+
 									<br />
-									
+
 									<h:outputText value="Importado: "
 										style="font-weight: bold; margin-right: 5px" />
 									<h:outputText value="#{documento.upload}" />
@@ -74,6 +67,8 @@
 
 									<h:panelGrid columns="3" style="margin: 0 auto">
 										<p:commandLink>
+											<p:ajax listener="#{documentoMBean.carregarPDF(documento)}"
+												update="visualizacao" />
 											<h:outputText styleClass="ui-icon ui-icon-search"
 												style="margin-right:5px;" />
 										</p:commandLink>
@@ -93,7 +88,7 @@
 									<hr />
 
 								</ui:repeat>
-								
+
 								<p:confirmDialog global="true" showEffect="fade"
 									hideEffect="fade">
 									<p:commandButton value="Sim" type="button"
@@ -112,9 +107,10 @@
 					<div class="widget">
 						<!-- /widget-header -->
 						<!-- div class="widget-content" style="height: 400px"-->
-
-						<p:media value="/resources/repositorio/Alvará - Pontofrio.pdf"
-							width="100%" height="438px" />
+						<h:form id="visualizacao">
+							<p:media value="#{documentoMBean.pdf}" width="100%"
+								height="438px" />
+						</h:form>
 
 						<!-- /div-->
 						<!-- /widget-content -->

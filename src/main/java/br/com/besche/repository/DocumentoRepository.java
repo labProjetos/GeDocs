@@ -10,7 +10,6 @@ import br.com.besche.modelo.Documento;
 import br.com.besche.modelo.Tipo;
 import br.com.besche.uteis.Uteis;
 
-
 public class DocumentoRepository {
 	@Inject
 	Documento documento;

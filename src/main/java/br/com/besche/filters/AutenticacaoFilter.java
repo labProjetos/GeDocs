@@ -11,50 +11,37 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
- 
-import br.com.besche.model.UsuarioModel;
+
+import br.com.besche.modelo.UsuarioModel;
  
 @WebFilter("/sistema/*")
 public class AutenticacaoFilter implements Filter {
  
     public AutenticacaoFilter() {
- 
     }
  
 	public void destroy() {
- 
 	}
  
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
- 
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
+			throws IOException, ServletException {
 		HttpSession httpSession 				= ((HttpServletRequest) request).getSession(); 
- 
 		HttpServletRequest httpServletRequest   = (HttpServletRequest) request;
- 
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
- 
-		if(httpServletRequest.getRequestURI().indexOf("index.xhtml") <= -1){
- 
+		
+		if (httpServletRequest.getRequestURI().indexOf("index.xhtml") <= -1) {
 			UsuarioModel usuarioModel =(UsuarioModel) httpSession.getAttribute("usuarioAutenticado");
- 
-			if(usuarioModel == null){
- 
+			
+			if (usuarioModel == null) {
 				httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+ "/index.xhtml");
- 
-			}
-			else{
- 
+			} else {
 				chain.doFilter(request, response);
 			}
-		}		
-		else{
- 
+		} else {
 			chain.doFilter(request, response);
 		}
 	}
  
 	public void init(FilterConfig fConfig) throws ServletException {
- 
 	}
- 
 }

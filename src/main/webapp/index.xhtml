@@ -38,22 +38,22 @@
 		<!-- /navbar-inner -->
 	</div>
 	<!-- /navbar -->
-	
+
 	<div class="subnavbar">
-	<div class="container">
-		<h:form style="margin-top: 20px; margin-bottom: -30px">
-			<p:menubar>
-				<f:facet name="options">
-					<p:commandLink action="login.xhtml">
-						<h:outputText 
-							value="Faça login no sistema para gerenciar os documentos" 
-							style="margin-right:5px"></h:outputText>
-					</p:commandLink>
-				</f:facet>
-			</p:menubar>
-		</h:form>
+		<div class="container">
+			<h:form style="margin-top: 20px; margin-bottom: -30px">
+				<p:menubar>
+					<f:facet name="options">
+						<p:commandLink action="login.xhtml">
+							<h:outputText
+								value="Faça login no sistema para gerenciar os documentos"
+								style="margin-right:5px"></h:outputText>
+						</p:commandLink>
+					</f:facet>
+				</p:menubar>
+			</h:form>
+		</div>
 	</div>
-</div>
 
 	<div class="main-inner">
 		<div class="container">
@@ -102,19 +102,10 @@
 										</h:panelGrid>
 									</ui:repeat>
 
-									<h:outputText value="Privado: "
-										style="font-weight: bold; margin-right: 5px" />
-									<h:outputText value="#{documento.privado}" />
-									
-									<br />
-									
-									<h:outputText value="Importado: "
-										style="font-weight: bold; margin-right: 5px" />
-									<h:outputText value="#{documento.upload}" />
-
-
 									<h:panelGrid columns="3" style="margin: 0 auto">
 										<p:commandLink>
+											<p:ajax listener="#{documentoMBean.carregarPDF(documento)}"
+												update="visualizacao" />
 											<h:outputText styleClass="ui-icon ui-icon-search"
 												style="margin-right:5px;" />
 										</p:commandLink>
@@ -133,9 +124,14 @@
 
 				<div class="span8">
 					<div class="widget">
-						<!-- /widget-header -->
+						<!-- /widget-header
 						<div class="widget-content" style="height: 400px"></div>
-						<!-- /widget-content -->
+						 /widget-content -->
+
+						<h:form id="visualizacao">
+							<p:media value="#{documentoMBean.pdf}" width="100%"
+								height="438px" />
+						</h:form>
 					</div>
 				</div>
 				<!-- /span6 -->
