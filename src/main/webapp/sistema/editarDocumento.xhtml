@@ -28,7 +28,7 @@
 									<label class="control-label" for="tipo"> Tipo </label>
 									<p:selectOneMenu converter="tipoConverter" id="tipo"
 										value="#{indexacaoMBean.documento.tipo}" styleClass="span6"
-										required="true"
+										required="true" disabled="true"
 										requiredMessage="O tipo é de preenchimento obrigatório">
 										<f:selectItem itemLabel="Selecione o tipo" itemValue=""
 											noSelectionOption="true" />
@@ -56,7 +56,7 @@
 									<p:fileUpload required="true" skinSimple="true" mode="simple"
 										requiredMessage="O arquivo é de preenchimento obrigatório"
 										value="#{uploadedFile}" dragDropSupport="true"
-										label="Selecionar Arquivo"
+										label="Selecionar Arquivo" disabled="true"
 										allowTypes="/(\.|\/)(gif|jpeg|png|pdf)$/">
 									</p:fileUpload>
 									

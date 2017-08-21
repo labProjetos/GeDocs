@@ -18,9 +18,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "documento")
-@NamedQueries({ @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"),
+@NamedQueries({ @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d WHERE d.ativo = true"),
 	@NamedQuery(name = "Documento.porTipo", 
-	query = "SELECT d FROM Documento d WHERE d.tipo.id = :idDoTipo") })
+	query = "SELECT d FROM Documento d WHERE d.tipo.id = :idDoTipo AND d.ativo = true") })
+
 public class Documento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -30,16 +31,18 @@ public class Documento implements Serializable {
 	private String url;
 	private LocalDateTime upload;
 	private boolean privado;
+	private boolean ativo;
 	
 	@ManyToOne
 	@JoinColumn(name = "tipo_id")
 	private Tipo tipo;
 	
 	
-	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<IndiceDocumento> indexacao;
 
 	public Documento() {
+		this.ativo = true;
 	}
 
 	public Documento(Long id, String url, LocalDateTime upload, Tipo tipo) {
@@ -96,6 +99,14 @@ public class Documento implements Serializable {
 
 	public void setIndexacao(List<IndiceDocumento> indexacao) {
 		this.indexacao = indexacao;
+	}
+	
+	public boolean isAtivo() {
+		return ativo;
+	}
+	
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 }

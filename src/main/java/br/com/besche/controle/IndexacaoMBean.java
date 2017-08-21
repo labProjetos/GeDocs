@@ -23,9 +23,8 @@ public class IndexacaoMBean implements Serializable {
 	 * CARREGA AS INFORMAÇÕES DE UM REGISTRO PARA SER EDITADO
 	 * @param tipo
 	 */
-	public String editar(Documento documento) {
+	public void editar(Documento documento) {
 		this.documento = documento;
-		return "editarDocumento.xhtml";
 	}
 	
 	/***

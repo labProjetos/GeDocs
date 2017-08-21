@@ -38,4 +38,9 @@ public class DocumentoService {
 		documento.setIndexacao(objeto.getIndexacao());
 		repository.alterar(documento);
 	}
+	
+	public void excluir(Documento objeto) {
+		objeto.setAtivo(false);
+		repository.excluir(objeto);
+	}
 }	

@@ -15,7 +15,7 @@
 
 			<ui:include src="editarDocumento.xhtml" />
 		</p:dialog>
-		
+
 		<div class="container">
 			<div class="row">
 				<div class="span4">
@@ -26,8 +26,8 @@
 
 								<h:outputText value="Tipo " />
 								<p:selectOneMenu converter="tipoConverter" id="tipo"
-									value="#{documentoMBean.documento.tipo}"
-									styleClass="span3" required="true"
+									value="#{documentoMBean.documento.tipo}" styleClass="span3"
+									required="true"
 									requiredMessage="O tipo é de preenchimento obrigatório"
 									style="margin-left:5px;">
 									<f:selectItem itemLabel="Selecione o tipo" itemValue=""
@@ -50,7 +50,7 @@
 						<div class="widget-content"
 							style="height: 328px; overflow-y: scroll">
 							<h:form id="form">
-								<ui:repeat var="documento" value="#{documentoMBean.documentos}">
+								<ui:repeat var="documento" id="lista" value="#{documentoMBean.documentos}">
 
 									<ui:repeat var="indice" value="#{documento.indexacao}">
 										<h:panelGrid columns="2">
@@ -71,12 +71,13 @@
 												style="margin-right:5px;" />
 										</p:commandLink>
 
-										<p:commandLink action="#{indexacaoMBean.editar(documento)}">
+										<p:commandLink oncomplete="PF('dlg2').show();"
+											actionListener="#{indexacaoMBean.editar(documento)}">
 											<h:outputText styleClass="ui-icon ui-icon-pencil"
 												style="margin-right:5px;" />
 										</p:commandLink>
 
-										<p:commandLink>
+										<p:commandLink action="#{documentoMBean.excluir(documento)}" update="lista">
 											<h:outputText styleClass="ui-icon ui-icon-trash"
 												style="margin-right:5px;" />
 										</p:commandLink>
@@ -91,6 +92,63 @@
 					</div>
 				</div>
 				<!-- /span6 -->
+
+				<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" >
+					<div class="widget-content">
+					#{indexacaoMBean.documento.privado}
+						<h:form id="form-cadastr"
+							styleClass="form-horizontal">
+							<h:panelGrid id="panelGrid-campos-form" columns="2"
+								cellpadding="7" styleClass="control-group">
+
+								<label class="control-label" for="tipo"> Tipo </label>
+								<p:selectOneMenu converter="tipoConverter" id="tipo"
+									value="#{indexacaoMBean.documento.tipo}" styleClass="span6"
+									required="true" disabled="true"
+									requiredMessage="O tipo é de preenchimento obrigatório">
+									<f:selectItem itemLabel="Selecione o tipo" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItems itemLabel="#{tipo.nome}" itemValue="#{tipo}"
+										var="tipo" value="#{tipoMBean.lista}" />
+								</p:selectOneMenu>
+
+								<label class="control-label" for="indice"> Indexação </label>
+								<p:dataTable
+									emptyMessage="O tipo do documento não foi selecionado."
+									var="indiceDocumento" id="indice" style="width:469px"
+									value="#{indexacaoMBean.documento.indexacao}">
+									<p:column headerText="Indice" style="width:135px">
+										<h:outputText value="#{indiceDocumento.indice.nome}" />
+									</p:column>
+
+									<p:column headerText="Conteúdo">
+										<h:inputText styleClass="search-query span3"
+											value="#{indiceDocumento.conteudo}" />
+									</p:column>
+								</p:dataTable>
+
+								<p:spacer />
+
+								<p:fileUpload required="true" skinSimple="true" mode="simple"
+									requiredMessage="O arquivo é de preenchimento obrigatório"
+									value="#{uploadedFile}" dragDropSupport="true"
+									label="Selecionar Arquivo" disabled="true"
+									allowTypes="/(\.|\/)(gif|jpeg|png|pdf)$/">
+								</p:fileUpload>
+
+								<label class="control-label" for="privado"> Privado </label>
+								<p:selectBooleanButton id="privado"
+									value="#{indexacaoMBean.documento.privado}" onLabel="Sim"
+									offLabel="Não" style="width:60px" />
+							</h:panelGrid>
+
+							<div class="form-actions">
+								<p:commandButton value="Salvar" id="commandButton-salvar"
+									ajax="false" actionListener="#{indexacaoMBean.alterar}" />
+							</div>
+						</h:form>
+					</div>
+				</p:dialog>
 
 				<div class="span8">
 					<div class="widget">
