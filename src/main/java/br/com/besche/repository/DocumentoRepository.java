@@ -30,6 +30,15 @@ public class DocumentoRepository {
 	}
 	
 	/**
+	 * ALTERA UM REGISTRO
+	 * @param indice
+	 */
+	public void alterar(Documento objeto) {
+		entityManager = Uteis.JpaEntityManager();
+		entityManager.merge(objeto);
+	}
+	
+	/**
 	 * RETORNA TODOS OS REGISTROS
 	 * @return 
 	 */
@@ -42,6 +51,18 @@ public class DocumentoRepository {
 		return documentos;
 	}
 	
+	/**
+	 * RETORNA TODOS OS REGISTROS POR TIPO
+	 * @return 
+	 */
+	public List<Documento> findPor(Tipo tipo) {
+		entityManager = Uteis.JpaEntityManager();
+		Query query = Uteis.JpaEntityManager().createNamedQuery("Documento.porTipo");
+		query.setParameter("idDoTipo", tipo.getId());
+		@SuppressWarnings("unchecked")
+		List<Documento> registros = (List<Documento>) query.getResultList();
+		return registros;
+	}
 	
 	
 	/**

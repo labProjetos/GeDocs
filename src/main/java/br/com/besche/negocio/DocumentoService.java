@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import br.com.besche.modelo.Documento;
 import br.com.besche.modelo.IndiceDocumento;
+import br.com.besche.modelo.Tipo;
 import br.com.besche.repository.DocumentoRepository;
 
 public class DocumentoService {
@@ -25,29 +26,16 @@ public class DocumentoService {
 	public List<Documento> listar() {
 		return repository.findAll();
 	}
-	
-/*       
-	Documento documento = new Documento();
-	documento.setUpload(LocalDateTime.now());
-	documento.setUrl(documentoModel.getUrl());
-	documento.setPrivado(documentoModel.isPrivado());
-	
-	Tipo tipo = entityManager.find(Tipo.class, 
-			documentoModel.getTipo().getId());
-	documento.setTipo(tipo);
-	
-	for (IndiceDocumentoModel indiceDocumentoModel : indicesDocumentoModel) {
-		indiceDocumento = new IndiceDocumento();
-		indiceDocumento.setConteudo(indiceDocumentoModel.getConteudo());
-		indiceDocumento.setDocumento(documento);
-		Indice indice = 
-				entityManager.find(Indice.class, indiceDocumentoModel.getIndiceModel().getId());
-		indiceDocumento.setIndice(indice);
-		
-		indexacao.add(indiceDocumento);
+
+	public List<Documento> listarPor(Tipo tipo) {
+		return repository.findPor(tipo);
 	}
 	
-	documento.setIndexacao(indexacao);
-	entityManager.persist(documento);
-}*/
+	public void alterar(Documento objeto) throws Exception {
+		Documento documento = new Documento();
+		documento.setId(objeto.getId());
+		documento.setPrivado(objeto.isPrivado());
+		documento.setIndexacao(objeto.getIndexacao());
+		repository.alterar(documento);
+	}
 }	

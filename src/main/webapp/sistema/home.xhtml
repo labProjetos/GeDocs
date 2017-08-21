@@ -9,18 +9,24 @@
 
 <ui:composition template="../template/layoutBase.xhtml">
 	<ui:define name="content">
+		<p:dialog header="Editar" id="dialog-modal-editar-documento"
+			widgetVar="dialog-modal-editar-documento" modal="true"
+			showEffect="fade" hideEffect="fade">
+
+			<ui:include src="editarDocumento.xhtml" />
+		</p:dialog>
+		
 		<div class="container">
-		<h:form id="form">
 			<div class="row">
 				<div class="span4">
 					<div class="widget">
 						<h:form>
 							<h:panelGrid columns="2"
 								style="margin: 0 auto; margin-bottom: -10px">
-								
+
 								<h:outputText value="Tipo " />
 								<p:selectOneMenu converter="tipoConverter" id="tipo"
-									value="#{documentoMBean.documentoModel.tipo}"
+									value="#{documentoMBean.documento.tipo}"
 									styleClass="span3" required="true"
 									requiredMessage="O tipo é de preenchimento obrigatório"
 									style="margin-left:5px;">
@@ -37,15 +43,15 @@
 								</p:commandLink>
 								<h:inputText styleClass="search-query" style="width:208px"
 									value="#{documentoMBean.termos}" />
-									
+
 							</h:panelGrid>
 						</h:form>
 
 						<div class="widget-content"
 							style="height: 328px; overflow-y: scroll">
-							
-								<ui:repeat var="documento" value="#{documentoMBean.lista}">
-									
+							<h:form id="form">
+								<ui:repeat var="documento" value="#{documentoMBean.documentos}">
+
 									<ui:repeat var="indice" value="#{documento.indexacao}">
 										<h:panelGrid columns="2">
 											<h:outputText value="#{indice.indice.nome}: "
@@ -53,18 +59,33 @@
 											<h:outputText value="#{indice.conteudo}" />
 										</h:panelGrid>
 									</ui:repeat>
-									
+
 									<h:outputText value="Privado: "
 										style="font-weight: bold; margin-right: 5px" />
 									<h:outputText value="#{documento.privado}" />
-									
-									
+
+
+									<h:panelGrid columns="3" style="margin: 0 auto">
+										<p:commandLink>
+											<h:outputText styleClass="ui-icon ui-icon-search"
+												style="margin-right:5px;" />
+										</p:commandLink>
+
+										<p:commandLink action="#{indexacaoMBean.editar(documento)}">
+											<h:outputText styleClass="ui-icon ui-icon-pencil"
+												style="margin-right:5px;" />
+										</p:commandLink>
+
+										<p:commandLink>
+											<h:outputText styleClass="ui-icon ui-icon-trash"
+												style="margin-right:5px;" />
+										</p:commandLink>
+									</h:panelGrid>
+
 									<hr />
-								
+
 								</ui:repeat>
-							<p:commandButton value="Abrir">
-										<p:ajax listener="#{documentoMBean.selecionado}" update="asd"  />
-									</p:commandButton>
+							</h:form>
 						</div>
 						<!-- /widget-content -->
 					</div>
@@ -75,8 +96,10 @@
 					<div class="widget">
 						<!-- /widget-header -->
 						<!-- div class="widget-content" style="height: 400px"-->
-						<p:outputLabel value="#{documentoMBean.documentoSelecionado}jhkj" id="asd" />
-						
+
+						<p:media value="/resources/repositorio/Alvará - Pontofrio.pdf"
+							width="100%" height="438px" />
+
 						<!-- /div-->
 						<!-- /widget-content -->
 					</div>
@@ -84,7 +107,6 @@
 				<!-- /span6 -->
 			</div>
 			<!-- /row -->
-			</h:form>
 		</div>
 		<!-- /container -->
 	</ui:define>

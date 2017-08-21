@@ -36,8 +36,29 @@ public class DocumentoMBean implements Serializable {
 	@Inject
 	transient private DocumentoService documentoService;
 	private Documento documento = new Documento();
+	private List<Documento> documentos = new ArrayList<Documento>();
 	private List<IndiceDocumento> indexacao = new ArrayList<IndiceDocumento>();
 	private String PATH = "/home/wander/workspace/teste-de-software/GeDocs/src/main/webapp/resources/repositorio/";
+	
+	/**
+	 * SETA OS REGISTROS DE UMA INDEXAÇÂO PELO TIPO SELECIONADO
+	*/
+	public void tipoSelecionado() {
+		List<Indice> indices = null;
+        if(documento.getTipo() != null) {
+        	indices = documento.getTipo().getIndices();
+            indexacao.clear();
+            IndiceDocumento indiceDocumento = null;
+            for (Indice indice : indices) {
+            	indiceDocumento = new IndiceDocumento();
+            	indiceDocumento.setDocumento(documento);
+            	indiceDocumento.setIndice(indice);
+            	indexacao.add(indiceDocumento);
+            }
+        } else {
+        	indices = new ArrayList<Indice>();
+        }
+    }
 	
 	/**
 	 * SALVA UM NOVO REGISTRO
@@ -63,25 +84,17 @@ public class DocumentoMBean implements Serializable {
 		indexacao = new ArrayList<IndiceDocumento>();
 	}
 	
-	/**
-	 * SETA OS REGISTROS DE UMA INDEXAÇÂO PELO TIPO SELECIONADO
-	*/
-	public void tipoSelecionado() {
-		List<Indice> indices = null;
-        if(documento.getTipo() != null) {
-        	indices = documento.getTipo().getIndices();
-            indexacao.clear();
-            IndiceDocumento indiceDocumento = null;
-            for (Indice indice : indices) {
-            	indiceDocumento = new IndiceDocumento();
-            	indiceDocumento.setDocumento(documento);
-            	indiceDocumento.setIndice(indice);
-            	indexacao.add(indiceDocumento);
-            }
-        } else {
-        	indices = new ArrayList<Indice>();
-        }
-    }
+	public void buscar() {
+		documentos = new ArrayList<Documento>();
+		for (Documento documento : documentoService.listarPor(documento.getTipo())) {
+			for (IndiceDocumento indiceDocumento : documento.getIndexacao()) {
+				if (indiceDocumento.getConteudo().contains(termos) && !documentos.contains(documento)) {
+					documentos.add(documento);
+				}
+			}
+		}
+		System.out.println(termos);
+	}
 	
 	/**
 	 * RETORNA TODOS OS REGISTROS
@@ -105,6 +118,14 @@ public class DocumentoMBean implements Serializable {
 	
 	public void setIndexacao(List<IndiceDocumento> indexacao) {
 		this.indexacao = indexacao;
+	}
+	
+	public List<Documento> getDocumentos() {
+		return documentos;
+	}
+	
+	public void setDocumentos(List<Documento> documentos) {
+		this.documentos = documentos;
 	}
 	
 	
@@ -142,7 +163,7 @@ public class DocumentoMBean implements Serializable {
 	@Inject
 	transient private DocumentoModel documentoModel;
 	@Produces
-	private List<DocumentoModel> documentos;
+	//private List<DocumentoModel> documentos;
 	private List<Documento> doc;
 	@Inject
 	transient private DocumentoRepository documentoRepository;
@@ -184,7 +205,7 @@ public class DocumentoMBean implements Serializable {
         }
     }*/
 
-	public void buscar() {
+	/*public void buscar() {
 		this.doc = new ArrayList<Documento>();
 		for (Documento documento : documentoRepository.getDocumentoPor(this.documentoModel.getTipo())) {
 			for (IndiceDocumento indiceDocumento : documento.getIndexacao()) {
@@ -194,7 +215,7 @@ public class DocumentoMBean implements Serializable {
 			}
 		}
 		System.out.println(termos);
-	}
+	}*/
 
 	/***
 	 * EXCLUINDO UM REGISTRO
@@ -227,13 +248,13 @@ public class DocumentoMBean implements Serializable {
 	 * this.init(); // RECARREGA OS REGISTROS }
 	 */
 
-	public List<DocumentoModel> getDocumentos() {
+	/*public List<DocumentoModel> getDocumentos() {
 		return documentos;
 	}
 
 	public void setDocumentos(List<DocumentoModel> documentos) {
 		this.documentos = documentos;
-	}
+	}*/
 
 	public String getTermos() {
 		return termos;

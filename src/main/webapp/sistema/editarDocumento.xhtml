@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template/layoutBase.xhtml">
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<div class="widget">
+						<p:messages showDetail="true" autoUpdate="true" closable="true"
+							severity="warn" />
+						<p:messages autoUpdate="true" closable="true" severity="error" />
+						<p:messages showDetail="true" autoUpdate="true" closable="true"
+							severity="info" />
+
+						<div class="widget-content">
+							<h:form enctype="multipart/form-data" id="form-cadastro"
+								styleClass="form-horizontal">
+								<h:panelGrid id="panelGrid-campos-form" columns="2"
+									cellpadding="7" styleClass="control-group">
+
+									<label class="control-label" for="tipo"> Tipo </label>
+									<p:selectOneMenu converter="tipoConverter" id="tipo"
+										value="#{indexacaoMBean.documento.tipo}" styleClass="span6"
+										required="true"
+										requiredMessage="O tipo é de preenchimento obrigatório">
+										<f:selectItem itemLabel="Selecione o tipo" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItems itemLabel="#{tipo.nome}" itemValue="#{tipo}"
+											var="tipo" value="#{tipoMBean.lista}" />
+									</p:selectOneMenu>
+
+									<label class="control-label" for="indice"> Indexação </label>
+									<p:dataTable
+										emptyMessage="O tipo do documento não foi selecionado."
+										var="indiceDocumento" id="indice" style="width:469px"
+										value="#{indexacaoMBean.documento.indexacao}">
+										<p:column headerText="Indice" style="width:135px">
+											<h:outputText value="#{indiceDocumento.indice.nome}" />
+										</p:column>
+
+										<p:column headerText="Conteúdo">
+											<h:inputText styleClass="search-query span3"
+												value="#{indiceDocumento.conteudo}" />
+										</p:column>
+									</p:dataTable>
+
+									<p:spacer />
+
+									<p:fileUpload required="true" skinSimple="true" mode="simple"
+										requiredMessage="O arquivo é de preenchimento obrigatório"
+										value="#{uploadedFile}" dragDropSupport="true"
+										label="Selecionar Arquivo"
+										allowTypes="/(\.|\/)(gif|jpeg|png|pdf)$/">
+									</p:fileUpload>
+									
+									<label class="control-label" for="privado"> Privado </label>
+									<p:selectBooleanButton id="privado"
+										value="#{indexacaoMBean.documento.privado}" onLabel="Sim"
+										offLabel="Não" style="width:60px" />
+								</h:panelGrid>
+
+								<div class="form-actions">
+									<p:commandButton value="Salvar" id="commandButton-salvar"
+										ajax="false"
+										actionListener="#{indexacaoMBean.alterar}" />
+								</div>
+							</h:form>
+						</div>
+					</div>
+				</div>
+				<!-- /span6 -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</ui:define>
+</ui:composition>
+</html>
